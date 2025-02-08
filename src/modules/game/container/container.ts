@@ -32,7 +32,7 @@ export class Container {
   public update(game: Game, delta: number) {
     this.actorsGrid.forEach((row) => {
       row.forEach((cell) => {
-        cell.actors.forEach((actor) => actor.update(game, delta));
+        cell.actors.forEach((actor) => actor.update(game, delta, this));
       });
     });
   }
@@ -40,7 +40,7 @@ export class Container {
   public graphics(game: Game, delta: number) {
     this.actorsGrid.forEach((row) => {
       row.forEach((cell) => {
-        cell.actors.forEach((actor) => actor.graphics(game, delta));
+        cell.actors.forEach((actor) => actor.graphics(game, delta, this));
       });
     });
   }
