@@ -1,24 +1,24 @@
-import { Scene } from "../scene";
+import { Container } from "../container";
 
 export class Game {
   private lastUpdate = Date.now();
   private lastGraphics = Date.now();
 
-  public scenes = new Map<string, Scene>();
-  public currentScene?: Scene;
+  public containers = new Map<string, Container>();
+  public currentConteiner?: Container;
 
   public constructor() {}
-  public addScene(key: string, scene: Scene) {
-    if (this.scenes.has(key))
-      throw new Error(`A scene with key "${key}" already exists`);
-    this.scenes.set(key, scene);
-    scene.onStart(this);
+  public addContainer(key: string, container: Container) {
+    if (this.containers.has(key))
+      throw new Error(`A container with key "${key}" already exists`);
+    this.containers.set(key, container);
+    container.onStart(this);
   }
-  public setScene(key: string) {
-    if (!this.scenes.has(key))
-      throw new Error(`Scene "${key}" does not exist.`);
-    this.currentScene = this.scenes.get(key)!;
-    this.currentScene.onSwitch(this);
+  public setContainer(key: string) {
+    if (!this.containers.has(key))
+      throw new Error(`A container with key "${key}" does not exist`);
+    this.currentConteiner = this.containers.get(key)!;
+    this.currentConteiner.onSwitch(this);
   }
   public start() {}
 
@@ -26,8 +26,8 @@ export class Game {
     const delta = this.lastUpdate - Date.now();
     this.lastUpdate = Date.now();
 
-    if (this.currentScene) {
-      this.currentScene.update(this, delta);
+    if (this.currentConteiner) {
+      this.currentConteiner.update(this, delta);
     }
   }
 
@@ -35,8 +35,8 @@ export class Game {
     const delta = this.lastGraphics - Date.now();
     this.lastGraphics = Date.now();
 
-    if (this.currentScene) {
-      this.currentScene.graphics(this, delta);
+    if (this.currentConteiner) {
+      this.currentConteiner.graphics(this, delta);
     }
   }
 }

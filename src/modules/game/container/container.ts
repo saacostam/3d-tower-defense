@@ -1,7 +1,7 @@
 import { Actor } from "../actor";
 import { Game } from "../game";
 
-export class Scene {
+export class Container {
   public actors: Actor[] = [];
 
   public constructor() {}
