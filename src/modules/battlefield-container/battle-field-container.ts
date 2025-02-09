@@ -60,6 +60,7 @@ export class BattleFieldContainer extends Container {
 
       const newWalker = new Walker({
         pos,
+        objective: new Vector2(0, 0),
       });
       this.addActor(newWalker, pos);
     }

@@ -17,8 +17,8 @@ A strategy game where players defend against waves of enemies by strategically p
 - [x] FEAT: Add environment elements to container.
 - [x] FEAT: Create an abstraction to compose with simple meshes.
 - [x] FEAT: Start modeling the world floor.
-- [ ] FEAT: Create mobs (no-modeling).
-- [ ] FEAT: Create path-finding algorithm.
+- [x] FEAT: Create mobs (no-modeling).
+- [x] FEAT: Create path-finding algorithm.
 - [ ] FEAT: Implement cursor.
 - [ ] FEAT: Implement wall element, that block path, if available.
 - [ ] FEAT: Camera follows cursor.
