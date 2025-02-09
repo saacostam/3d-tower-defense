@@ -1,9 +1,12 @@
 import { WebGLRenderer } from "three";
 import { Container } from "../container";
 import { CANVAS_ID } from "../../dom";
+import { KeyboardHandler, keyboardHandler } from "../../keyboard";
 
 export class Game {
   public renderer: WebGLRenderer;
+
+  public keyboardHandler: KeyboardHandler;
 
   public isGameOver = false;
 
@@ -18,6 +21,7 @@ export class Game {
     this.renderer.setSize(800, 800);
     this.renderer.domElement.id = CANVAS_ID;
     document.body.appendChild(this.renderer.domElement);
+    this.keyboardHandler = keyboardHandler;
   }
 
   public addContainer(key: string, container: Container) {
