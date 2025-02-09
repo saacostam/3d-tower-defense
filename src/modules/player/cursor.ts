@@ -134,8 +134,8 @@ export class Cursor extends Actor {
     );
 
     container.camera.position.set(
-      this.mesh.position.x,
-      this.mesh.position.y + WOLRD_CONFIG.TILE_SIZE * 10,
+      this.mesh.position.x + WOLRD_CONFIG.TILE_SIZE * 2,
+      this.mesh.position.y + WOLRD_CONFIG.TILE_SIZE * 5,
       this.mesh.position.z + WOLRD_CONFIG.TILE_SIZE * 8,
     );
 
