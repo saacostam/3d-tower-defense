@@ -22,7 +22,7 @@ A strategy game where players defend against waves of enemies by strategically p
 - [x] FEAT: Implement cursor.
 - [x] FEAT: Camera follows cursor.
 - [x] FEAT: Implement wall element, that block path, if available.
-- [ ] FEAT: Implement simple gun.
+- [x] FEAT: Implement simple gun.
 - [ ] FEAT: Implement bullet collisions.
 - [ ] FEAT: Implement a wave-system.
 - [ ] FEAT: Scale stats based on wave number.

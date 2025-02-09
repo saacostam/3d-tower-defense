@@ -34,7 +34,7 @@ export class Walker extends Actor {
           mesh: MeshUtils.createCylinder({
             radius: radius,
             height: height,
-            color: new Color(COLOR_PALETTE.DARK),
+            color: new Color(COLOR_PALETTE.RED),
           }),
           offset: new Vector3(0, 0, 0),
         },

@@ -1,4 +1,4 @@
-import { AmbientLight, Color, Vector2 } from "three";
+import { Color, HemisphereLight, PointLight, Vector2 } from "three";
 import { COLOR_PALETTE } from "../colors";
 import { Container, Game } from "../game";
 import { Walker } from "../mobs";
@@ -16,12 +16,18 @@ export class BattleFieldContainer extends Container {
   }
 
   public onStart() {
-    this.scene.background = new Color(COLOR_PALETTE.BLUE);
-
-    this.scene.add(new AmbientLight(COLOR_PALETTE.WHITE_ISH, 3.5));
-
     const width = this.actorsGrid.length;
     const height = this.actorsGrid[0]?.length ?? 0;
+
+    this.scene.background = new Color(COLOR_PALETTE.BLUE);
+
+    this.scene.add(
+      new HemisphereLight(
+        new Color(COLOR_PALETTE.WHITE),
+        new Color(COLOR_PALETTE.DARK_GREEN),
+        6,
+      ),
+    );
 
     const worldComponents = WorldBuilderUtils.buildWorldComponents({
       width,

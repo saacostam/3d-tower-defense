@@ -51,7 +51,7 @@ export class GrassComponent extends Component {
         radius: args.size / 32,
         color:
           Math.random() < 0.5
-            ? new Color(COLOR_PALETTE.RED)
+            ? new Color(COLOR_PALETTE.PINK)
             : new Color(COLOR_PALETTE.YELLOW),
       });
 

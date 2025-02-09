@@ -6,6 +6,7 @@ import {
   Mesh,
   MeshBasicMaterial,
   MeshStandardMaterial,
+  OctahedronGeometry,
   SphereGeometry,
 } from "three";
 import { COLOR_PALETTE } from "../colors";
@@ -122,9 +123,24 @@ export const MeshUtils = {
       radius,
       radius,
       height,
-      SEGMENT_NUM,
+      SEGMENT_NUM * 2,
       SEGMENT_NUM,
     );
+
+    const materialArgs = {
+      color: color,
+    };
+    const material = args?.basicMaterial
+      ? new MeshBasicMaterial(materialArgs)
+      : new MeshStandardMaterial(materialArgs);
+
+    return new Mesh(geometry, material);
+  },
+  createGem(args?: { size: number; color?: Color; basicMaterial?: boolean }) {
+    const size = args?.size ?? 1;
+    const color = args?.color ?? new Color(COLOR_PALETTE.RED);
+
+    const geometry = new OctahedronGeometry(size, 0);
 
     const materialArgs = {
       color: color,
