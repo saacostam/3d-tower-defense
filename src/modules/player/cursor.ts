@@ -1,8 +1,8 @@
 import { Color, Vector2, Vector3 } from "three";
-import { Actor, Composite, Container, Game } from "../game";
-import { WOLRD_CONFIG } from "../config";
-import { MeshUtils } from "../mesh";
 import { COLOR_PALETTE } from "../colors";
+import { WOLRD_CONFIG } from "../config";
+import { Actor, Composite, Container, Game } from "../game";
+import { MeshUtils } from "../mesh";
 
 export interface CursorArgs {
   pos: Vector2;

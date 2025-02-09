@@ -1,7 +1,7 @@
 import "./style.css";
 
-import { Game } from "./modules/game";
 import { BattleFieldContainer } from "./modules/battlefield-container";
+import { Game } from "./modules/game";
 
 const game = new Game();
 

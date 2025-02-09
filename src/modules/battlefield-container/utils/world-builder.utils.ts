@@ -1,7 +1,7 @@
 import { Color, Vector3 } from "three";
-import { Component } from "../../game";
-import { GrassComponent } from "../components";
 import { COLOR_PALETTE } from "../../colors";
+import { GrassComponent } from "../components";
+import { Component } from "../../game";
 
 export const WorldBuilderUtils = {
   buildWorldComponents: (args: {

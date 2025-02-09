@@ -1,10 +1,10 @@
 import { Camera, PerspectiveCamera, Scene, Vector2 } from "three";
 import { Actor } from "../actor";
-import { Game } from "../game";
-import { GridCell } from "./container.types";
-import { ContainerUtils } from "./container.utils";
 import { Component } from "../component";
 import { Composite } from "../composite";
+import { GridCell } from "./container.types";
+import { ContainerUtils } from "./container.utils";
+import { Game } from "../game";
 
 export interface ContainerArgs {
   width: number;

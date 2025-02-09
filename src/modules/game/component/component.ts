@@ -1,7 +1,7 @@
 import { Mesh } from "three";
+import { Composite } from "../composite";
 import { Container } from "../container";
 import { Game } from "../game";
-import { Composite } from "../composite";
 
 export interface ComponentArgs {
   mesh: Mesh | Composite;

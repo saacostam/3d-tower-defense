@@ -1,7 +1,7 @@
 import { Color, Vector3 } from "three";
+import { COLOR_PALETTE } from "../../colors";
 import { Component, Composite, CompositePart } from "../../game";
 import { MeshUtils } from "../../mesh";
-import { COLOR_PALETTE } from "../../colors";
 
 export interface GrassComponentArgs {
   position: Vector3;
