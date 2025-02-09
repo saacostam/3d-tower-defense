@@ -1,4 +1,5 @@
 import { WebGLRenderer } from "three";
+import Stats from "three/addons/libs/stats.module.js";
 import { Container } from "../container";
 import { CANVAS_ID } from "../../dom";
 import { KeyboardHandler, keyboardHandler } from "../../keyboard";
@@ -12,6 +13,7 @@ export class Game {
 
   private lastUpdate = Date.now();
   private lastGraphics = Date.now();
+  private stats = new Stats();
 
   public containers = new Map<string, Container>();
   public currentContainer?: Container;
@@ -22,6 +24,9 @@ export class Game {
     this.renderer.domElement.id = CANVAS_ID;
     document.body.appendChild(this.renderer.domElement);
     this.keyboardHandler = keyboardHandler;
+
+    this.stats = new Stats();
+    document.body.appendChild(this.stats.dom);
   }
 
   public addContainer(key: string, container: Container) {
@@ -50,6 +55,7 @@ export class Game {
         this.currentContainer.scene,
         this.currentContainer.camera,
       );
+      this.stats.update();
 
       requestAnimationFrame(loop);
     };
