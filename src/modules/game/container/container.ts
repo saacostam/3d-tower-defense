@@ -3,6 +3,7 @@ import { Actor } from "../actor";
 import { Game } from "../game";
 import { GridCell } from "./container.types";
 import { ContainerUtils } from "./container.utils";
+import { Component } from "../component";
 
 export interface ContainerArgs {
   width: number;
@@ -13,6 +14,7 @@ export interface ContainerArgs {
 
 export class Container {
   public actorsGrid: GridCell[][];
+  public components: Component[] = [];
 
   public camera: Camera;
   public scene: Scene;
@@ -38,7 +40,13 @@ export class Container {
     this.scene.add(actor.mesh);
   }
 
+  public addComponent(component: Component) {
+    this.components.push(component);
+    this.scene.add(component.mesh);
+  }
+
   public update(game: Game, delta: number) {
+    // Update actors
     this.actorsGrid.forEach((row, x) => {
       row.forEach((cell, y) => {
         const position = new Vector2(x, y);
@@ -47,6 +55,9 @@ export class Container {
         );
       });
     });
+
+    // Update components
+    this.components.forEach((component) => component.update(game, delta, this));
 
     // Remove dead actors
     this.actorsGrid.map((row) =>
@@ -64,9 +75,23 @@ export class Container {
         cell.actors = alive;
       }),
     );
+
+    // Remove dead components
+    const aliveComponents: Component[] = [];
+    const deadComponents: Component[] = [];
+
+    for (let i = 0; i < this.components.length; i++) {
+      const component = this.components[i];
+      if (component.isAlive) aliveComponents.push(component);
+      else deadComponents.push(component);
+    }
+
+    deadComponents.forEach((component) => this.scene.remove(component.mesh));
+    this.components = aliveComponents;
   }
 
   public graphics(game: Game, delta: number) {
+    // Update graphics for actors
     this.actorsGrid.forEach((row, x) => {
       row.forEach((cell, y) => {
         const position = new Vector2(x, y);
@@ -75,5 +100,10 @@ export class Container {
         );
       });
     });
+
+    // Update graphics for components
+    this.components.forEach((component) =>
+      component.graphics(game, delta, this),
+    );
   }
 }
