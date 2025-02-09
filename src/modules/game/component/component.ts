@@ -1,13 +1,14 @@
 import { Mesh } from "three";
 import { Container } from "../container";
 import { Game } from "../game";
+import { Composite } from "../composite";
 
 export interface ComponentArgs {
-  mesh: Mesh;
+  mesh: Mesh | Composite;
 }
 
 export class Component {
-  public mesh: Mesh;
+  public mesh: Mesh | Composite;
   public isAlive = true;
 
   public constructor(args: ComponentArgs) {

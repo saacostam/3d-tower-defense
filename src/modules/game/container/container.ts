@@ -4,6 +4,7 @@ import { Game } from "../game";
 import { GridCell } from "./container.types";
 import { ContainerUtils } from "./container.utils";
 import { Component } from "../component";
+import { Composite } from "../composite";
 
 export interface ContainerArgs {
   width: number;
@@ -37,12 +38,18 @@ export class Container {
       throw new Error(`Position ${pos.x},${pos.y} is out of bounds`);
 
     this.actorsGrid[pos.x][pos.y].actors.push(actor);
-    this.scene.add(actor.mesh);
+
+    if (actor.mesh instanceof Composite)
+      actor.mesh.parts.forEach((part) => this.scene.add(part.mesh));
+    else this.scene.add(actor.mesh);
   }
 
   public addComponent(component: Component) {
     this.components.push(component);
-    this.scene.add(component.mesh);
+
+    if (component.mesh instanceof Composite)
+      component.mesh.parts.forEach((part) => this.scene.add(part.mesh));
+    else this.scene.add(component.mesh);
   }
 
   public update(game: Game, delta: number) {
@@ -71,7 +78,11 @@ export class Container {
           else dead.push(actor);
         }
 
-        dead.forEach((actor) => this.scene.remove(actor.mesh));
+        dead.forEach((actor) => {
+          if (actor.mesh instanceof Composite)
+            actor.mesh.parts.forEach((part) => this.scene.remove(part.mesh));
+          else this.scene.remove(actor.mesh);
+        });
         cell.actors = alive;
       }),
     );
@@ -86,7 +97,11 @@ export class Container {
       else deadComponents.push(component);
     }
 
-    deadComponents.forEach((component) => this.scene.remove(component.mesh));
+    deadComponents.forEach((component) => {
+      if (component.mesh instanceof Composite)
+        component.mesh.parts.forEach((part) => this.scene.remove(part.mesh));
+      else this.scene.remove(component.mesh);
+    });
     this.components = aliveComponents;
   }
 

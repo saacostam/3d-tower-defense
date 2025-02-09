@@ -1,13 +1,14 @@
 import { Mesh, Vector2 } from "three";
 import { Container } from "../container";
 import { Game } from "../game";
+import { Composite } from "../composite";
 
 export interface ActorArgs {
-  mesh: Mesh;
+  mesh: Mesh | Composite;
 }
 
 export class Actor {
-  public mesh: Mesh;
+  public mesh: Mesh | Composite;
   public isAlive = true;
 
   public constructor(args: ActorArgs) {
