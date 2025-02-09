@@ -15,7 +15,7 @@ export class Game {
 
   public constructor() {
     this.renderer = new WebGLRenderer();
-    this.renderer.setSize(500, 500);
+    this.renderer.setSize(800, 800);
     this.renderer.domElement.id = CANVAS_ID;
     document.body.appendChild(this.renderer.domElement);
   }

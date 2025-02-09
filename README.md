@@ -16,6 +16,6 @@ A strategy game where players defend against waves of enemies by strategically p
 - [x] FEAT: Implement `kill()` logic.
 - [x] FEAT: Add environment elements to container.
 - [x] FEAT: Create an abstraction to compose with simple meshes.
-- [ ] FEAT: Start modeling the world floor.
+- [x] FEAT: Start modeling the world floor.
 - [ ] FEAT: Adjust camera to show world.
 - [ ] FEAT: Start modeling world decor.

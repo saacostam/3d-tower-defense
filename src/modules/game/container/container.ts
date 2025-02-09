@@ -1,4 +1,4 @@
-import { Camera, Scene, Vector2 } from "three";
+import { Camera, PerspectiveCamera, Scene, Vector2 } from "three";
 import { Actor } from "../actor";
 import { Game } from "../game";
 import { GridCell } from "./container.types";
@@ -23,7 +23,7 @@ export class Container {
   public constructor(args: ContainerArgs) {
     this.actorsGrid = ContainerUtils.createGrid(args.width, args.height);
 
-    this.camera = args.camera ?? new Camera();
+    this.camera = args.camera ?? new PerspectiveCamera();
     this.scene = args.scene ?? new Scene();
   }
 
