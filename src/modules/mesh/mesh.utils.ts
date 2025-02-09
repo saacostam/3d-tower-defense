@@ -2,6 +2,7 @@ import {
   BoxGeometry,
   Color,
   ConeGeometry,
+  CylinderGeometry,
   Mesh,
   MeshBasicMaterial,
   SphereGeometry,
@@ -58,6 +59,22 @@ export const MeshUtils = {
     const color = args?.color ?? new Color(COLOR_PALETTE.RED);
 
     const geometry = new SphereGeometry(radius);
+    const material = new MeshBasicMaterial({
+      color: color,
+    });
+
+    return new Mesh(geometry, material);
+  },
+  createCylinder: (args?: {
+    radius?: number;
+    height?: number;
+    color?: Color;
+  }): Mesh => {
+    const radius = args?.radius ?? 1;
+    const height = args?.height ?? 1;
+    const color = args?.color ?? new Color(COLOR_PALETTE.RED);
+
+    const geometry = new CylinderGeometry(radius, radius, height);
     const material = new MeshBasicMaterial({
       color: color,
     });
