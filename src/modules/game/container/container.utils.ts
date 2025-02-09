@@ -9,7 +9,7 @@ export const ContainerUtils = {
       for (let y = 0; y < height; y++) {
         const gridCell: GridCell = {
           actors: [],
-          isWalkable: Math.random() < 0.8,
+          isWalkable: true,
         };
         grid[x][y] = gridCell;
       }

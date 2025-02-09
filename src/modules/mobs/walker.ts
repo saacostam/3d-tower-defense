@@ -71,6 +71,7 @@ export class Walker extends Actor {
         grid: {
           matrix: simpleGrid,
         },
+        diagonalAllowed: false,
       });
 
       const path = pathFinder.findPath(pos, this.objective);

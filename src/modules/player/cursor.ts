@@ -1,8 +1,9 @@
-import { Color, Vector2, Vector3 } from "three";
+import { Color, MeshBasicMaterial, Vector2, Vector3 } from "three";
 import { COLOR_PALETTE } from "../colors";
 import { WOLRD_CONFIG } from "../config";
 import { Actor, Composite, Container, Game } from "../game";
 import { MeshUtils } from "../mesh";
+import { BoxComponent } from "../battlefield-container/components";
 
 export interface CursorArgs {
   pos: Vector2;
@@ -12,6 +13,14 @@ export class Cursor extends Actor {
   declare mesh: Composite;
 
   private pos: Vector2;
+  private canPlace: boolean = false;
+
+  private greenMaterial = new MeshBasicMaterial({
+    color: new Color(COLOR_PALETTE.GREEN),
+  });
+  private redMaterial = new MeshBasicMaterial({
+    color: new Color(COLOR_PALETTE.RED),
+  });
 
   constructor(args: CursorArgs) {
     const createLine = (type: "horizontal" | "vertical") => {
@@ -96,6 +105,22 @@ export class Cursor extends Actor {
       ].actors.filter((actor) => actor !== this);
       container.actorsGrid[this.pos.x][this.pos.y].actors.push(this);
     }
+
+    this.canPlace =
+      container.actorsGrid[pos.x][pos.y].isWalkable &&
+      container.actorsGrid[pos.x][pos.y].actors.find(
+        (actor) => actor !== this,
+      ) === undefined;
+
+    if (this.canPlace && game.keyboardHandler.wasPressed("Enter")) {
+      const box = new BoxComponent({
+        position: new Vector3(pos.x, WOLRD_CONFIG.TILE_SIZE / 2, pos.y),
+        size: WOLRD_CONFIG.TILE_SIZE,
+      });
+
+      container.addComponent(box);
+      container.actorsGrid[pos.x][pos.y].isWalkable = false;
+    }
   }
 
   public graphics(_: Game, delta: number, container: Container): void {
@@ -115,5 +140,15 @@ export class Cursor extends Actor {
     );
 
     container.camera.lookAt(this.mesh.position);
+
+    if (this.canPlace) {
+      this.mesh.parts.forEach(
+        (part) => (part.mesh.material = this.greenMaterial),
+      );
+    } else {
+      this.mesh.parts.forEach(
+        (part) => (part.mesh.material = this.redMaterial),
+      );
+    }
   }
 }

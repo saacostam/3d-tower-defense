@@ -10,6 +10,17 @@ export const PathfindingUtils = {
       }
       simpleGrid.push(row);
     }
-    return simpleGrid;
+
+    const numRows = simpleGrid.length;
+    const numCols = simpleGrid[0]?.length ?? 0;
+
+    const transposedGrid = Array.from({ length: numCols }, (_, colIndex) =>
+      Array.from(
+        { length: numRows },
+        (_, rowIndex) => simpleGrid[rowIndex][colIndex],
+      ),
+    );
+
+    return transposedGrid;
   },
 };
