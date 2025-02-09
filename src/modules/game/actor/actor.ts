@@ -8,6 +8,7 @@ export interface ActorArgs {
 
 export class Actor {
   public mesh: Mesh;
+  public isAlive = true;
 
   public constructor(args: ActorArgs) {
     this.mesh = args.mesh;
@@ -25,4 +26,7 @@ export class Actor {
     _container: Container,
     _pos: Vector2,
   ) {}
+  public kill() {
+    this.isAlive = false;
+  }
 }

@@ -47,6 +47,23 @@ export class Container {
         );
       });
     });
+
+    // Remove dead actors
+    this.actorsGrid.map((row) =>
+      row.map((cell) => {
+        const alive: Actor[] = [];
+        const dead: Actor[] = [];
+
+        for (let i = 0; i < cell.actors.length; i++) {
+          const actor = cell.actors[i];
+          if (actor.isAlive) alive.push(actor);
+          else dead.push(actor);
+        }
+
+        dead.forEach((actor) => this.scene.remove(actor.mesh));
+        cell.actors = alive;
+      }),
+    );
   }
 
   public graphics(game: Game, delta: number) {

@@ -12,6 +12,10 @@ const testActor = new Actor({
   mesh: MeshUtils.createCube(),
 });
 
+testActor.update = () => {
+  if (Math.random() < 0.001) testActor.kill();
+};
+
 testActor.graphics = (_, delta) => {
   testActor.mesh.rotation.x += delta / 1000;
   testActor.mesh.rotation.y += delta / 1000;

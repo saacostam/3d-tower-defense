@@ -13,6 +13,6 @@ A strategy game where players defend against waves of enemies by strategically p
 
 - [x] FEAT: Place actors into a grid-like structure.
 - [x] FEAT: Add three-js logic into existing game-loop.
-- [ ] FEAT: Implement `kill()` logic.
+- [x] FEAT: Implement `kill()` logic.
 - [ ] FEAT: Add environment elements to container.
 - [ ] FEAT: Create a abstraction to compose with simple meshes.
