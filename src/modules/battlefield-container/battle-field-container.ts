@@ -1,9 +1,9 @@
-import { AxesHelper, Color, Vector2 } from "three";
-import { Container, Game } from "../game";
-import { WorldBuilderUtils } from "./utils";
+import { Color, Vector2 } from "three";
 import { COLOR_PALETTE } from "../colors";
+import { Container, Game } from "../game";
 import { Walker } from "../mobs";
 import { Cursor } from "../player";
+import { WorldBuilderUtils } from "./utils";
 
 export class BattleFieldContainer extends Container {
   private static SPAWN_TIMEOUT = 1500;
@@ -16,6 +16,8 @@ export class BattleFieldContainer extends Container {
   }
 
   public onStart() {
+    this.scene.background = new Color(COLOR_PALETTE.BLUE);
+
     const width = this.actorsGrid.length;
     const height = this.actorsGrid[0]?.length ?? 0;
 
@@ -24,26 +26,10 @@ export class BattleFieldContainer extends Container {
       height,
       tileSize: BattleFieldContainer.TILE_SIZE,
     });
-
     worldComponents.forEach((component) => this.addComponent(component));
-
-    this.scene.background = new Color(COLOR_PALETTE.BLUE);
-    this.scene.add(new AxesHelper(width));
 
     const pos = new Vector2(Math.floor(width / 2), Math.floor(height / 2));
     this.addActor(new Cursor({ pos }), pos);
-
-    this.camera.position.set(
-      (width * BattleFieldContainer.TILE_SIZE) / 2,
-      15,
-      (height * BattleFieldContainer.TILE_SIZE * 15) / 8,
-    );
-
-    this.camera.lookAt(
-      (width * BattleFieldContainer.TILE_SIZE) / 2,
-      0,
-      (height * BattleFieldContainer.TILE_SIZE) / 2,
-    );
   }
 
   public update(game: Game, delta: number): void {
