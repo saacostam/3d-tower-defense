@@ -17,5 +17,22 @@ A strategy game where players defend against waves of enemies by strategically p
 - [x] FEAT: Add environment elements to container.
 - [x] FEAT: Create an abstraction to compose with simple meshes.
 - [x] FEAT: Start modeling the world floor.
-- [ ] FEAT: Adjust camera to show world.
+- [ ] FEAT: Create mobs (no-modeling).
+- [ ] FEAT: Create path-finding algorithm.
+- [ ] FEAT: Implement cursor.
+- [ ] FEAT: Implement wall element, that block path, if available.
+- [ ] FEAT: Camera follows cursor.
+- [ ] FEAT: Implement simple gun.
+- [ ] FEAT: Implement bullet collisions.
+- [ ] FEAT: Implement a wave-system.
+- [ ] FEAT: Scale stats based on wave number.
+- [ ] FEAT: Create mob that breaks into smaller mobs.
+- [ ] FEAT: Create tank-mob that blows-up.
+- [ ] FEAT: Implement triple-gun.
+- [ ] FEAT: Implement rocket-gun.
+- [ ] FEAT: Implement particle-system.
 - [ ] FEAT: Start modeling world decor.
+  - [ ] FEAT: Model World Limits (idk... hills)
+  - [ ] FEAT: Enhance mobs.
+  - [ ] FEAT: Enhance guns.
+  - [ ] FEAT: Enhance cursor.
