@@ -8,4 +8,5 @@ export const COLOR_PALETTE = {
   BLUE: "#75A5AE",
   YELLOW: "#EFAB64",
   BOX: "#E3B98F",
+  WHITE_ISH: "#F5E9C4",
 };

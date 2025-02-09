@@ -1,4 +1,4 @@
-import { Color, Vector2 } from "three";
+import { AmbientLight, Color, Vector2 } from "three";
 import { COLOR_PALETTE } from "../colors";
 import { Container, Game } from "../game";
 import { Walker } from "../mobs";
@@ -6,7 +6,7 @@ import { Cursor } from "../player";
 import { WorldBuilderUtils } from "./utils";
 
 export class BattleFieldContainer extends Container {
-  private static SPAWN_TIMEOUT = 1500;
+  private static SPAWN_TIMEOUT = 3000;
   private spawnTimeout = 0;
 
   private static TILE_SIZE = 1;
@@ -17,6 +17,8 @@ export class BattleFieldContainer extends Container {
 
   public onStart() {
     this.scene.background = new Color(COLOR_PALETTE.BLUE);
+
+    this.scene.add(new AmbientLight(COLOR_PALETTE.WHITE_ISH, 3.5));
 
     const width = this.actorsGrid.length;
     const height = this.actorsGrid[0]?.length ?? 0;

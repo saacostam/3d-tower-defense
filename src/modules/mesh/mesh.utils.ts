@@ -4,7 +4,7 @@ import {
   ConeGeometry,
   CylinderGeometry,
   Mesh,
-  MeshBasicMaterial,
+  MeshPhongMaterial,
   SphereGeometry,
 } from "three";
 import { COLOR_PALETTE } from "../colors";
@@ -15,7 +15,7 @@ export const MeshUtils = {
     const color = args?.color ?? 0x00ff00;
 
     const geometry = new BoxGeometry(size, size, size);
-    const material = new MeshBasicMaterial({
+    const material = new MeshPhongMaterial({
       color: color,
     });
     return new Mesh(geometry, material);
@@ -32,7 +32,7 @@ export const MeshUtils = {
     const color = args?.color ?? new Color(COLOR_PALETTE.RED);
 
     const geometry = new BoxGeometry(width, height, depth);
-    const material = new MeshBasicMaterial({
+    const material = new MeshPhongMaterial({
       color: color,
     });
 
@@ -48,7 +48,7 @@ export const MeshUtils = {
     const color = args?.color ?? new Color(COLOR_PALETTE.RED);
 
     const geometry = new ConeGeometry(radius, height);
-    const material = new MeshBasicMaterial({
+    const material = new MeshPhongMaterial({
       color: color,
     });
 
@@ -59,7 +59,7 @@ export const MeshUtils = {
     const color = args?.color ?? new Color(COLOR_PALETTE.RED);
 
     const geometry = new SphereGeometry(radius);
-    const material = new MeshBasicMaterial({
+    const material = new MeshPhongMaterial({
       color: color,
     });
 
@@ -75,7 +75,7 @@ export const MeshUtils = {
     const color = args?.color ?? new Color(COLOR_PALETTE.RED);
 
     const geometry = new CylinderGeometry(radius, radius, height);
-    const material = new MeshBasicMaterial({
+    const material = new MeshPhongMaterial({
       color: color,
     });
 
