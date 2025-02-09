@@ -1,5 +1,5 @@
 import { Color, Vector3 } from "three";
-import { Component, Composite } from "../../game";
+import { Component, Composite, CompositePart } from "../../game";
 import { MeshUtils } from "../../mesh";
 import { COLOR_PALETTE } from "../../colors";
 
@@ -11,39 +11,44 @@ export interface GrassComponentArgs {
 
 export class GrassComponent extends Component {
   constructor(args: GrassComponentArgs) {
-    const createPlant = () => {
-      const cone = MeshUtils.createCone({
-        radius: args.size / 32,
-        height: args.size / 4,
-        color: new Color(COLOR_PALETTE.GREEN),
-      });
+    const createPlant = (): CompositePart[] => {
+      const amount = Math.floor(Math.random() * 2) + 2;
 
-      const ROTATION_LIMIT = 4;
-      cone.rotateOnAxis(
-        new Vector3(1, 0, 0),
-        -Math.PI / (2 * ROTATION_LIMIT) +
-          (Math.random() * Math.PI) / ROTATION_LIMIT,
+      const cones = Array.from({ length: amount }, () =>
+        MeshUtils.createCone({
+          radius: args.size / 32,
+          height: args.size / 4,
+          color: new Color(COLOR_PALETTE.GREEN),
+        }),
       );
 
-      return {
-        mesh: cone,
-        offset: new Vector3(
-          -args.size / 2 + Math.random() * args.size,
-          (args.size * 19) / 32,
-          -args.size / 2 + Math.random() * args.size,
+      const ROTATION_LIMIT = 2;
+      cones.forEach((cone) =>
+        cone.rotateOnAxis(
+          new Vector3(1, 0, 0),
+          -Math.PI / (2 * ROTATION_LIMIT) +
+            (Math.random() * Math.PI) / ROTATION_LIMIT,
         ),
-      };
+      );
+
+      const x = -args.size / 2 + Math.random() * args.size;
+      const z = -args.size / 2 + Math.random() * args.size;
+
+      return cones.map((cone) => ({
+        mesh: cone,
+        offset: new Vector3(x, (args.size * 19) / 32, z),
+      }));
     };
 
     const createFlower = () => {
       const cone = MeshUtils.createCone({
-        radius: args.size / 64,
-        height: args.size / 4,
+        radius: args.size / 32,
+        height: args.size / 2,
         color: new Color(COLOR_PALETTE.GREEN),
       });
 
       const core = MeshUtils.createSphere({
-        radius: args.size / 48,
+        radius: args.size / 32,
         color:
           Math.random() < 0.5
             ? new Color(COLOR_PALETTE.RED)
@@ -56,11 +61,11 @@ export class GrassComponent extends Component {
       return [
         {
           mesh: cone,
-          offset: new Vector3(x, (args.size * 19) / 32, z),
+          offset: new Vector3(x, (args.size * 10) / 16, z),
         },
         {
           mesh: core,
-          offset: new Vector3(x, (args.size * 23) / 32, z),
+          offset: new Vector3(x, (args.size * 13) / 16, z),
         },
       ];
     };
@@ -87,10 +92,9 @@ export class GrassComponent extends Component {
             }),
             offset: new Vector3(0, -args.size / 8, 0),
           },
-          ...new Array(Math.floor(5 * Math.random()))
-            .fill(0)
-            .map(() => createPlant()),
-          ...(Math.random() < 0.5 ? createFlower() : []),
+          ...createPlant(),
+          ...createPlant(),
+          ...(Math.random() < 0.4 ? createFlower() : []),
         ],
       }),
     });
