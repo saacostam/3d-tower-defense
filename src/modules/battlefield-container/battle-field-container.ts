@@ -32,8 +32,8 @@ export class BattleFieldContainer extends Container {
 
     this.camera.position.set(
       (width * BattleFieldContainer.TILE_SIZE) / 2,
-      8,
-      height * BattleFieldContainer.TILE_SIZE * 1.5,
+      15,
+      (height * BattleFieldContainer.TILE_SIZE * 15) / 8,
     );
 
     this.camera.lookAt(
@@ -54,8 +54,8 @@ export class BattleFieldContainer extends Container {
 
     for (let i = 0; i < updates; i++) {
       const pos = new Vector2(
-        Math.floor(Math.random() * this.actorsGrid.length),
-        Math.floor(Math.random() * this.actorsGrid[0].length),
+        this.actorsGrid.length - 1,
+        this.actorsGrid[0].length - 1,
       );
 
       const newWalker = new Walker({
