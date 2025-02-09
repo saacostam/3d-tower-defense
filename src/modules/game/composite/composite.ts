@@ -1,18 +1,18 @@
-import { Vector3 } from "three";
+import { Object3D, Vector3 } from "three";
 import { CompositePart } from "./composite.types";
 
 export interface CompositeArgs {
   center: Vector3;
-  parts: CompositePart[];
+  parts: CompositePart<Object3D>[];
 }
 
-export class Composite {
+export class Composite<T extends Object3D = Object3D> {
   private center: Vector3;
-  public parts: CompositePart[];
+  public parts: CompositePart<T>[];
 
   constructor(args: CompositeArgs) {
     this.center = args.center;
-    this.parts = args.parts;
+    this.parts = args.parts as CompositePart<T>[];
     this.updateParts();
   }
 

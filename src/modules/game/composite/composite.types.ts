@@ -1,6 +1,6 @@
-import { Mesh, Vector3 } from "three";
+import { Object3D, Vector3 } from "three";
 
-export interface CompositePart {
-  mesh: Mesh;
+export interface CompositePart<T = Object3D> {
+  mesh: T;
   offset: Vector3;
 }
