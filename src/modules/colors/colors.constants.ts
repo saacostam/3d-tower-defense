@@ -7,4 +7,5 @@ export const COLOR_PALETTE = {
   DIRT: "#845C51",
   BLUE: "#75A5AE",
   YELLOW: "#EFAB64",
+  BOX: "#E3B98F",
 };
