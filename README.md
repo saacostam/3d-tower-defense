@@ -19,9 +19,9 @@ A strategy game where players defend against waves of enemies by strategically p
 - [x] FEAT: Start modeling the world floor.
 - [x] FEAT: Create mobs (no-modeling).
 - [x] FEAT: Create path-finding algorithm.
-- [ ] FEAT: Implement cursor.
+- [x] FEAT: Implement cursor.
+- [x] FEAT: Camera follows cursor.
 - [ ] FEAT: Implement wall element, that block path, if available.
-- [ ] FEAT: Camera follows cursor.
 - [ ] FEAT: Implement simple gun.
 - [ ] FEAT: Implement bullet collisions.
 - [ ] FEAT: Implement a wave-system.

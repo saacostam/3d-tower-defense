@@ -3,6 +3,7 @@ import { Container, Game } from "../game";
 import { WorldBuilderUtils } from "./utils";
 import { COLOR_PALETTE } from "../colors";
 import { Walker } from "../mobs";
+import { Cursor } from "../player";
 
 export class BattleFieldContainer extends Container {
   private static SPAWN_TIMEOUT = 1500;
@@ -27,8 +28,10 @@ export class BattleFieldContainer extends Container {
     worldComponents.forEach((component) => this.addComponent(component));
 
     this.scene.background = new Color(COLOR_PALETTE.BLUE);
-
     this.scene.add(new AxesHelper(width));
+
+    const pos = new Vector2(Math.floor(width / 2), Math.floor(height / 2));
+    this.addActor(new Cursor({ pos }), pos);
 
     this.camera.position.set(
       (width * BattleFieldContainer.TILE_SIZE) / 2,
