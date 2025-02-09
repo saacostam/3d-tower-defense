@@ -1,9 +1,13 @@
-import { AxesHelper, Color } from "three";
+import { AxesHelper, Color, Vector2 } from "three";
 import { Container, Game } from "../game";
 import { WorldBuilderUtils } from "./utils";
 import { COLOR_PALETTE } from "../colors";
+import { Walker } from "../mobs";
 
 export class BattleFieldContainer extends Container {
+  private static SPAWN_TIMEOUT = 1500;
+  private spawnTimeout = 0;
+
   private static TILE_SIZE = 1;
 
   public constructor() {
@@ -28,20 +32,37 @@ export class BattleFieldContainer extends Container {
 
     this.camera.position.set(
       (width * BattleFieldContainer.TILE_SIZE) / 2,
-      2,
-      height * BattleFieldContainer.TILE_SIZE * 1.5,
+      15,
+      (height * BattleFieldContainer.TILE_SIZE * 15) / 8,
+    );
+
+    this.camera.lookAt(
+      (width * BattleFieldContainer.TILE_SIZE) / 2,
+      0,
+      (height * BattleFieldContainer.TILE_SIZE) / 2,
     );
   }
 
   public update(game: Game, delta: number): void {
     super.update(game, delta);
-    this.camera.position.z += 0.002 * delta;
-    this.camera.position.x += 0.0005 * delta;
 
-    this.camera.lookAt(
-      (this.actorsGrid.length * BattleFieldContainer.TILE_SIZE) / 2,
-      0,
-      (this.actorsGrid.length * BattleFieldContainer.TILE_SIZE) / 2,
+    const newSpawnTimeout = this.spawnTimeout + delta;
+    const updates = Math.floor(
+      newSpawnTimeout / BattleFieldContainer.SPAWN_TIMEOUT,
     );
+    this.spawnTimeout = newSpawnTimeout % BattleFieldContainer.SPAWN_TIMEOUT;
+
+    for (let i = 0; i < updates; i++) {
+      const pos = new Vector2(
+        this.actorsGrid.length - 1,
+        this.actorsGrid[0].length - 1,
+      );
+
+      const newWalker = new Walker({
+        pos,
+        objective: new Vector2(0, 0),
+      });
+      this.addActor(newWalker, pos);
+    }
   }
 }

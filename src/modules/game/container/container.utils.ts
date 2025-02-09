@@ -7,7 +7,10 @@ export const ContainerUtils = {
     for (let x = 0; x < width; x++) {
       grid[x] = [];
       for (let y = 0; y < height; y++) {
-        const gridCell: GridCell = { actors: [] };
+        const gridCell: GridCell = {
+          actors: [],
+          isWalkable: Math.random() < 0.8,
+        };
         grid[x][y] = gridCell;
       }
     }

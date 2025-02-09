@@ -53,8 +53,9 @@ export class Game {
   }
 
   public update() {
-    const delta = this.lastUpdate - Date.now();
-    this.lastUpdate = Date.now();
+    const now = Date.now();
+    const delta = now - this.lastUpdate;
+    this.lastUpdate = now;
 
     if (this.currentContainer) {
       this.currentContainer.update(this, delta);
@@ -62,8 +63,9 @@ export class Game {
   }
 
   public graphics() {
-    const delta = this.lastGraphics - Date.now();
-    this.lastGraphics = Date.now();
+    const now = Date.now();
+    const delta = now - this.lastGraphics;
+    this.lastGraphics = now;
 
     if (this.currentContainer) {
       this.currentContainer.graphics(this, delta);
