@@ -9,6 +9,10 @@ A strategy game where players defend against waves of enemies by strategically p
 - Wave-based progression – Increasing difficulty with each wave.
 - 3D environment – Immersive visuals and dynamic enemy movement.
 
+##
+
+- [Color Palette](https://lospec.com/palette-list/apollo)
+
 ## Tasks
 
 - [x] FEAT: Place actors into a grid-like structure.
