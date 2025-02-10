@@ -1,8 +1,10 @@
 import { Color, Mesh, Vector2, Vector3 } from "three";
-import { Actor, Composite, Container, Game } from "../game";
-import { WOLRD_CONFIG } from "../config";
-import { MeshUtils } from "../mesh";
+import { TBattleSide } from "../battlefield-container";
+import { BulletComponent } from "../bullets";
 import { COLOR_PALETTE } from "../colors";
+import { WOLRD_CONFIG } from "../config";
+import { Actor, Composite, Container, Game } from "../game";
+import { MeshUtils } from "../mesh";
 
 export interface SimpleGunArgs {
   position: Vector2;
@@ -10,6 +12,7 @@ export interface SimpleGunArgs {
 
 export class SimpleGun extends Actor {
   private gem: Mesh;
+  public position: Vector2;
 
   public constructor(args: SimpleGunArgs) {
     const pos3 = new Vector3(
@@ -63,6 +66,7 @@ export class SimpleGun extends Actor {
     super({ mesh });
 
     this.gem = gem;
+    this.position = args.position;
   }
 
   public update(
@@ -75,5 +79,24 @@ export class SimpleGun extends Actor {
 
     this.gem.rotateX(delta / 1000);
     this.gem.rotateZ(delta / 500);
+
+    const shouldShoot = delta % 11 === 0; // for now
+
+    if (shouldShoot) {
+      const bullet = new BulletComponent({
+        battleSide: TBattleSide.ALLY,
+        direction: new Vector2(
+          Math.random() - 0.5,
+          Math.random() - 0.5,
+        ).normalize(),
+        position: new Vector3(
+          this.position.x,
+          this.mesh.position.y,
+          this.position.y,
+        ),
+      });
+
+      container.addComponent(bullet);
+    }
   }
 }

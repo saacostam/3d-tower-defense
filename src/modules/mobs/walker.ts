@@ -1,5 +1,6 @@
 import { AStarFinder } from "astar-typescript";
 import { Color, Vector2, Vector3 } from "three";
+import { TBattleSide } from "../battlefield-container";
 import { COLOR_PALETTE } from "../colors";
 import { WOLRD_CONFIG } from "../config";
 import { Actor, Composite, Container, Game } from "../game";
@@ -14,7 +15,10 @@ export interface WalkerArgs {
 export class Walker extends Actor {
   declare public mesh: Composite;
 
-  private pos: Vector2;
+  public battleSide = TBattleSide.ENEMY;
+  public pos: Vector2;
+  public radius: number;
+
   private objective: Vector2;
 
   constructor(args: WalkerArgs) {
@@ -45,8 +49,9 @@ export class Walker extends Actor {
       mesh: composite,
     });
 
-    this.pos = args.pos;
     this.objective = args.objective;
+    this.pos = args.pos;
+    this.radius = radius;
   }
 
   public update(
