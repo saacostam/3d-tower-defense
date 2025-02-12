@@ -6,7 +6,7 @@ import { SimpleGun } from "../player";
 export class CronDistance {
   private static singleton: CronDistance;
 
-  public static distance: Map<string, number> = new Map();
+  public static distance: string[][] = [[]];
 
   constructor() {
     if (CronDistance.singleton) return CronDistance.singleton;
