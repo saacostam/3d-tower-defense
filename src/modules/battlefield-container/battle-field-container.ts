@@ -1,4 +1,4 @@
-import { Color, HemisphereLight, PointLight, Vector2 } from "three";
+import { Color, HemisphereLight, Vector2 } from "three";
 import { COLOR_PALETTE } from "../colors";
 import { Container, Game } from "../game";
 import { Walker } from "../mobs";
