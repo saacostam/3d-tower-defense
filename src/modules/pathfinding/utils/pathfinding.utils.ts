@@ -1,11 +1,6 @@
 import { Vector2 } from "three";
 import { GridCell } from "../../game";
 
-export interface IdentifiedPosition {
-  id: string;
-  pos: Vector2;
-}
-
 export const PathfindingUtils = {
   createSimpleGrid: (grid: GridCell[][]): number[][] => {
     const simpleGrid: number[][] = [];
@@ -37,42 +32,32 @@ export const PathfindingUtils = {
     if (y < grid[0].length - 1) neighbors.push(new Vector2(x, y + 1));
     return neighbors;
   },
-  runMultiSourceBFS: (
-    grid: GridCell[][],
-    sources: IdentifiedPosition[],
-  ): string[][] => {
-    const mapping: string[][] = [];
-
-    const sourcePositions = new Map<string, IdentifiedPosition>();
-    for (const source of sources) {
-      sourcePositions.set(source.id, source);
-    }
+  runMultiSourceBFS: (grid: GridCell[][], sources: Vector2[]): Vector2[][] => {
+    const mapping: Vector2[][] = [];
 
     for (let i = 0; i < grid.length; i++) {
       mapping[i] = Array(grid[i].length).fill(null);
     }
 
-    const queue: IdentifiedPosition[] = [...sources];
+    const queue: Vector2[] = [...sources];
     let index = 0;
 
     while (index < queue.length) {
-      const { id, pos } = queue[index++];
+      const pos = queue[index++];
 
       const neighbors = PathfindingUtils.getNeighbors(pos.x, pos.y, grid);
       for (const neighbor of neighbors) {
         if (mapping[neighbor.x][neighbor.y] === null) {
-          mapping[neighbor.x][neighbor.y] = id;
-          queue.push({ id, pos: neighbor });
+          mapping[neighbor.x][neighbor.y] = pos;
+          queue.push(neighbor);
         } else {
-          const currentId = mapping[neighbor.x][neighbor.y];
+          const pos = mapping[neighbor.x][neighbor.y];
 
-          const currentDistance =
-            sourcePositions.get(currentId)?.pos.distanceTo(pos) || Infinity;
-          const newDistance =
-            sourcePositions.get(id)?.pos.distanceTo(pos) || Infinity;
+          const currentDistance = pos.distanceTo(pos) || Infinity;
+          const newDistance = neighbor.distanceTo(pos) || Infinity;
 
           if (newDistance < currentDistance) {
-            mapping[neighbor.x][neighbor.y] = id;
+            mapping[neighbor.x][neighbor.y] = pos;
           }
         }
       }
