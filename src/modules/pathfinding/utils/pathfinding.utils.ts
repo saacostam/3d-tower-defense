@@ -43,35 +43,33 @@ export const PathfindingUtils = {
   ): string[][] => {
     const mapping: string[][] = [];
 
-    const DEFAULT_VALUE = Date.now().toString();
-    for (let i = 0; i < grid.length; i++) {
-      mapping[i] = [];
-      for (let j = 0; j < grid[i].length; j++) {
-        mapping[i][j] = DEFAULT_VALUE;
-      }
+    const sourcePositions = new Map<string, IdentifiedPosition>();
+    for (const source of sources) {
+      sourcePositions.set(source.id, source);
     }
 
-    const queue: IdentifiedPosition[] = [];
-    for (const source of sources)
-      queue.push({ id: source.id, pos: source.pos });
+    for (let i = 0; i < grid.length; i++) {
+      mapping[i] = Array(grid[i].length).fill(null);
+    }
 
-    while (queue.length > 0) {
-      const { id, pos } = queue.shift()!;
+    const queue: IdentifiedPosition[] = [...sources];
+    let index = 0;
+
+    while (index < queue.length) {
+      const { id, pos } = queue[index++];
+
       const neighbors = PathfindingUtils.getNeighbors(pos.x, pos.y, grid);
       for (const neighbor of neighbors) {
-        if (mapping[neighbor.x][neighbor.y] === DEFAULT_VALUE) {
+        if (mapping[neighbor.x][neighbor.y] === null) {
           mapping[neighbor.x][neighbor.y] = id;
           queue.push({ id, pos: neighbor });
         } else {
           const currentId = mapping[neighbor.x][neighbor.y];
-          const currentDistance =
-            sources
-              .find((source) => source.id === currentId)
-              ?.pos.distanceTo(pos) || Infinity;
 
+          const currentDistance =
+            sourcePositions.get(currentId)?.pos.distanceTo(pos) || Infinity;
           const newDistance =
-            sources.find((source) => source.id === id)?.pos.distanceTo(pos) ||
-            Infinity;
+            sourcePositions.get(id)?.pos.distanceTo(pos) || Infinity;
 
           if (newDistance < currentDistance) {
             mapping[neighbor.x][neighbor.y] = id;
