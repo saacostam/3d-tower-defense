@@ -3,15 +3,8 @@ import { GridCell } from "../game";
 import { PathfindingUtils } from "./utils";
 import { SimpleGun } from "../player";
 
-export class CronDistance {
-  private static singleton: CronDistance;
-
+export class ClosestEnemyPathfindingCron {
   public static distance: string[][] = [[]];
-
-  constructor() {
-    if (CronDistance.singleton) return CronDistance.singleton;
-    CronDistance.singleton = this;
-  }
 
   update(grid: GridCell[][]) {
     const sources: Vector2[] = [];
@@ -24,6 +17,9 @@ export class CronDistance {
       }
     }
 
-    CronDistance.distance = PathfindingUtils.runMultiSourceBFS(grid, []);
+    ClosestEnemyPathfindingCron.distance = PathfindingUtils.runMultiSourceBFS(
+      grid,
+      [],
+    );
   }
 }
