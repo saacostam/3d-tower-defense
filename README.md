@@ -9,6 +9,10 @@ A strategy game where players defend against waves of enemies by strategically p
 - Wave-based progression – Increasing difficulty with each wave.
 - 3D environment – Immersive visuals and dynamic enemy movement.
 
+##
+
+- [Color Palette](https://lospec.com/palette-list/apollo)
+
 ## Tasks
 
 - [x] FEAT: Place actors into a grid-like structure.
@@ -23,14 +27,15 @@ A strategy game where players defend against waves of enemies by strategically p
 - [x] FEAT: Camera follows cursor.
 - [x] FEAT: Implement wall element, that block path, if available.
 - [x] FEAT: Implement simple gun.
-- [ ] FEAT: Implement bullet collisions.
+- [x] FEAT: Implement bullet collisions.
+- [x] FEAT: Implement particles for bullets.
+- [ ] FEAT: Test with individual gun path-finding.
 - [ ] FEAT: Implement a wave-system.
 - [ ] FEAT: Scale stats based on wave number.
 - [ ] FEAT: Create mob that breaks into smaller mobs.
 - [ ] FEAT: Create tank-mob that blows-up.
 - [ ] FEAT: Implement triple-gun.
 - [ ] FEAT: Implement rocket-gun.
-- [ ] FEAT: Implement particle-system.
 - [ ] FEAT: Block wall-placement if it fully blocks a path to the objective.
 - [ ] FEAT: Start modeling world decor.
   - [ ] FEAT: Model World Limits (idk... hills)

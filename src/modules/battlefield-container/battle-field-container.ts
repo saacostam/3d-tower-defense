@@ -1,9 +1,10 @@
-import { Color, HemisphereLight, PointLight, Vector2 } from "three";
+import { Color, HemisphereLight, Vector2 } from "three";
 import { COLOR_PALETTE } from "../colors";
 import { Container, Game } from "../game";
 import { Walker } from "../mobs";
 import { Cursor } from "../player";
 import { WorldBuilderUtils } from "./utils";
+import { ClosestEnemyPathfindingCron } from "../pathfinding";
 
 export class BattleFieldContainer extends Container {
   private static SPAWN_TIMEOUT = 3000;
@@ -11,8 +12,14 @@ export class BattleFieldContainer extends Container {
 
   private static TILE_SIZE = 1;
 
+  public closestEnemyPathfindingCron: ClosestEnemyPathfindingCron =
+    new ClosestEnemyPathfindingCron();
+
+  private static PATHFINDING_TIMEOUT = 250;
+  private pathfindingTimeout = 0;
+
   public constructor() {
-    super({ width: 20, height: 20 });
+    super({ width: 5, height: 30 });
   }
 
   public onStart() {
@@ -60,6 +67,14 @@ export class BattleFieldContainer extends Container {
         objective: new Vector2(0, 0),
       });
       this.addActor(newWalker, pos);
+    }
+
+    const newPathfindingTimeout = this.pathfindingTimeout + delta;
+    this.pathfindingTimeout =
+      newPathfindingTimeout % BattleFieldContainer.PATHFINDING_TIMEOUT;
+
+    if (newPathfindingTimeout > BattleFieldContainer.PATHFINDING_TIMEOUT) {
+      this.closestEnemyPathfindingCron.update(this.actorsGrid);
     }
   }
 }
