@@ -32,32 +32,42 @@ export const PathfindingUtils = {
     if (y < grid[0].length - 1) neighbors.push(new Vector2(x, y + 1));
     return neighbors;
   },
-  runMultiSourceBFS: (grid: GridCell[][], sources: Vector2[]): Vector2[][] => {
-    const mapping: Vector2[][] = [];
+  runMultiSourceBFS: (
+    grid: GridCell[][],
+    sources: Vector2[],
+  ): (Vector2 | null)[][] => {
+    const mapping: (Vector2 | null)[][] = [];
 
     for (let i = 0; i < grid.length; i++) {
       mapping[i] = Array(grid[i].length).fill(null);
     }
 
-    const queue: Vector2[] = [...sources];
+    for (const source of sources) {
+      mapping[source.x][source.y] = source.clone();
+    }
+
+    const queue: { pos: Vector2; closest: Vector2 }[] = sources.map(
+      (source) => ({ pos: source, closest: source }),
+    );
     let index = 0;
 
-    while (index < queue.length) {
-      const pos = queue[index++];
+    while (
+      index < queue.length &&
+      queue.length <= grid.length * grid[0].length * 2
+    ) {
+      const { pos, closest } = queue[index++];
 
       const neighbors = PathfindingUtils.getNeighbors(pos.x, pos.y, grid);
       for (const neighbor of neighbors) {
-        if (mapping[neighbor.x][neighbor.y] === null) {
-          mapping[neighbor.x][neighbor.y] = pos;
-          queue.push(neighbor);
+        const currClosest = mapping[neighbor.x][neighbor.y];
+
+        if (currClosest === null) {
+          mapping[neighbor.x][neighbor.y] = closest.clone();
+          queue.push({ pos: neighbor, closest });
         } else {
-          const pos = mapping[neighbor.x][neighbor.y];
-
-          const currentDistance = pos.distanceTo(pos) || Infinity;
-          const newDistance = neighbor.distanceTo(pos) || Infinity;
-
-          if (newDistance < currentDistance) {
-            mapping[neighbor.x][neighbor.y] = pos;
+          if (closest.distanceTo(pos) < currClosest.distanceTo(pos)) {
+            mapping[neighbor.x][neighbor.y] = closest.clone();
+            queue.push({ pos: neighbor, closest });
           }
         }
       }

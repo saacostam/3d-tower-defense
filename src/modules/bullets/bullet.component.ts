@@ -38,7 +38,7 @@ export class BulletComponent extends Component {
   public update(game: Game, delta: number, container: Container): void {
     super.update(game, delta, container);
 
-    const DELTA_FACTOR = 0.005;
+    const DELTA_FACTOR = 0.03;
     const deltaMove = DELTA_FACTOR * delta;
 
     const dir = this.direction.clone().normalize();
@@ -72,16 +72,20 @@ export class BulletComponent extends Component {
       for (const coords of neighboringCoords) {
         const cell = container.actorsGrid[coords.x]?.[coords.y];
         if (!cell) continue;
-        cell.actors.forEach((actor) => {
+
+        for (const actor of cell.actors) {
           if (actor instanceof Walker && actor.battleSide !== this.battleSide) {
             const distance = actor.pos.distanceTo(
               new Vector2(this.position.x, this.position.z),
             );
 
             const hasCollided = distance < this.radius + actor.radius;
-            if (hasCollided) actor.kill();
+            if (hasCollided) {
+              actor.kill();
+              break;
+            }
           }
-        });
+        }
       }
     }
 

@@ -5,7 +5,7 @@ import { SimpleGun } from "../player";
 import { PathfindingUtils } from "./utils";
 
 export class ClosestEnemyPathfindingCron {
-  public static map: Map<Vector2, Vector2> = new Map();
+  public map: Map<String, Vector2> = new Map();
 
   update(grid: GridCell[][]) {
     const sources: Vector2[] = [];
@@ -18,12 +18,12 @@ export class ClosestEnemyPathfindingCron {
       }
     }
 
-    const mapPositionToClosesSource = PathfindingUtils.runMultiSourceBFS(
+    const mapPositionToClosestSource = PathfindingUtils.runMultiSourceBFS(
       grid,
       sources,
     );
 
-    const mapSourceToClosestEnemy: Map<Vector2, Vector2> = new Map();
+    const mapSourceToClosestEnemy: Map<String, Vector2> = new Map();
 
     for (let x = 0; x < grid.length; x++) {
       for (let y = 0; y < grid[x].length; y++) {
@@ -32,21 +32,30 @@ export class ClosestEnemyPathfindingCron {
         );
         if (enemy === undefined) continue;
 
-        const currentClosestSource = mapPositionToClosesSource[x][y];
-        const currentDistance = currentClosestSource.distanceTo(enemy.pos);
+        const currentClosestSource = mapPositionToClosestSource[x][y];
+        const currentDistance = currentClosestSource
+          ? currentClosestSource.distanceTo(enemy.pos)
+          : 0;
 
-        const prevClosestEnemy =
-          mapSourceToClosestEnemy.get(currentClosestSource);
-        const prevDistance = prevClosestEnemy
-          ? currentClosestSource.distanceTo(prevClosestEnemy)
-          : Infinity;
+        const prevClosestEnemy = currentClosestSource
+          ? mapSourceToClosestEnemy.get(
+              currentClosestSource.toArray().join("."),
+            )
+          : null;
+        const prevDistance =
+          prevClosestEnemy && currentClosestSource
+            ? currentClosestSource.distanceTo(prevClosestEnemy)
+            : Infinity;
 
-        if (prevDistance > currentDistance) {
-          mapSourceToClosestEnemy.set(currentClosestSource, new Vector2(x, y));
+        if (prevDistance > currentDistance && currentClosestSource) {
+          mapSourceToClosestEnemy.set(
+            currentClosestSource.toArray().join("."),
+            new Vector2(x, y),
+          );
         }
       }
     }
 
-    ClosestEnemyPathfindingCron.map = mapSourceToClosestEnemy;
+    this.map = mapSourceToClosestEnemy;
   }
 }
