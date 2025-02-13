@@ -29,6 +29,7 @@ A strategy game where players defend against waves of enemies by strategically p
 - [x] FEAT: Implement simple gun.
 - [x] FEAT: Implement bullet collisions.
 - [x] FEAT: Implement particles for bullets.
+- [ ] FEAT: Test with individual gun path-finding.
 - [ ] FEAT: Implement a wave-system.
 - [ ] FEAT: Scale stats based on wave number.
 - [ ] FEAT: Create mob that breaks into smaller mobs.
