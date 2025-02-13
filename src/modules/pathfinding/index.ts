@@ -1,2 +1,2 @@
-export * from "./closes-enemy-pathfinding-cron";
+export * from "./closest-enemy-pathfinding-cron";
 export * from "./utils";
