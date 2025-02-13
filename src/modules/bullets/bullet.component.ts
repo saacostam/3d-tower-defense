@@ -1,5 +1,6 @@
 import { Color, Vector2, Vector3 } from "three";
 import { TBattleSide } from "../battlefield-container";
+import { BulletParticleComponent } from "./bullet-particle.component";
 import { COLOR_PALETTE } from "../colors";
 import { WOLRD_CONFIG } from "../config";
 import { Component, Container, Game } from "../game";
@@ -19,13 +20,16 @@ export class BulletComponent extends Component {
   public radius: number;
   private direction: Vector2;
 
+  private static PARTICLE_TIMEOUT = 20;
+  private particleTimeout = 0;
+
   public constructor(args: BulletComponentArgs) {
     const radius = WOLRD_CONFIG.TILE_SIZE / 32;
 
     super({
       mesh: MeshUtils.createSphere({
         radius: radius,
-        color: new Color(COLOR_PALETTE.RED),
+        color: new Color(COLOR_PALETTE.WHITE),
       }),
     });
 
@@ -101,6 +105,16 @@ export class BulletComponent extends Component {
       this.position.z < height;
 
     if (!inBounds) this.kill();
+
+    // Particles
+    this.particleTimeout += delta;
+    if (this.particleTimeout > BulletComponent.PARTICLE_TIMEOUT) {
+      container.addComponent(
+        new BulletParticleComponent({ position: this.position.clone() }),
+      );
+      this.particleTimeout =
+        this.particleTimeout % BulletComponent.PARTICLE_TIMEOUT;
+    }
   }
 
   public graphics(): void {

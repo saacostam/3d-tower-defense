@@ -28,13 +28,13 @@ A strategy game where players defend against waves of enemies by strategically p
 - [x] FEAT: Implement wall element, that block path, if available.
 - [x] FEAT: Implement simple gun.
 - [x] FEAT: Implement bullet collisions.
+- [x] FEAT: Implement particles for bullets.
 - [ ] FEAT: Implement a wave-system.
 - [ ] FEAT: Scale stats based on wave number.
 - [ ] FEAT: Create mob that breaks into smaller mobs.
 - [ ] FEAT: Create tank-mob that blows-up.
 - [ ] FEAT: Implement triple-gun.
 - [ ] FEAT: Implement rocket-gun.
-- [ ] FEAT: Implement particle-system.
 - [ ] FEAT: Block wall-placement if it fully blocks a path to the objective.
 - [ ] FEAT: Start modeling world decor.
   - [ ] FEAT: Model World Limits (idk... hills)

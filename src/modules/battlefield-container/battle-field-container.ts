@@ -19,7 +19,7 @@ export class BattleFieldContainer extends Container {
   private pathfindingTimeout = 0;
 
   public constructor() {
-    super({ width: 10, height: 10 });
+    super({ width: 5, height: 30 });
   }
 
   public onStart() {
