@@ -31,7 +31,7 @@ A strategy game where players defend against waves of enemies by strategically p
 - [x] FEAT: Implement particles for bullets.
 - [x] FEAT: Test with individual gun path-finding.
 - [ ] FEAT: Add headquarters (HQ) to defend.
-  - [ ] FEAT: Create the actor and "model".
+  - [x] FEAT: Create the actor and "model".
   - [ ] FEAT: Add health.
 - [ ] FEAT: Walkers should target the HQs.
   - [ ] FEAT: Update path-finding.
