@@ -30,14 +30,26 @@ A strategy game where players defend against waves of enemies by strategically p
 - [x] FEAT: Implement bullet collisions.
 - [x] FEAT: Implement particles for bullets.
 - [x] FEAT: Test with individual gun path-finding.
-- [ ] FEAT: Implement a wave-system.
-- [ ] FEAT: Scale stats based on wave number.
+- [ ] FEAT: Add headquarters (HQ) to defend.
+  - [ ] FEAT: Create the actor and "model".
+  - [ ] FEAT: Add health.
+- [ ] FEAT: Walkers should target the HQs.
+  - [ ] FEAT: Update path-finding.
+  - [ ] FEAT: If they collide, they should attack the HQs (reduce health).
 - [ ] FEAT: Centralize checking for battle side.
   - NOTE: Absolute search for `instanceof Walker`.
+- [ ] FEAT: Add health to enemies.
 - [ ] FEAT: Create mob that breaks into smaller mobs.
 - [ ] FEAT: Create tank-mob that blows-up.
+  - [ ] FEAT: Create the actor and "model".
+  - [ ] FEAT: Create explosion particles.
+  - [ ] FEAT: Add health to towers.
+  - [ ] FEAT: If a tower is close to an explosion they should reduce health.
 - [ ] FEAT: Implement triple-gun.
 - [ ] FEAT: Implement rocket-gun.
+- [ ] FEAT: Enhance path-finding by targeting enemies closest to me but also closest to position I should defend.
+- [ ] FEAT: Implement a wave-system.
+  - [ ] FEAT: Scale enemy stats based on wave number.
 - [ ] FEAT: Block wall-placement if it fully blocks a path to the objective.
 - [ ] FEAT: Start modeling world decor.
   - [ ] FEAT: Model World Limits (idk... hills)
