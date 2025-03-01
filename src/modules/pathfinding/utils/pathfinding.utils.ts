@@ -1,5 +1,7 @@
 import { Vector2 } from "three";
-import { GridCell } from "../../game";
+import { Actor, GridCell } from "../../game";
+import { Walker } from "../../mobs";
+import { TBattleSide } from "../../battlefield-container";
 
 export const PathfindingUtils = {
   createSimpleGrid: (grid: GridCell[][]): number[][] => {
@@ -24,7 +26,11 @@ export const PathfindingUtils = {
 
     return transposedGrid;
   },
-  getNeighbors: (x: number, y: number, grid: GridCell[][]): Vector2[] => {
+  getBoundedUncheckedNeighbors: (
+    x: number,
+    y: number,
+    grid: GridCell[][],
+  ): Vector2[] => {
     const neighbors: Vector2[] = [];
     if (x > 0) neighbors.push(new Vector2(x - 1, y));
     if (x < grid.length - 1) neighbors.push(new Vector2(x + 1, y));
@@ -32,47 +38,57 @@ export const PathfindingUtils = {
     if (y < grid[0].length - 1) neighbors.push(new Vector2(x, y + 1));
     return neighbors;
   },
-  runMultiSourceBFS: (
+  getPositionHash(pos: Vector2): string {
+    return `${pos.x},${pos.y}`;
+  },
+  findClosestEnemy: (
     grid: GridCell[][],
-    sources: Vector2[],
-  ): (Vector2 | null)[][] => {
-    const mapping: (Vector2 | null)[][] = [];
+    origin: Vector2,
+    myBattleSide: TBattleSide,
+  ): {
+    pos: Vector2;
+    enemy: Actor;
+  } | null => {
+    const visited = new Set<string>();
 
-    for (let i = 0; i < grid.length; i++) {
-      mapping[i] = Array(grid[i].length).fill(null);
-    }
-
-    for (const source of sources) {
-      mapping[source.x][source.y] = source.clone();
-    }
-
-    const queue: { pos: Vector2; closest: Vector2 }[] = sources.map(
-      (source) => ({ pos: source, closest: source }),
-    );
+    const queue: Vector2[] = [origin.clone()];
+    visited.add(PathfindingUtils.getPositionHash(origin));
     let index = 0;
 
-    while (
-      index < queue.length &&
-      queue.length <= grid.length * grid[0].length * 2
-    ) {
-      const { pos, closest } = queue[index++];
+    while (index < queue.length) {
+      const killSwitch = index > grid.length * grid[0].length * 2;
+      if (killSwitch) return null;
 
-      const neighbors = PathfindingUtils.getNeighbors(pos.x, pos.y, grid);
+      const pos = queue[index];
+      index++;
+
+      const neighbors = PathfindingUtils.getBoundedUncheckedNeighbors(
+        pos.x,
+        pos.y,
+        grid,
+      );
       for (const neighbor of neighbors) {
-        const currClosest = mapping[neighbor.x][neighbor.y];
+        if (!grid[neighbor.x][neighbor.y].isWalkable) continue;
 
-        if (currClosest === null) {
-          mapping[neighbor.x][neighbor.y] = closest.clone();
-          queue.push({ pos: neighbor, closest });
+        const enemy = grid[neighbor.x][neighbor.y].actors.find(
+          (actor) =>
+            actor instanceof Walker && actor.battleSide !== myBattleSide,
+        );
+
+        if (enemy) {
+          return {
+            pos: pos,
+            enemy: enemy,
+          };
         } else {
-          if (closest.distanceTo(pos) < currClosest.distanceTo(pos)) {
-            mapping[neighbor.x][neighbor.y] = closest.clone();
-            queue.push({ pos: neighbor, closest });
+          if (!visited.has(PathfindingUtils.getPositionHash(neighbor))) {
+            queue.push(neighbor);
+            visited.add(PathfindingUtils.getPositionHash(neighbor));
           }
         }
       }
     }
 
-    return mapping;
+    return null;
   },
 };
