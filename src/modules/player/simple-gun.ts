@@ -1,11 +1,11 @@
 import { Color, Mesh, Vector2, Vector3 } from "three";
-import { BattleFieldContainer, TBattleSide } from "../battlefield-container";
+import { TBattleSide } from "../battlefield-container";
 import { BulletComponent } from "../bullets";
 import { COLOR_PALETTE } from "../colors";
 import { WOLRD_CONFIG } from "../config";
 import { Actor, Composite, Container, Game } from "../game";
 import { MeshUtils } from "../mesh";
-import { Walker } from "../mobs";
+import { PathfindingUtils } from "../pathfinding";
 
 export interface SimpleGunArgs {
   position: Vector2;
@@ -90,35 +90,20 @@ export class SimpleGun extends Actor {
     let shouldShoot = newShootTimeout >= SimpleGun.SHOOT_TIMEOUT;
 
     if (shouldShoot) {
-      let direction = new Vector2(
-        Math.random() - 0.5,
-        Math.random() - 0.5,
-      ).normalize();
+      const walker = PathfindingUtils.findClosestEnemy(
+        container.actorsGrid,
+        this.position.clone(),
+        TBattleSide.ALLY,
+      );
 
-      if (container instanceof BattleFieldContainer) {
-        const closestCell = container.closestEnemyPathfindingCron.map.get(
-          pos.toArray().join("."),
-        );
+      const direction = walker
+        ? new Vector2(
+            walker.enemy.mesh.position.x - this.position.x,
+            walker.enemy.mesh.position.z - this.position.y,
+          ).normalize()
+        : null;
 
-        if (closestCell) {
-          const closestEnemy = container.actorsGrid[closestCell.x][
-            closestCell.y
-          ].actors.find((actor) => actor instanceof Walker);
-
-          if (closestEnemy !== undefined) {
-            direction = new Vector2(
-              closestEnemy.pos.x - this.position.x,
-              closestEnemy.pos.y - this.position.y,
-            ).normalize();
-          } else {
-            shouldShoot = false;
-          }
-        }
-      } else {
-        shouldShoot = false;
-      }
-
-      if (shouldShoot) {
+      if (direction !== null) {
         const bullet = new BulletComponent({
           battleSide: TBattleSide.ALLY,
           direction: direction,
