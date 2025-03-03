@@ -3,16 +3,33 @@ import { Actor, Composite, Container, Game } from "../game";
 import { WOLRD_CONFIG } from "../config";
 import { MeshUtils } from "../mesh";
 import { COLOR_PALETTE } from "../colors";
+import { HealthBar } from "../health-bar";
 
 export interface HeadQuartersArgs {
   position: Vector2;
+  health: number;
 }
 
 export class HeadQuarters extends Actor {
   private gem: Mesh;
+  private hb: HealthBar;
+
+  public fullHealth: number;
+  public health: number;
+
   public position: Vector2;
 
-  constructor({ position }: HeadQuartersArgs) {
+  public afterSpawn(game: Game, container: Container, pos: Vector2): void {
+    super.afterSpawn(game, container, pos);
+    this.hb.start(container);
+  }
+
+  public beforeDeath(game: Game, container: Container, pos: Vector2): void {
+    super.beforeDeath(game, container, pos);
+    this.hb.end(container);
+  }
+
+  constructor({ health, position }: HeadQuartersArgs) {
     const width = WOLRD_CONFIG.TILE_SIZE / 2;
     const height = WOLRD_CONFIG.TILE_SIZE * 2;
     const depth = WOLRD_CONFIG.TILE_SIZE / 2;
@@ -52,6 +69,15 @@ export class HeadQuarters extends Actor {
 
     this.gem = gem;
     this.position = position;
+    this.health = health;
+    this.fullHealth = health;
+
+    this.hb = new HealthBar({
+      fullHealth: this.fullHealth,
+      currentHealth: this.health,
+      position: new Vector3(5, 3, 5),
+      offset: new Vector3(0, height / 2 + WOLRD_CONFIG.TILE_SIZE / 2, 0),
+    });
   }
 
   public update(
@@ -65,5 +91,7 @@ export class HeadQuarters extends Actor {
     this.gem.rotateX(delta / 1000);
     this.gem.rotateY(delta / 1900);
     this.gem.rotateZ(delta / 500);
+
+    this.hb.update(this.health, this.mesh.position.clone());
   }
 }

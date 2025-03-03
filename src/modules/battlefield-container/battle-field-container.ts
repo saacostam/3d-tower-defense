@@ -16,6 +16,7 @@ export class BattleFieldContainer extends Container {
     super({ width: 8, height: 8 });
     this.headQuarters = new HeadQuarters({
       position: new Vector2(1, 1),
+      health: 100,
     });
   }
 
