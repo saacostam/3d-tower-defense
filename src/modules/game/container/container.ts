@@ -67,8 +67,10 @@ export class Container {
     this.components.forEach((component) => component.update(game, delta, this));
 
     // Remove dead actors
-    this.actorsGrid.map((row) =>
-      row.map((cell) => {
+    this.actorsGrid.map((row, x) =>
+      row.map((cell, y) => {
+        const position = new Vector2(x, y);
+
         const alive: Actor[] = [];
         const dead: Actor[] = [];
 
@@ -79,6 +81,7 @@ export class Container {
         }
 
         dead.forEach((actor) => {
+          actor.beforeDeath(game, this, position);
           if (actor.mesh instanceof Composite)
             actor.mesh.parts.forEach((part) => this.scene.remove(part.mesh));
           else this.scene.remove(actor.mesh);
