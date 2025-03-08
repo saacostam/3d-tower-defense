@@ -64,7 +64,7 @@ export class Game {
 
   public update() {
     const now = Date.now();
-    const delta = now - this.lastUpdate;
+    const delta = sanitizeDelta(now - this.lastUpdate);
     this.lastUpdate = now;
 
     if (this.currentContainer) {
@@ -74,11 +74,16 @@ export class Game {
 
   public graphics() {
     const now = Date.now();
-    const delta = now - this.lastGraphics;
+    const delta = sanitizeDelta(now - this.lastGraphics);
     this.lastGraphics = now;
 
     if (this.currentContainer) {
       this.currentContainer.graphics(this, delta);
     }
   }
+}
+
+export function sanitizeDelta(delta: number) {
+  const maxT = 1000;
+  return Math.max(0, Math.min(delta, maxT));
 }
