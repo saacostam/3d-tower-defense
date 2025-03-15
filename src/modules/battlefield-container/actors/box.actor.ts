@@ -1,15 +1,15 @@
 import { Color, Vector3 } from "three";
-import { Component, Composite } from "../../game";
+import { Actor, Composite } from "../../game";
 import { MeshUtils } from "../../mesh";
 import { COLOR_PALETTE } from "../../colors";
 
-export interface BoxComponentArgs {
+export interface BoxActorArgs {
   position: Vector3;
   size: number;
 }
 
-export class BoxComponent extends Component {
-  constructor(args: BoxComponentArgs) {
+export class BoxActor extends Actor {
+  constructor(args: BoxActorArgs) {
     const composite = new Composite({
       center: args.position,
       parts: [
