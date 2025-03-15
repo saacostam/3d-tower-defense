@@ -1,4 +1,4 @@
-import { Color, HemisphereLight, Vector2 } from "three";
+import { AxesHelper, Color, HemisphereLight, Vector2 } from "three";
 import { COLOR_PALETTE } from "../colors";
 import { Container, Game } from "../game";
 import { Walker } from "../mobs";
@@ -44,6 +44,10 @@ export class BattleFieldContainer extends Container {
     const pos = new Vector2(Math.floor(width / 2), Math.floor(height / 2));
     this.addActor(new Cursor({ pos }), pos);
     this.addActor(this.headQuarters, this.headQuarters.position);
+
+    // DEBUG
+    const axesHelper = new AxesHelper(Math.max(width, height));
+    this.scene.add(axesHelper);
   }
 
   public update(game: Game, delta: number): void {

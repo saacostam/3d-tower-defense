@@ -27,6 +27,18 @@ export class Game {
 
     this.stats = new Stats();
     document.body.appendChild(this.stats.dom);
+
+    const onResize = () => {
+      if (this.currentContainer) {
+        this.currentContainer.camera.aspect =
+          window.innerWidth / window.innerHeight;
+        this.currentContainer.camera.updateProjectionMatrix();
+      }
+
+      this.renderer.setSize(window.innerWidth, window.innerHeight);
+    };
+    window.addEventListener("resize", onResize);
+    window.requestAnimationFrame(onResize);
   }
 
   public addContainer(key: string, container: Container) {

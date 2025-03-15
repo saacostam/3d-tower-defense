@@ -1,4 +1,4 @@
-import { Camera, PerspectiveCamera, Scene, Vector2 } from "three";
+import { PerspectiveCamera, Scene, Vector2 } from "three";
 import { Actor } from "../actor";
 import { Component } from "../component";
 import { Composite } from "../composite";
@@ -9,7 +9,7 @@ import { Game } from "../game";
 export interface ContainerArgs {
   width: number;
   height: number;
-  camera?: Camera;
+  camera?: PerspectiveCamera;
   scene?: Scene;
 }
 
@@ -17,7 +17,7 @@ export class Container {
   public actorsGrid: GridCell[][];
   public components: Component[] = [];
 
-  public camera: Camera;
+  public camera: PerspectiveCamera;
   public scene: Scene;
 
   public constructor(args: ContainerArgs) {
