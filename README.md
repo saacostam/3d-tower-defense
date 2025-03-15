@@ -30,12 +30,14 @@ A strategy game where players defend against waves of enemies by strategically p
 - [x] FEAT: Implement bullet collisions.
 - [x] FEAT: Implement particles for bullets.
 - [x] FEAT: Test with individual gun path-finding.
-- [ ] FEAT: Add headquarters (HQ) to defend.
+- [x] FEAT: Add headquarters (HQ) to defend.
   - [x] FEAT: Create the actor and "model".
   - [x] FEAT: Add health.
-- [ ] FEAT: Walkers should target the HQs.
+- [x] FEAT: Walkers should target the HQs.
   - [x] FEAT: Update path-finding.
-  - [ ] FEAT: If they collide, they should attack the HQs (reduce health).
+  - [x] FEAT: If they collide, they should attack the HQs (reduce health).
+- [ ] FEAT: Add explosion-like particle systems.
+  - [ ] FEAT: Add to walkers when they die.
 - [ ] FEAT: Centralize checking for battle side.
   - NOTE: Absolute search for `instanceof Walker`.
 - [ ] FEAT: Add health to enemies.

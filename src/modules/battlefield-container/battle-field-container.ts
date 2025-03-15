@@ -63,7 +63,7 @@ export class BattleFieldContainer extends Container {
 
       const newWalker = new Walker({
         pos,
-        objective: this.headQuarters.position.clone(),
+        objective: this.headQuarters,
       });
       this.addActor(newWalker, pos);
     }

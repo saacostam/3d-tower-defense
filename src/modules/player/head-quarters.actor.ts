@@ -19,8 +19,8 @@ export class HeadQuarters extends Actor {
 
   public position: Vector2;
 
-  public afterSpawn(game: Game, container: Container, pos: Vector2): void {
-    super.afterSpawn(game, container, pos);
+  public afterSpawn(container: Container, pos: Vector2): void {
+    super.afterSpawn(container, pos);
     this.hb.start(container);
   }
 

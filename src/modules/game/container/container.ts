@@ -42,6 +42,8 @@ export class Container {
     if (actor.mesh instanceof Composite)
       actor.mesh.parts.forEach((part) => this.scene.add(part.mesh));
     else this.scene.add(actor.mesh);
+
+    actor.afterSpawn(this, pos);
   }
 
   public addComponent(component: Component) {

@@ -6,10 +6,11 @@ import { WOLRD_CONFIG } from "../config";
 import { Actor, Composite, Container, Game } from "../game";
 import { MeshUtils } from "../mesh";
 import { PathfindingUtils } from "../pathfinding";
+import { HeadQuarters } from "../player";
 
 export interface WalkerArgs {
   pos: Vector2;
-  objective: Vector2;
+  objective: HeadQuarters;
 }
 
 export class Walker extends Actor {
@@ -19,7 +20,7 @@ export class Walker extends Actor {
   public pos: Vector2;
   public radius: number;
 
-  private objective: Vector2;
+  private objective: HeadQuarters;
 
   constructor(args: WalkerArgs) {
     const radius = WOLRD_CONFIG.TILE_SIZE / 4;
@@ -64,8 +65,11 @@ export class Walker extends Actor {
 
     const ACCEPTABLE_DISTANCE = 0.01;
 
-    if (this.pos.distanceTo(this.objective) < ACCEPTABLE_DISTANCE) {
-      // TODO: Handle when objective is reached
+    if (
+      this.pos.distanceTo(this.objective.position.clone()) < ACCEPTABLE_DISTANCE
+    ) {
+      this.objective.health -= this.objective.fullHealth * 0.1;
+      this.kill();
     } else if (this.pos.distanceTo(pos) < ACCEPTABLE_DISTANCE) {
       this.pos = pos;
 
@@ -79,7 +83,7 @@ export class Walker extends Actor {
         diagonalAllowed: false,
       });
 
-      const path = pathFinder.findPath(pos, this.objective);
+      const path = pathFinder.findPath(pos, this.objective.position.clone());
 
       if (path.length > 1) {
         const nextPos = new Vector2(path[1][0], path[1][1]);

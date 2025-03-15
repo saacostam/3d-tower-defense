@@ -15,7 +15,7 @@ export class Actor {
     this.mesh = args.mesh;
   }
 
-  public afterSpawn(_game: Game, _container: Container, _pos: Vector2) {}
+  public afterSpawn(_container: Container, _pos: Vector2) {}
   public update(
     _game: Game,
     _delta: number,
