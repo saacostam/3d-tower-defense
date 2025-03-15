@@ -15,6 +15,7 @@ export class Actor {
     this.mesh = args.mesh;
   }
 
+  public afterSpawn(_container: Container, _pos: Vector2) {}
   public update(
     _game: Game,
     _delta: number,
@@ -30,4 +31,5 @@ export class Actor {
   public kill() {
     this.isAlive = false;
   }
+  public beforeDeath(_game: Game, _container: Container, _pos: Vector2) {}
 }

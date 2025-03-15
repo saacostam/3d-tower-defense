@@ -4,7 +4,7 @@ import { WOLRD_CONFIG } from "../config";
 import { Actor, Composite, Container, Game } from "../game";
 import { MeshUtils } from "../mesh";
 import { SimpleGun } from "./simple-gun";
-import { BoxComponent } from "../battlefield-container";
+import { BoxActor } from "../battlefield-container";
 
 export interface CursorArgs {
   pos: Vector2;
@@ -120,7 +120,7 @@ export class Cursor extends Actor {
       container.addActor(box, pos.clone());
       container.actorsGrid[pos.x][pos.y].isWalkable = false;
     } else if (this.canPlace && game.keyboardHandler.wasPressed("x")) {
-      const box = new BoxComponent({
+      const box = new BoxActor({
         position: new Vector3(pos.x, WOLRD_CONFIG.TILE_SIZE / 2, pos.y),
         size: WOLRD_CONFIG.TILE_SIZE,
       });
