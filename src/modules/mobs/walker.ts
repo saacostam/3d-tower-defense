@@ -7,6 +7,7 @@ import { Actor, Composite, Container, Game } from "../game";
 import { MeshUtils } from "../mesh";
 import { PathfindingUtils } from "../pathfinding";
 import { HeadQuarters } from "../player";
+import { ParticleManager } from "../particle-systems";
 
 export interface WalkerArgs {
   pos: Vector2;
@@ -70,6 +71,23 @@ export class Walker extends Actor {
     ) {
       this.objective.health -= this.objective.fullHealth * 0.1;
       this.kill();
+
+      // Explosion
+      ParticleManager.createExplosion(
+        container,
+        this.mesh.position,
+        [
+          new Color(COLOR_PALETTE.RED),
+          new Color(COLOR_PALETTE.ORANGE),
+          new Color(COLOR_PALETTE.YELLOW),
+          new Color(COLOR_PALETTE.WHITE),
+        ],
+        30,
+        {
+          force: 3,
+          size: 0.8,
+        },
+      );
     } else if (this.pos.distanceTo(pos) < ACCEPTABLE_DISTANCE) {
       this.pos = pos;
 
@@ -108,5 +126,14 @@ export class Walker extends Actor {
       this.mesh.position.y,
       this.pos.y,
     );
+  }
+
+  public beforeDeath(game: Game, container: Container, pos: Vector2): void {
+    super.beforeDeath(game, container, pos);
+
+    ParticleManager.createExplosion(container, this.mesh.position, [
+      new Color(COLOR_PALETTE.RED),
+      new Color(COLOR_PALETTE.DARK),
+    ]);
   }
 }

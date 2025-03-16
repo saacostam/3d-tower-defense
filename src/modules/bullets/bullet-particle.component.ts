@@ -18,17 +18,11 @@ export class BulletParticleComponent extends Component {
   private velocity: Vector3;
 
   constructor({ position }: BulletParticleComponentArgs) {
-    const radius = WOLRD_CONFIG.TILE_SIZE / 64;
+    const radius = WOLRD_CONFIG.TILE_SIZE / 72;
 
-    const random = Math.random();
     const mesh = MeshUtils.createSphere({
       radius,
-      color:
-        random < 0.33
-          ? new Color(COLOR_PALETTE.ORANGE)
-          : random < 0.66
-            ? new Color(COLOR_PALETTE.YELLOW)
-            : new Color(COLOR_PALETTE.RED),
+      color: new Color(COLOR_PALETTE.WHITE),
     });
 
     mesh.position.set(position.x, position.y, position.z);
@@ -45,13 +39,13 @@ export class BulletParticleComponent extends Component {
       Math.random() - 0.5,
     )
       .normalize()
-      .multiplyScalar(0.00005);
+      .multiplyScalar(WOLRD_CONFIG.TILE_SIZE * 0.00005);
   }
 
   public update(game: Game, delta: number, container: Container): void {
     super.update(game, delta, container);
 
-    this.velocity.y -= 0.000001 * delta;
+    this.velocity.y -= 0.000005 * delta;
     this.position = this.position.add(
       this.velocity.clone().multiplyScalar(delta),
     );

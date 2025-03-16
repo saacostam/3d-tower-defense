@@ -20,11 +20,11 @@ export class BulletComponent extends Component {
   public radius: number;
   private direction: Vector2;
 
-  private static PARTICLE_TIMEOUT = 20;
+  private static PARTICLE_TIMEOUT = 30;
   private particleTimeout = 0;
 
   public constructor(args: BulletComponentArgs) {
-    const radius = WOLRD_CONFIG.TILE_SIZE / 32;
+    const radius = WOLRD_CONFIG.TILE_SIZE / 48;
 
     super({
       mesh: MeshUtils.createSphere({
