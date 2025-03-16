@@ -3,23 +3,20 @@ import { Color, Vector2, Vector3 } from "three";
 import { TBattleSide } from "../battlefield-container";
 import { COLOR_PALETTE } from "../colors";
 import { WOLRD_CONFIG } from "../config";
-import { Actor, Composite, Container, Game } from "../game";
+import { Composite, Container, Game } from "../game";
 import { MeshUtils } from "../mesh";
 import { PathfindingUtils } from "../pathfinding";
 import { HeadQuarters } from "../player";
 import { ParticleManager } from "../particle-systems";
+import { Mob } from "./mob";
 
 export interface WalkerArgs {
   pos: Vector2;
   objective: HeadQuarters;
 }
 
-export class Walker extends Actor {
+export class Walker extends Mob {
   declare public mesh: Composite;
-
-  public battleSide = TBattleSide.ENEMY;
-  public pos: Vector2;
-  public radius: number;
 
   private objective: HeadQuarters;
 
@@ -49,11 +46,12 @@ export class Walker extends Actor {
 
     super({
       mesh: composite,
+      battleSide: TBattleSide.ENEMY,
+      pos: args.pos,
+      radius: radius,
     });
 
     this.objective = args.objective;
-    this.pos = args.pos;
-    this.radius = radius;
   }
 
   public update(

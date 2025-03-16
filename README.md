@@ -38,8 +38,7 @@ A strategy game where players defend against waves of enemies by strategically p
   - [x] FEAT: If they collide, they should attack the HQs (reduce health).
 - [x] FEAT: Add explosion-like particle systems.
   - [x] FEAT: Add to walkers when they die.
-- [ ] FEAT: Centralize checking for battle side.
-  - NOTE: Absolute search for `instanceof Walker`.
+- [x] FEAT: Centralize checking for battle side.
 - [ ] FEAT: Add health to enemies.
 - [ ] FEAT: Create mob that breaks into smaller mobs.
 - [ ] FEAT: Create tank-mob that blows-up.

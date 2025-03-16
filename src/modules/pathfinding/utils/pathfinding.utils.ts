@@ -1,6 +1,6 @@
 import { Vector2 } from "three";
 import { Actor, GridCell } from "../../game";
-import { Walker } from "../../mobs";
+import { Mob } from "../../mobs";
 import { TBattleSide } from "../../battlefield-container";
 
 export const PathfindingUtils = {
@@ -71,8 +71,7 @@ export const PathfindingUtils = {
         if (!grid[neighbor.x][neighbor.y].isWalkable) continue;
 
         const enemy = grid[neighbor.x][neighbor.y].actors.find(
-          (actor) =>
-            actor instanceof Walker && actor.battleSide !== myBattleSide,
+          (actor) => actor instanceof Mob && actor.battleSide !== myBattleSide,
         );
 
         if (enemy) {

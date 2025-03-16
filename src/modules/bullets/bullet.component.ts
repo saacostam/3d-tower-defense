@@ -5,7 +5,7 @@ import { COLOR_PALETTE } from "../colors";
 import { WOLRD_CONFIG } from "../config";
 import { Component, Container, Game } from "../game";
 import { MeshUtils } from "../mesh";
-import { Walker } from "../mobs";
+import { Mob } from "../mobs";
 
 export interface BulletComponentArgs {
   battleSide: TBattleSide;
@@ -78,7 +78,7 @@ export class BulletComponent extends Component {
         if (!cell) continue;
 
         for (const actor of cell.actors) {
-          if (actor instanceof Walker && actor.battleSide !== this.battleSide) {
+          if (actor instanceof Mob && actor.battleSide !== this.battleSide) {
             const distance = actor.pos.distanceTo(
               new Vector2(this.position.x, this.position.z),
             );
