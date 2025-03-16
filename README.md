@@ -50,11 +50,11 @@ A strategy game where players defend against waves of enemies by strategically p
 - [ ] FEAT: Implement triple-gun.
 - [ ] FEAT: Implement rocket-gun.
 - [ ] FEAT: Enhance path-finding by targeting enemies closest to me but also closest to position I should defend.
-- [ ] FEAT: Implement a wave-system.
-  - [ ] FEAT: Scale enemy stats based on wave number.
 - [ ] FEAT: Block wall-placement if it fully blocks a path to the objective.
 - [ ] FEAT: Start modeling world decor.
   - [ ] FEAT: Model World Limits (idk... hills)
   - [ ] FEAT: Enhance mobs.
   - [ ] FEAT: Enhance guns.
   - [ ] FEAT: Enhance cursor.
+- [ ] FEAT: Implement a wave-system.
+  - [ ] FEAT: Scale enemy stats based on wave number.
