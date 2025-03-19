@@ -6,6 +6,8 @@ export interface HealthBarArgs {
   offset: Vector3;
   fullHealth: number;
   currentHealth?: number;
+  widthFactor?: number;
+  heightFactor?: number;
 }
 
 export class HealthBar {
@@ -15,6 +17,9 @@ export class HealthBar {
 
   private red: Sprite;
   private green: Sprite;
+
+  private widthFactor: number;
+  private heightFactor: number;
 
   constructor(args: HealthBarArgs) {
     this.currentHealth = args.currentHealth ?? args.fullHealth;
@@ -32,6 +37,9 @@ export class HealthBar {
       }),
     );
 
+    this.widthFactor = args.widthFactor ?? 1;
+    this.heightFactor = args.heightFactor ?? 1;
+
     this.update(this.currentHealth, args.position);
   }
 
@@ -48,8 +56,8 @@ export class HealthBar {
   public update(currentHealth: number, pos: Vector3): void {
     this.currentHealth = currentHealth;
 
-    const w = 1;
-    const size = 0.2;
+    const w = this.widthFactor * 1;
+    const size = this.heightFactor * 0.2;
 
     this.red.scale.set(w, size, size);
     this.red.position.set(

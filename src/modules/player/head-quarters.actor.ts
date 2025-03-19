@@ -75,7 +75,7 @@ export class HeadQuarters extends Actor {
     this.hb = new HealthBar({
       fullHealth: this.fullHealth,
       currentHealth: this.health,
-      position: new Vector3(5, 3, 5),
+      position: this.mesh.position.clone(),
       offset: new Vector3(0, height / 2 + WOLRD_CONFIG.TILE_SIZE / 2, 0),
     });
   }

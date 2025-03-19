@@ -23,6 +23,8 @@ export class BulletComponent extends Component {
   private static PARTICLE_TIMEOUT = 30;
   private particleTimeout = 0;
 
+  private hasDamaged: Set<Mob> = new Set();
+
   public constructor(args: BulletComponentArgs) {
     const radius = WOLRD_CONFIG.TILE_SIZE / 48;
 
@@ -84,8 +86,9 @@ export class BulletComponent extends Component {
             );
 
             const hasCollided = distance < this.radius + actor.radius;
-            if (hasCollided) {
-              actor.kill();
+            if (hasCollided && !this.hasDamaged.has(actor)) {
+              actor.health -= actor.fullHealth * 0.2;
+              this.hasDamaged.add(actor);
               break;
             }
           }
