@@ -4,7 +4,7 @@ import { TBattleSide } from "../battlefield-container";
 import { Actor, ActorArgs, Composite, Container, Game } from "../game";
 import { HealthBar } from "../health-bar";
 import { HeadQuarters } from "../player";
-import { ParticleManager } from "../particle-systems";
+import { CreateExplosionArgs, ParticleManager } from "../particle-systems";
 import { COLOR_PALETTE } from "../colors";
 import { PathfindingUtils } from "../pathfinding";
 
@@ -30,6 +30,22 @@ export class Mob extends Actor {
 
   private objective: HeadQuarters;
 
+  public DEATH_EXPLOSION_CONFIG: CreateExplosionArgs = {
+    colors: [new Color(COLOR_PALETTE.RED), new Color(COLOR_PALETTE.DARK)],
+  };
+
+  public DAMAGE_EXPLOSION_CONFIG: CreateExplosionArgs = {
+    colors: [
+      new Color(COLOR_PALETTE.RED),
+      new Color(COLOR_PALETTE.ORANGE),
+      new Color(COLOR_PALETTE.YELLOW),
+      new Color(COLOR_PALETTE.WHITE),
+    ],
+    amount: 30,
+    force: 3,
+    size: 0.8,
+  };
+
   public afterSpawn(container: Container, pos: Vector2): void {
     super.afterSpawn(container, pos);
     this.hb.start(container);
@@ -39,10 +55,11 @@ export class Mob extends Actor {
     super.beforeDeath(game, container, pos);
     this.hb.end(container);
 
-    ParticleManager.createExplosion(container, this.mesh.position, [
-      new Color(COLOR_PALETTE.RED),
-      new Color(COLOR_PALETTE.DARK),
-    ]);
+    ParticleManager.createExplosion(
+      container,
+      this.mesh.position,
+      this.DEATH_EXPLOSION_CONFIG,
+    );
   }
 
   constructor(args: MobArgs) {
@@ -85,17 +102,7 @@ export class Mob extends Actor {
       ParticleManager.createExplosion(
         container,
         this.mesh.position,
-        [
-          new Color(COLOR_PALETTE.RED),
-          new Color(COLOR_PALETTE.ORANGE),
-          new Color(COLOR_PALETTE.YELLOW),
-          new Color(COLOR_PALETTE.WHITE),
-        ],
-        30,
-        {
-          force: 3,
-          size: 0.8,
-        },
+        this.DAMAGE_EXPLOSION_CONFIG,
       );
     } else if (this.pos.distanceTo(pos) < ACCEPTABLE_DISTANCE) {
       this.pos = pos;
