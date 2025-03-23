@@ -5,6 +5,9 @@ import { Composite } from "../composite";
 import { GridCell } from "./container.types";
 import { ContainerUtils } from "./container.utils";
 import { Game } from "../game";
+import { DebugUtils } from "../../debug";
+
+const DEBUG = false;
 
 export interface ContainerArgs {
   width: number;
@@ -44,6 +47,8 @@ export class Container {
     else this.scene.add(actor.mesh);
 
     actor.afterSpawn(this, pos);
+
+    if (DEBUG) DebugUtils.logMobCount(this.actorsGrid);
   }
 
   public addComponent(component: Component) {
@@ -73,14 +78,7 @@ export class Container {
       row.map((cell, y) => {
         const position = new Vector2(x, y);
 
-        const alive: Actor[] = [];
-        const dead: Actor[] = [];
-
-        for (let i = 0; i < cell.actors.length; i++) {
-          const actor = cell.actors[i];
-          if (actor.isAlive) alive.push(actor);
-          else dead.push(actor);
-        }
+        const dead: Actor[] = cell.actors.filter((actor) => !actor.isAlive);
 
         dead.forEach((actor) => {
           actor.beforeDeath(game, this, position);
@@ -88,6 +86,8 @@ export class Container {
             actor.mesh.parts.forEach((part) => this.scene.remove(part.mesh));
           else this.scene.remove(actor.mesh);
         });
+
+        const alive: Actor[] = cell.actors.filter((actor) => actor.isAlive);
         cell.actors = alive;
       }),
     );
