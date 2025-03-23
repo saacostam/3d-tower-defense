@@ -46,6 +46,8 @@ export class Mob extends Actor {
     size: 0.8,
   };
 
+  public SPEED = 1;
+
   public afterSpawn(container: Container, pos: Vector2): void {
     super.afterSpawn(container, pos);
     this.hb.start(container);
@@ -128,7 +130,7 @@ export class Mob extends Actor {
         container.actorsGrid[nextPos.x][nextPos.y].actors.push(this);
       }
     } else {
-      const DELTA_MULTIPLIER = 0.0015;
+      const DELTA_MULTIPLIER = 0.0015 * this.SPEED;
       const deltaMovement = delta * DELTA_MULTIPLIER;
 
       const direction = pos.clone().sub(this.pos).normalize();

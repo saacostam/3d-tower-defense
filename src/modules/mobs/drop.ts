@@ -16,8 +16,7 @@ export interface DropArgs {
 export class Drop extends Mob {
   public DEATH_EXPLOSION_CONFIG: CreateExplosionArgs = {
     colors: [
-      new Color(COLOR_PALETTE.LIGHT_GREEN),
-      new Color(COLOR_PALETTE.GREEN),
+      new Color(COLOR_PALETTE.BLUE),
       new Color(COLOR_PALETTE.DARK_GREEN),
     ],
     amount: 50,
@@ -25,8 +24,10 @@ export class Drop extends Mob {
     force: 2,
   };
 
+  public SPEED: number = 1.5;
+
   constructor(args: DropArgs) {
-    const radius = WOLRD_CONFIG.TILE_SIZE / 4;
+    const radius = WOLRD_CONFIG.TILE_SIZE / 5;
     const height = WOLRD_CONFIG.TILE_SIZE / 2;
 
     const pos3 = new Vector3(
@@ -42,7 +43,7 @@ export class Drop extends Mob {
           mesh: MeshUtils.createCylinder({
             radius: radius,
             height: height,
-            color: new Color(COLOR_PALETTE.LIGHT_GREEN),
+            color: new Color(COLOR_PALETTE.BLUE),
           }),
           offset: new Vector3(0, 0, 0),
         },
