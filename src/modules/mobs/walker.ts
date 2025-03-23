@@ -4,8 +4,8 @@ import { COLOR_PALETTE } from "../colors";
 import { WOLRD_CONFIG } from "../config";
 import { Composite } from "../game";
 import { MeshUtils } from "../mesh";
-import { HeadQuarters } from "../player";
 import { Mob } from "./mob";
+import { HeadQuarters } from "../player";
 
 export interface WalkerArgs {
   pos: Vector2;

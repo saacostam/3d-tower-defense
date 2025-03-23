@@ -1,12 +1,12 @@
 import { AStarFinder } from "astar-typescript";
 import { Color, Vector2, Vector3 } from "three";
 import { TBattleSide } from "../battlefield-container";
+import { COLOR_PALETTE } from "../colors";
 import { Actor, ActorArgs, Composite, Container, Game } from "../game";
 import { HealthBar } from "../health-bar";
-import { HeadQuarters } from "../player";
 import { CreateExplosionArgs, ParticleManager } from "../particle-systems";
-import { COLOR_PALETTE } from "../colors";
 import { PathfindingUtils } from "../pathfinding";
+import { HeadQuarters } from "../player";
 
 export interface MobArgs extends ActorArgs {
   battleSide: TBattleSide;

@@ -1,10 +1,10 @@
 import { AxesHelper, Color, HemisphereLight, Vector2 } from "three";
 import { COLOR_PALETTE } from "../colors";
+import { DebugUtils } from "../debug";
 import { Container, Game } from "../game";
 import { GroupMob, Walker } from "../mobs";
 import { Cursor, HeadQuarters } from "../player";
 import { WorldBuilderUtils } from "./utils";
-import { DebugUtils } from "../debug";
 
 const DEBUG = false;
 

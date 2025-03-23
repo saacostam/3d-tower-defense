@@ -1,5 +1,4 @@
 import { GridCell } from "../game";
-import {} from "../mobs";
 
 export const DebugUtils = {
   logMobCount: (actorsGrid: GridCell[][]) => {
