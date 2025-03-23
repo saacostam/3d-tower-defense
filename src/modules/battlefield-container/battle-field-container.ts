@@ -2,7 +2,7 @@ import { AxesHelper, Color, HemisphereLight, Vector2 } from "three";
 import { COLOR_PALETTE } from "../colors";
 import { DebugUtils } from "../debug";
 import { Container, Game } from "../game";
-import { GroupMob, Walker } from "../mobs";
+import { GroupMob, Tank, Walker } from "../mobs";
 import { Cursor, HeadQuarters } from "../player";
 import { WorldBuilderUtils } from "./utils";
 
@@ -71,8 +71,11 @@ export class BattleFieldContainer extends Container {
         objective: this.headQuarters,
       };
 
-      if (Math.random() < 0.5) {
+      const rand = Math.random();
+      if (Math.random() < 0.33) {
         this.addActor(new Walker(args), pos);
+      } else if (rand < 0.66) {
+        this.addActor(new Tank(args), pos);
       } else {
         this.addActor(new GroupMob(args), pos);
       }

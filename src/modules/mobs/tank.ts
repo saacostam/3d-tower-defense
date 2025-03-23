@@ -6,22 +6,28 @@ import { Composite } from "../game";
 import { MeshUtils } from "../mesh";
 import { Mob } from "./mob";
 import { HeadQuarters } from "../player";
+import { CreateExplosionArgs } from "../particle-systems";
 
-export interface WalkerArgs {
+export interface TankArgs {
   pos: Vector2;
   objective: HeadQuarters;
 }
 
-export class Walker extends Mob {
-  constructor(args: WalkerArgs) {
-    const radius = WOLRD_CONFIG.TILE_SIZE / 5;
-    const height = WOLRD_CONFIG.TILE_SIZE;
+export class Tank extends Mob {
+  public DEATH_EXPLOSION_CONFIG: CreateExplosionArgs = {
+    colors: [new Color(COLOR_PALETTE.YELLOW), new Color(COLOR_PALETTE.DARK)],
+    amount: 60,
+    size: 0.8,
+    force: 3,
+  };
 
-    const pos3 = new Vector3(
-      args.pos.x,
-      WOLRD_CONFIG.TILE_SIZE / 2,
-      args.pos.y,
-    );
+  public SPEED = 0.7;
+
+  constructor(args: TankArgs) {
+    const radius = WOLRD_CONFIG.TILE_SIZE / 3;
+    const height = (WOLRD_CONFIG.TILE_SIZE * 3) / 4;
+
+    const pos3 = new Vector3(args.pos.x, height / 2, args.pos.y);
 
     const composite = new Composite({
       center: pos3,
@@ -30,7 +36,7 @@ export class Walker extends Mob {
           mesh: MeshUtils.createCylinder({
             radius: radius,
             height: height,
-            color: new Color(COLOR_PALETTE.RED),
+            color: new Color(COLOR_PALETTE.YELLOW),
           }),
           offset: new Vector3(0, 0, 0),
         },
@@ -42,7 +48,7 @@ export class Walker extends Mob {
       battleSide: TBattleSide.ENEMY,
       pos: args.pos,
       radius: radius,
-      health: 10,
+      health: 20,
       objective: args.objective,
     });
   }

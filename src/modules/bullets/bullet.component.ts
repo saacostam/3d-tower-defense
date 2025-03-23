@@ -44,7 +44,7 @@ export class BulletComponent extends Component {
   public update(game: Game, delta: number, container: Container): void {
     super.update(game, delta, container);
 
-    const DELTA_FACTOR = 0.03;
+    const DELTA_FACTOR = 0.07;
     const deltaMove = DELTA_FACTOR * delta;
 
     const dir = this.direction.clone().normalize();
@@ -87,7 +87,7 @@ export class BulletComponent extends Component {
 
             const hasCollided = distance < this.radius + actor.radius;
             if (hasCollided && !this.hasDamaged.has(actor)) {
-              actor.health -= actor.fullHealth * 0.2;
+              actor.health -= 1;
               this.hasDamaged.add(actor);
               break;
             }

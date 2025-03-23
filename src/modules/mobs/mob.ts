@@ -97,7 +97,7 @@ export class Mob extends Actor {
     if (
       this.pos.distanceTo(this.objective.position.clone()) < ACCEPTABLE_DISTANCE
     ) {
-      this.objective.health -= this.objective.fullHealth * 0.1;
+      this.objective.health -= 1;
       this.kill();
 
       // Explosion
@@ -130,7 +130,7 @@ export class Mob extends Actor {
         container.actorsGrid[nextPos.x][nextPos.y].actors.push(this);
       }
     } else {
-      const DELTA_MULTIPLIER = 0.0015 * this.SPEED;
+      const DELTA_MULTIPLIER = 0.0012 * this.SPEED;
       const deltaMovement = delta * DELTA_MULTIPLIER;
 
       const direction = pos.clone().sub(this.pos).normalize();

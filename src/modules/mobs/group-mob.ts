@@ -27,7 +27,7 @@ export class GroupMob extends Mob {
   };
 
   constructor(args: GroupMobArgs) {
-    const radius = WOLRD_CONFIG.TILE_SIZE / 3;
+    const radius = WOLRD_CONFIG.TILE_SIZE / 4;
     const height = WOLRD_CONFIG.TILE_SIZE;
 
     const pos3 = new Vector3(
