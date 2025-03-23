@@ -1,12 +1,15 @@
 import { AxesHelper, Color, HemisphereLight, Vector2 } from "three";
 import { COLOR_PALETTE } from "../colors";
 import { Container, Game } from "../game";
-import { Walker } from "../mobs";
+import { GroupMob, Walker } from "../mobs";
 import { Cursor, HeadQuarters } from "../player";
 import { WorldBuilderUtils } from "./utils";
+import { DebugUtils } from "../debug";
+
+const DEBUG = false;
 
 export class BattleFieldContainer extends Container {
-  private static SPAWN_TIMEOUT = 3000;
+  private static SPAWN_TIMEOUT = 1_000;
   private spawnTimeout = 0;
   private headQuarters: HeadQuarters;
 
@@ -65,11 +68,18 @@ export class BattleFieldContainer extends Container {
         this.actorsGrid[0].length - 1,
       );
 
-      const newWalker = new Walker({
+      const args = {
         pos,
         objective: this.headQuarters,
-      });
-      this.addActor(newWalker, pos);
+      };
+
+      if (Math.random() < 0.5) {
+        this.addActor(new Walker(args), pos);
+      } else {
+        this.addActor(new GroupMob(args), pos);
+      }
     }
+
+    if (DEBUG) DebugUtils.logMobCount(this.actorsGrid);
   }
 }

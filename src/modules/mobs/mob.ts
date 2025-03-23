@@ -28,7 +28,7 @@ export class Mob extends Actor {
   public fullHealth: number;
   public health: number;
 
-  private objective: HeadQuarters;
+  public objective: HeadQuarters;
 
   public DEATH_EXPLOSION_CONFIG: CreateExplosionArgs = {
     colors: [new Color(COLOR_PALETTE.RED), new Color(COLOR_PALETTE.DARK)],

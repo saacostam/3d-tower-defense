@@ -40,7 +40,7 @@ A strategy game where players defend against waves of enemies by strategically p
   - [x] FEAT: Add to walkers when they die.
 - [x] FEAT: Centralize checking for battle side.
 - [x] FEAT: Add health to enemies.
-- [ ] FEAT: Create mob that breaks into smaller mobs.
+- [x] FEAT: Create mob that breaks into smaller mobs.
 - [ ] FEAT: Create tank-mob that blows-up.
   - [ ] FEAT: Create the actor and "model".
   - [ ] FEAT: Create explosion particles.
