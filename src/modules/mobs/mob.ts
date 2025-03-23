@@ -116,7 +116,7 @@ export class Mob extends Actor {
         grid: {
           matrix: simpleGrid,
         },
-        diagonalAllowed: false,
+        diagonalAllowed: true,
       });
 
       const path = pathFinder.findPath(pos, this.objective.position.clone());

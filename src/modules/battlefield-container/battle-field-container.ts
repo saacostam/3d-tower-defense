@@ -9,7 +9,7 @@ import { WorldBuilderUtils } from "./utils";
 const DEBUG = false;
 
 export class BattleFieldContainer extends Container {
-  private static SPAWN_TIMEOUT = 1_000;
+  private static SPAWN_TIMEOUT = 2_000;
   private spawnTimeout = 0;
   private headQuarters: HeadQuarters;
 
@@ -18,7 +18,7 @@ export class BattleFieldContainer extends Container {
   public constructor() {
     super({ width: 8, height: 8 });
     this.headQuarters = new HeadQuarters({
-      position: new Vector2(1, 1),
+      position: new Vector2(Math.floor(this.actorsGrid.length / 2), 0),
       health: 100,
     });
   }
@@ -63,10 +63,8 @@ export class BattleFieldContainer extends Container {
     this.spawnTimeout = newSpawnTimeout % BattleFieldContainer.SPAWN_TIMEOUT;
 
     for (let i = 0; i < updates; i++) {
-      const pos = new Vector2(
-        this.actorsGrid.length - 1,
-        this.actorsGrid[0].length - 1,
-      );
+      const x = Math.floor(Math.random() * this.actorsGrid.length);
+      const pos = new Vector2(x, this.actorsGrid[x].length - 1);
 
       const args = {
         pos,
