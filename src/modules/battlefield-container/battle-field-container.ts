@@ -1,10 +1,11 @@
-import { AxesHelper, Color, HemisphereLight, Vector2 } from "three";
+import { AxesHelper, Color, HemisphereLight, Vector2, Vector3 } from "three";
 import { COLOR_PALETTE } from "../colors";
 import { DebugUtils } from "../debug";
-import { Container, Game } from "../game";
+import { Component, Container, Game } from "../game";
 import { GroupMob, Tank, Walker } from "../mobs";
 import { Cursor, HeadQuarters } from "../player";
 import { WorldBuilderUtils } from "./utils";
+import { StarComponent } from "./components";
 
 const DEBUG = false;
 
@@ -48,6 +49,10 @@ export class BattleFieldContainer extends Container {
     this.addActor(new Cursor({ pos }), pos);
     this.addActor(this.headQuarters, this.headQuarters.position);
 
+    this.createStars({ width, height }).forEach((star) =>
+      this.addComponent(star),
+    );
+
     // DEBUG
     const axesHelper = new AxesHelper(Math.max(width, height));
     this.scene.add(axesHelper);
@@ -82,5 +87,37 @@ export class BattleFieldContainer extends Container {
     }
 
     if (DEBUG) DebugUtils.logMobCount(this.actorsGrid);
+  }
+
+  public createStars(args: { width: number; height: number }): Component[] {
+    const { width, height } = args;
+
+    const AMOUNT_OF_STARS = 200;
+
+    const stars: Component[] = [];
+    const centroid = new Vector3(width / 2, 0, height / 2);
+
+    for (let i = 0; i < AMOUNT_OF_STARS; i++) {
+      const L = 4;
+      const R = 8;
+      const distance =
+        Math.max(width, height) * (L + Math.floor(Math.random() * (R - L)));
+
+      const direction = new Vector3(
+        Math.random() - 0.5,
+        Math.random() - 0.5,
+        Math.random() - 0.5,
+      ).normalize();
+
+      const pos = new Vector3(
+        centroid.x + direction.x * distance,
+        centroid.z + direction.z * distance,
+        centroid.y + direction.y * distance,
+      );
+
+      stars.push(new StarComponent({ position: pos }));
+    }
+
+    return stars;
   }
 }
