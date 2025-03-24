@@ -38,6 +38,7 @@ export class BulletComponent extends Component {
           args.bulletConfig.color === undefined
             ? new Color(COLOR_PALETTE.WHITE)
             : args.bulletConfig.color,
+        basicMaterial: true,
       }),
     });
 

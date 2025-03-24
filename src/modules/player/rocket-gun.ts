@@ -25,7 +25,7 @@ export class RocketGun extends Gun {
 
     const gem = MeshUtils.createGem({
       size: WORLD_CONFIG.TILE_SIZE / 4,
-      color: new Color(COLOR_PALETTE.DARK),
+      color: new Color(COLOR_PALETTE.YELLOW),
     });
 
     const mesh = new Composite({
@@ -72,8 +72,8 @@ export class RocketGun extends Gun {
         sizeFactor: 4,
         speedFactor: 0.15,
         damage: 2,
-        color: new Color(COLOR_PALETTE.DARK),
-        trailSizeFactor: 1.5,
+        color: new Color(COLOR_PALETTE.YELLOW),
+        trailSizeFactor: 1.2,
       },
       objective: args.objective,
     });

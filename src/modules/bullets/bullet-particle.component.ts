@@ -25,6 +25,7 @@ export class BulletParticleComponent extends Component {
     const mesh = MeshUtils.createSphere({
       radius,
       color: color === undefined ? new Color(COLOR_PALETTE.WHITE) : color,
+      basicMaterial: true,
     });
 
     mesh.position.set(position.x, position.y, position.z);
