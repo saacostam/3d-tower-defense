@@ -28,13 +28,9 @@ export class Drop extends Mob {
 
   constructor(args: DropArgs) {
     const radius = WORLD_CONFIG.TILE_SIZE / 5;
-    const height = WORLD_CONFIG.TILE_SIZE / 2;
+    const height = WORLD_CONFIG.TILE_SIZE * 0.75;
 
-    const pos3 = new Vector3(
-      args.pos.x,
-      WORLD_CONFIG.TILE_SIZE / 4,
-      args.pos.y,
-    );
+    const pos3 = new Vector3(args.pos.x, height / 2, args.pos.y);
 
     const composite = new Composite({
       center: pos3,

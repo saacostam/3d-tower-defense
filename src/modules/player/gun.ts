@@ -20,7 +20,7 @@ export class Gun extends Actor {
   public SHOOT_TIMEOUT = 1000;
   private shootTimeout = 0;
 
-  public range: number = 10;
+  public range: number = 5;
 
   public objective: HeadQuarters;
 
