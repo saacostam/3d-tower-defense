@@ -1,11 +1,12 @@
 import { AxesHelper, Color, HemisphereLight, Vector2, Vector3 } from "three";
 import { COLOR_PALETTE } from "../colors";
+import { StarComponent } from "./components";
+import { WORLD_CONFIG } from "../config";
 import { DebugUtils } from "../debug";
 import { Component, Container, Game } from "../game";
 import { GroupMob, Tank, Walker } from "../mobs";
 import { Cursor, HeadQuarters } from "../player";
 import { WorldBuilderUtils } from "./utils";
-import { StarComponent } from "./components";
 
 const DEBUG = false;
 
@@ -17,7 +18,7 @@ export class BattleFieldContainer extends Container {
   private static TILE_SIZE = 1;
 
   public constructor() {
-    super({ width: 8, height: 8 });
+    super({ width: 15, height: 20 });
     this.headQuarters = new HeadQuarters({
       position: new Vector2(Math.floor(this.actorsGrid.length / 2), 0),
       health: 30,
@@ -101,7 +102,7 @@ export class BattleFieldContainer extends Container {
       const L = 4;
       const R = 8;
       const distance =
-        Math.max(width, height) * (L + Math.floor(Math.random() * (R - L)));
+        WORLD_CONFIG.TILE_SIZE * 8 * (L + Math.floor(Math.random() * (R - L)));
 
       const direction = new Vector3(
         Math.random() - 0.5,
