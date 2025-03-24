@@ -134,7 +134,13 @@ export class Mob extends Actor {
       const deltaMovement = delta * DELTA_MULTIPLIER;
 
       const direction = pos.clone().sub(this.pos).normalize();
-      this.pos.add(direction.clone().multiplyScalar(deltaMovement));
+      const distanceToObjective = this.pos.distanceTo(pos);
+
+      this.pos.add(
+        direction
+          .clone()
+          .multiplyScalar(Math.min(deltaMovement, distanceToObjective)),
+      );
     }
 
     this.hb.update(this.health, this.mesh.position.clone());
