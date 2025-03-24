@@ -1,0 +1,3 @@
+export enum ContainerKey {
+  BATTLEFIELD_CONTAINER = "BATTLEFIELD_CONTAINER",
+}
