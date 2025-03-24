@@ -123,6 +123,7 @@ export class BulletComponent extends Component {
         new BulletParticleComponent({
           position: this.position.clone(),
           color: this.bulletConfig.color,
+          sizeFactor: this.bulletConfig.trailSizeFactor,
         }),
       );
       this.particleTimeout =

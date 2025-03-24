@@ -5,6 +5,7 @@ import { Actor, Composite, Container, Game } from "../game";
 import { MeshUtils } from "../mesh";
 import { SimpleGun } from "./simple-gun";
 import { BoxActor } from "../battlefield-container";
+import { RocketGun } from "./rocket-gun";
 
 export interface CursorArgs {
   pos: Vector2;
@@ -112,21 +113,28 @@ export class Cursor extends Actor {
         (actor) => actor !== this,
       ) === undefined;
 
-    if (this.canPlace && game.keyboardHandler.wasPressed("z")) {
-      const box = new SimpleGun({
-        position: pos.clone(),
-      });
+    if (this.canPlace) {
+      let actorToBeAdded: Actor | undefined = undefined;
 
-      container.addActor(box, pos.clone());
-      container.actorsGrid[pos.x][pos.y].isWalkable = false;
-    } else if (this.canPlace && game.keyboardHandler.wasPressed("x")) {
-      const box = new BoxActor({
-        position: new Vector3(pos.x, WORLD_CONFIG.TILE_SIZE / 2, pos.y),
-        size: WORLD_CONFIG.TILE_SIZE,
-      });
+      if (game.keyboardHandler.wasPressed("z")) {
+        actorToBeAdded = new SimpleGun({
+          position: pos.clone(),
+        });
+      } else if (game.keyboardHandler.wasPressed("x")) {
+        actorToBeAdded = new RocketGun({
+          position: pos.clone(),
+        });
+      } else if (game.keyboardHandler.wasPressed("c")) {
+        actorToBeAdded = new BoxActor({
+          position: new Vector3(pos.x, WORLD_CONFIG.TILE_SIZE / 2, pos.y),
+          size: WORLD_CONFIG.TILE_SIZE,
+        });
+      }
 
-      container.addActor(box, pos.clone());
-      container.actorsGrid[pos.x][pos.y].isWalkable = false;
+      if (actorToBeAdded !== undefined) {
+        container.addActor(actorToBeAdded, pos.clone());
+        container.actorsGrid[pos.x][pos.y].isWalkable = false;
+      }
     }
   }
 

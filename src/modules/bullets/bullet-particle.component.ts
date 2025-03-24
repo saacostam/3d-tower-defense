@@ -6,6 +6,7 @@ import { MeshUtils } from "../mesh";
 
 export interface BulletParticleComponentArgs {
   position: Vector3;
+  sizeFactor: number;
   color?: Color;
 }
 
@@ -18,8 +19,8 @@ export class BulletParticleComponent extends Component {
   private position: Vector3;
   private velocity: Vector3;
 
-  constructor({ position, color }: BulletParticleComponentArgs) {
-    const radius = WORLD_CONFIG.TILE_SIZE / 72;
+  constructor({ position, color, sizeFactor }: BulletParticleComponentArgs) {
+    const radius = (WORLD_CONFIG.TILE_SIZE / 72) * sizeFactor;
 
     const mesh = MeshUtils.createSphere({
       radius,
