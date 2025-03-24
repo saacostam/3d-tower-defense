@@ -4,7 +4,7 @@ import { WORLD_CONFIG } from "../config";
 import { Actor, Composite, Container, Game } from "../game";
 import { MeshUtils } from "../mesh";
 import { SimpleGun } from "./simple-gun";
-import { BoxActor } from "../battlefield-container";
+import { BattleFieldContainer, BoxActor } from "../battlefield-container";
 import { RocketGun } from "./rocket-gun";
 
 export interface CursorArgs {
@@ -81,6 +81,10 @@ export class Cursor extends Actor {
   ): void {
     super.update(game, delta, container, pos);
 
+    if (!(container instanceof BattleFieldContainer)) {
+      throw new Error("Cursor can only be used in a BattleFieldContainer");
+    }
+
     let DELTA_Y = 0;
     if (game.keyboardHandler.wasPressed("ArrowUp")) DELTA_Y = -1;
     else if (game.keyboardHandler.wasPressed("ArrowDown")) DELTA_Y = 1;
@@ -119,10 +123,12 @@ export class Cursor extends Actor {
       if (game.keyboardHandler.wasPressed("z")) {
         actorToBeAdded = new SimpleGun({
           position: pos.clone(),
+          objective: container.headQuarters,
         });
       } else if (game.keyboardHandler.wasPressed("x")) {
         actorToBeAdded = new RocketGun({
           position: pos.clone(),
+          objective: container.headQuarters,
         });
       } else if (game.keyboardHandler.wasPressed("c")) {
         actorToBeAdded = new BoxActor({

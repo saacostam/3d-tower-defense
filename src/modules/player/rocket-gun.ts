@@ -4,9 +4,11 @@ import { WORLD_CONFIG } from "../config";
 import { Composite, Container, Game } from "../game";
 import { MeshUtils } from "../mesh";
 import { Gun } from "./gun";
+import { HeadQuarters } from "./head-quarters.actor";
 
 export interface RocketGunArgs {
   position: Vector2;
+  objective: HeadQuarters;
 }
 
 export class RocketGun extends Gun {
@@ -73,6 +75,7 @@ export class RocketGun extends Gun {
         color: new Color(COLOR_PALETTE.DARK),
         trailSizeFactor: 1.5,
       },
+      objective: args.objective,
     });
 
     this.gem = gem;

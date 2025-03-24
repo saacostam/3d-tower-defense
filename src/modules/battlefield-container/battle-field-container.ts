@@ -11,7 +11,7 @@ const DEBUG = false;
 export class BattleFieldContainer extends Container {
   private static SPAWN_TIMEOUT = 2_000;
   private spawnTimeout = 0;
-  private headQuarters: HeadQuarters;
+  public headQuarters: HeadQuarters;
 
   private static TILE_SIZE = 1;
 

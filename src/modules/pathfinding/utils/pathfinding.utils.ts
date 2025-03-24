@@ -41,19 +41,30 @@ export const PathfindingUtils = {
   getPositionHash(pos: Vector2): string {
     return `${pos.x},${pos.y}`;
   },
-  findClosestEnemy: (
-    grid: GridCell[][],
-    origin: Vector2,
-    myBattleSide: TBattleSide,
-  ): {
+  findClosestEnemy: (args: {
+    grid: GridCell[][];
+    origin: Vector2;
+    myBattleSide: TBattleSide;
+    range: number;
+    objective: Vector2;
+  }): {
     pos: Vector2;
     enemy: Actor;
   } | null => {
+    const { grid, origin, myBattleSide, range: _range, objective } = args;
+
+    const range = Math.max(1, _range);
+
     const visited = new Set<string>();
 
     const queue: Vector2[] = [origin.clone()];
     visited.add(PathfindingUtils.getPositionHash(origin));
     let index = 0;
+
+    const possibleEnemies: {
+      pos: Vector2;
+      enemy: Actor;
+    }[] = [];
 
     while (index < queue.length) {
       const killSwitch = index > grid.length * grid[0].length * 2;
@@ -75,12 +86,12 @@ export const PathfindingUtils = {
         );
 
         if (enemy) {
-          return {
-            pos: pos,
-            enemy: enemy,
-          };
+          possibleEnemies.push({ pos: pos, enemy });
         } else {
-          if (!visited.has(PathfindingUtils.getPositionHash(neighbor))) {
+          if (
+            !visited.has(PathfindingUtils.getPositionHash(neighbor)) &&
+            neighbor.distanceTo(origin) <= range
+          ) {
             queue.push(neighbor);
             visited.add(PathfindingUtils.getPositionHash(neighbor));
           }
@@ -88,6 +99,16 @@ export const PathfindingUtils = {
       }
     }
 
-    return null;
+    if (possibleEnemies.length === 0) return null;
+
+    // Find the closest to objective
+    let closest = possibleEnemies[0];
+    possibleEnemies.forEach((enemy) => {
+      if (enemy.pos.distanceTo(objective) < closest.pos.distanceTo(objective)) {
+        closest = enemy;
+      }
+    });
+
+    return closest;
   },
 };

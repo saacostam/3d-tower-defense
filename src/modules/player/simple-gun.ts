@@ -4,9 +4,11 @@ import { WORLD_CONFIG } from "../config";
 import { Composite, Container, Game } from "../game";
 import { MeshUtils } from "../mesh";
 import { Gun } from "./gun";
+import { HeadQuarters } from "./head-quarters.actor";
 
 export interface SimpleGunArgs {
   position: Vector2;
+  objective: HeadQuarters;
 }
 
 export class SimpleGun extends Gun {
@@ -70,6 +72,7 @@ export class SimpleGun extends Gun {
         damage: 1,
         trailSizeFactor: 1,
       },
+      objective: args.objective,
     });
 
     this.gem = gem;

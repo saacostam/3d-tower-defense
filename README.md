@@ -43,7 +43,7 @@ A strategy game where players defend against waves of enemies by strategically p
 - [x] FEAT: Create mob that breaks into smaller mobs.
 - [x] FEAT: Create tank-mob.
 - [x] FEAT: Implement rocket-gun.
-- [ ] FEAT: Enhance path-finding by targeting enemies closest to me but also closest to position I should defend.
+- [x] FEAT: Enhance path-finding by targeting enemies closest to me but also closest to position I should defend.
 - [ ] FEAT: Start modeling world decor.
   - [ ] FEAT: Model World Limits (idk... hills)
   - [ ] FEAT: Enhance mobs.
