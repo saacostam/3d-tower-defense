@@ -6,11 +6,13 @@ import { WOLRD_CONFIG } from "../config";
 import { Component, Container, Game } from "../game";
 import { MeshUtils } from "../mesh";
 import { Mob } from "../mobs";
+import { BulletConfig } from "./bullet.types";
 
 export interface BulletComponentArgs {
   battleSide: TBattleSide;
   direction: Vector2;
   position: Vector3;
+  bulletConfig: BulletConfig;
 }
 
 export class BulletComponent extends Component {
@@ -19,6 +21,7 @@ export class BulletComponent extends Component {
   public position: Vector3;
   public radius: number;
   private direction: Vector2;
+  private bulletConfig: BulletConfig;
 
   private static PARTICLE_TIMEOUT = 30;
   private particleTimeout = 0;
@@ -26,12 +29,15 @@ export class BulletComponent extends Component {
   private hasDamaged: Set<Mob> = new Set();
 
   public constructor(args: BulletComponentArgs) {
-    const radius = WOLRD_CONFIG.TILE_SIZE / 48;
+    const radius = (WOLRD_CONFIG.TILE_SIZE / 48) * args.bulletConfig.sizeFactor;
 
     super({
       mesh: MeshUtils.createSphere({
         radius: radius,
-        color: new Color(COLOR_PALETTE.WHITE),
+        color:
+          args.bulletConfig.color === undefined
+            ? new Color(COLOR_PALETTE.WHITE)
+            : args.bulletConfig.color,
       }),
     });
 
@@ -39,13 +45,14 @@ export class BulletComponent extends Component {
     this.direction = args.direction;
     this.position = args.position;
     this.radius = radius;
+    this.bulletConfig = args.bulletConfig;
   }
 
   public update(game: Game, delta: number, container: Container): void {
     super.update(game, delta, container);
 
     const DELTA_FACTOR = 0.07;
-    const deltaMove = DELTA_FACTOR * delta;
+    const deltaMove = DELTA_FACTOR * delta * this.bulletConfig.speedFactor;
 
     const dir = this.direction.clone().normalize();
     const newPosition = this.position
@@ -87,7 +94,7 @@ export class BulletComponent extends Component {
 
             const hasCollided = distance < this.radius + actor.radius;
             if (hasCollided && !this.hasDamaged.has(actor)) {
-              actor.health -= 1;
+              actor.health -= this.bulletConfig.damage;
               this.hasDamaged.add(actor);
               break;
             }
@@ -113,7 +120,10 @@ export class BulletComponent extends Component {
     this.particleTimeout += delta;
     if (this.particleTimeout > BulletComponent.PARTICLE_TIMEOUT) {
       container.addComponent(
-        new BulletParticleComponent({ position: this.position.clone() }),
+        new BulletParticleComponent({
+          position: this.position.clone(),
+          color: this.bulletConfig.color,
+        }),
       );
       this.particleTimeout =
         this.particleTimeout % BulletComponent.PARTICLE_TIMEOUT;

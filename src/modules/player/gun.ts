@@ -1,17 +1,19 @@
 import { Vector2, Vector3 } from "three";
 import { TBattleSide } from "../battlefield-container";
-import { BulletComponent } from "../bullets";
+import { BulletComponent, BulletConfig } from "../bullets";
 import { Actor, ActorArgs, Composite, Container, Game } from "../game";
 import { PathfindingUtils } from "../pathfinding";
 
 export interface GunArgs extends ActorArgs {
   position: Vector2;
+  bulletConfig: BulletConfig;
 }
 
 export class Gun extends Actor {
   declare public mesh: Composite;
 
   public position: Vector2;
+  private bulletConfig: BulletConfig;
 
   public SHOOT_TIMEOUT = 1000;
   private shootTimeout = 0;
@@ -19,6 +21,7 @@ export class Gun extends Actor {
   public constructor(args: GunArgs) {
     super(args);
     this.position = args.position;
+    this.bulletConfig = args.bulletConfig;
   }
 
   public update(
@@ -56,6 +59,7 @@ export class Gun extends Actor {
             this.mesh.position.y,
             this.position.y,
           ),
+          bulletConfig: this.bulletConfig,
         });
 
         container.addComponent(bullet);

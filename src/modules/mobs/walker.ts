@@ -42,7 +42,7 @@ export class Walker extends Mob {
       battleSide: TBattleSide.ENEMY,
       pos: args.pos,
       radius: radius,
-      health: 10,
+      health: 5,
       objective: args.objective,
     });
   }

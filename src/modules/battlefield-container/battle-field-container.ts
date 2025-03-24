@@ -19,7 +19,7 @@ export class BattleFieldContainer extends Container {
     super({ width: 8, height: 8 });
     this.headQuarters = new HeadQuarters({
       position: new Vector2(Math.floor(this.actorsGrid.length / 2), 0),
-      health: 100,
+      health: 30,
     });
   }
 

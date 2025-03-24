@@ -55,7 +55,7 @@ export class Drop extends Mob {
       battleSide: TBattleSide.ENEMY,
       pos: args.pos,
       radius: radius,
-      health: 10,
+      health: 3,
       objective: args.objective,
     });
   }

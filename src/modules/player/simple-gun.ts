@@ -64,6 +64,11 @@ export class SimpleGun extends Gun {
     super({
       mesh,
       position: args.position,
+      bulletConfig: {
+        sizeFactor: 1,
+        speedFactor: 1,
+        damage: 1,
+      },
     });
 
     this.gem = gem;

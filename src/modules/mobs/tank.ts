@@ -48,7 +48,7 @@ export class Tank extends Mob {
       battleSide: TBattleSide.ENEMY,
       pos: args.pos,
       radius: radius,
-      health: 20,
+      health: 10,
       objective: args.objective,
     });
   }

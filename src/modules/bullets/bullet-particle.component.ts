@@ -6,6 +6,7 @@ import { MeshUtils } from "../mesh";
 
 export interface BulletParticleComponentArgs {
   position: Vector3;
+  color?: Color;
 }
 
 export class BulletParticleComponent extends Component {
@@ -17,12 +18,12 @@ export class BulletParticleComponent extends Component {
   private position: Vector3;
   private velocity: Vector3;
 
-  constructor({ position }: BulletParticleComponentArgs) {
+  constructor({ position, color }: BulletParticleComponentArgs) {
     const radius = WOLRD_CONFIG.TILE_SIZE / 72;
 
     const mesh = MeshUtils.createSphere({
       radius,
-      color: new Color(COLOR_PALETTE.WHITE),
+      color: color === undefined ? new Color(COLOR_PALETTE.WHITE) : color,
     });
 
     mesh.position.set(position.x, position.y, position.z);
