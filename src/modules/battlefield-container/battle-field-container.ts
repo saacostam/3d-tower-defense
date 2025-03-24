@@ -1,6 +1,6 @@
 import { AxesHelper, Color, HemisphereLight, Vector2, Vector3 } from "three";
 import { COLOR_PALETTE } from "../colors";
-import { StarComponent } from "./components";
+import { StarComponent, WaterComponent } from "./components";
 import { WORLD_CONFIG } from "../config";
 import { DebugUtils } from "../debug";
 import { Component, Container, Game } from "../game";
@@ -20,7 +20,7 @@ export class BattleFieldContainer extends Container {
   public constructor() {
     super({ width: 15, height: 20 });
     this.headQuarters = new HeadQuarters({
-      position: new Vector2(Math.floor(this.actorsGrid.length / 2), 0),
+      position: new Vector2(Math.floor(this.actorsGrid.length / 2), 1),
       health: 30,
     });
   }
@@ -35,7 +35,7 @@ export class BattleFieldContainer extends Container {
       new HemisphereLight(
         new Color(COLOR_PALETTE.WHITE),
         new Color(COLOR_PALETTE.DARK_GREEN),
-        3,
+        1,
       ),
     );
 
@@ -53,6 +53,13 @@ export class BattleFieldContainer extends Container {
     this.createStars({ width, height }).forEach((star) =>
       this.addComponent(star),
     );
+
+    const water = new WaterComponent({
+      width: width * 2,
+      height: height * 2,
+      position: new Vector3(width / 2, -WORLD_CONFIG.TILE_SIZE / 2, height / 2),
+    });
+    this.addComponent(water);
 
     // DEBUG
     const axesHelper = new AxesHelper(Math.max(width, height));

@@ -45,6 +45,9 @@ export const MeshUtils = {
     depth?: number;
     color?: Color;
     basicMaterial?: boolean;
+    transparent?: {
+      value: number;
+    };
   }): Mesh => {
     const width = args?.width ?? 1;
     const height = args?.height ?? 1;
@@ -60,9 +63,13 @@ export const MeshUtils = {
       SEGMENT_NUM,
     );
 
+    const hasTransparency = !!args?.transparent;
     const materialArgs = {
       color: color,
+      transparent: hasTransparency,
+      opacity: hasTransparency ? args?.transparent?.value : 1,
     };
+
     const material = args?.basicMaterial
       ? new MeshBasicMaterial(materialArgs)
       : new MeshStandardMaterial(materialArgs);
