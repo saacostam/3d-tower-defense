@@ -1,22 +1,16 @@
 import { Color, Mesh, Vector2, Vector3 } from "three";
-import { TBattleSide } from "../battlefield-container";
-import { BulletComponent } from "../bullets";
 import { COLOR_PALETTE } from "../colors";
 import { WOLRD_CONFIG } from "../config";
-import { Actor, Composite, Container, Game } from "../game";
+import { Composite, Container, Game } from "../game";
 import { MeshUtils } from "../mesh";
-import { PathfindingUtils } from "../pathfinding";
+import { Gun } from "./gun";
 
 export interface SimpleGunArgs {
   position: Vector2;
 }
 
-export class SimpleGun extends Actor {
+export class SimpleGun extends Gun {
   private gem: Mesh;
-  public position: Vector2;
-
-  private static SHOOT_TIMEOUT = 1000;
-  private shootTimeout = 0;
 
   public constructor(args: SimpleGunArgs) {
     const pos3 = new Vector3(
@@ -67,10 +61,12 @@ export class SimpleGun extends Actor {
       ],
     });
 
-    super({ mesh });
+    super({
+      mesh,
+      position: args.position,
+    });
 
     this.gem = gem;
-    this.position = args.position;
   }
 
   public update(
@@ -80,42 +76,7 @@ export class SimpleGun extends Actor {
     pos: Vector2,
   ): void {
     super.update(game, delta, container, pos);
-
     this.gem.rotateX(delta / 1000);
     this.gem.rotateZ(delta / 500);
-
-    const newShootTimeout = this.shootTimeout + delta;
-    this.shootTimeout = newShootTimeout % SimpleGun.SHOOT_TIMEOUT;
-
-    let shouldShoot = newShootTimeout >= SimpleGun.SHOOT_TIMEOUT;
-
-    if (shouldShoot) {
-      const walker = PathfindingUtils.findClosestEnemy(
-        container.actorsGrid,
-        this.position.clone(),
-        TBattleSide.ALLY,
-      );
-
-      const direction = walker
-        ? new Vector2(
-            walker.enemy.mesh.position.x - this.position.x,
-            walker.enemy.mesh.position.z - this.position.y,
-          ).normalize()
-        : null;
-
-      if (direction !== null) {
-        const bullet = new BulletComponent({
-          battleSide: TBattleSide.ALLY,
-          direction: direction,
-          position: new Vector3(
-            this.position.x,
-            this.mesh.position.y,
-            this.position.y,
-          ),
-        });
-
-        container.addComponent(bullet);
-      }
-    }
   }
 }
