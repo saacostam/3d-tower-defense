@@ -2,7 +2,7 @@ import { Color, Vector2, Vector3 } from "three";
 import { TBattleSide } from "../battlefield-container";
 import { BulletParticleComponent } from "./bullet-particle.component";
 import { COLOR_PALETTE } from "../colors";
-import { WOLRD_CONFIG } from "../config";
+import { WORLD_CONFIG } from "../config";
 import { Component, Container, Game } from "../game";
 import { MeshUtils } from "../mesh";
 import { Mob } from "../mobs";
@@ -29,7 +29,7 @@ export class BulletComponent extends Component {
   private hasDamaged: Set<Mob> = new Set();
 
   public constructor(args: BulletComponentArgs) {
-    const radius = (WOLRD_CONFIG.TILE_SIZE / 48) * args.bulletConfig.sizeFactor;
+    const radius = (WORLD_CONFIG.TILE_SIZE / 48) * args.bulletConfig.sizeFactor;
 
     super({
       mesh: MeshUtils.createSphere({
@@ -59,7 +59,7 @@ export class BulletComponent extends Component {
       .clone()
       .add(new Vector3(dir.x * deltaMove, 0, dir.y * deltaMove));
 
-    const SEGMENT_DISTANCE = WOLRD_CONFIG.TILE_SIZE / 4;
+    const SEGMENT_DISTANCE = WORLD_CONFIG.TILE_SIZE / 4;
     const distance = this.position.distanceTo(newPosition);
 
     const nSegments = Math.max(1, Math.floor(distance / SEGMENT_DISTANCE));

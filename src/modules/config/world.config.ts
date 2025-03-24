@@ -1,3 +1,3 @@
-export const WOLRD_CONFIG = {
+export const WORLD_CONFIG = {
   TILE_SIZE: 1,
 };

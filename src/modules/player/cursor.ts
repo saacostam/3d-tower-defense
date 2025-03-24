@@ -1,6 +1,6 @@
 import { Color, Mesh, MeshBasicMaterial, Vector2, Vector3 } from "three";
 import { COLOR_PALETTE } from "../colors";
-import { WOLRD_CONFIG } from "../config";
+import { WORLD_CONFIG } from "../config";
 import { Actor, Composite, Container, Game } from "../game";
 import { MeshUtils } from "../mesh";
 import { SimpleGun } from "./simple-gun";
@@ -28,20 +28,20 @@ export class Cursor extends Actor {
       return MeshUtils.createBox({
         width:
           type === "horizontal"
-            ? WOLRD_CONFIG.TILE_SIZE
-            : WOLRD_CONFIG.TILE_SIZE / 16,
-        height: WOLRD_CONFIG.TILE_SIZE / 16,
+            ? WORLD_CONFIG.TILE_SIZE
+            : WORLD_CONFIG.TILE_SIZE / 16,
+        height: WORLD_CONFIG.TILE_SIZE / 16,
         depth:
           type === "vertical"
-            ? WOLRD_CONFIG.TILE_SIZE
-            : WOLRD_CONFIG.TILE_SIZE / 16,
+            ? WORLD_CONFIG.TILE_SIZE
+            : WORLD_CONFIG.TILE_SIZE / 16,
         color: new Color(COLOR_PALETTE.RED),
       });
     };
 
     const pos3 = new Vector3(
       args.pos.x,
-      WOLRD_CONFIG.TILE_SIZE / 16,
+      WORLD_CONFIG.TILE_SIZE / 16,
       args.pos.y,
     );
 
@@ -50,19 +50,19 @@ export class Cursor extends Actor {
       parts: [
         {
           mesh: createLine("vertical"),
-          offset: new Vector3((WOLRD_CONFIG.TILE_SIZE * 15) / 32, 0, 0),
+          offset: new Vector3((WORLD_CONFIG.TILE_SIZE * 15) / 32, 0, 0),
         },
         {
           mesh: createLine("vertical"),
-          offset: new Vector3(-(WOLRD_CONFIG.TILE_SIZE * 15) / 32, 0, 0),
+          offset: new Vector3(-(WORLD_CONFIG.TILE_SIZE * 15) / 32, 0, 0),
         },
         {
           mesh: createLine("horizontal"),
-          offset: new Vector3(0, 0, (WOLRD_CONFIG.TILE_SIZE * 15) / 32),
+          offset: new Vector3(0, 0, (WORLD_CONFIG.TILE_SIZE * 15) / 32),
         },
         {
           mesh: createLine("horizontal"),
-          offset: new Vector3(0, 0, -(WOLRD_CONFIG.TILE_SIZE * 15) / 32),
+          offset: new Vector3(0, 0, -(WORLD_CONFIG.TILE_SIZE * 15) / 32),
         },
       ],
     });
@@ -121,8 +121,8 @@ export class Cursor extends Actor {
       container.actorsGrid[pos.x][pos.y].isWalkable = false;
     } else if (this.canPlace && game.keyboardHandler.wasPressed("x")) {
       const box = new BoxActor({
-        position: new Vector3(pos.x, WOLRD_CONFIG.TILE_SIZE / 2, pos.y),
-        size: WOLRD_CONFIG.TILE_SIZE,
+        position: new Vector3(pos.x, WORLD_CONFIG.TILE_SIZE / 2, pos.y),
+        size: WORLD_CONFIG.TILE_SIZE,
       });
 
       container.addActor(box, pos.clone());
@@ -141,9 +141,9 @@ export class Cursor extends Actor {
     );
 
     container.camera.position.set(
-      this.mesh.position.x + WOLRD_CONFIG.TILE_SIZE * 2,
-      this.mesh.position.y + WOLRD_CONFIG.TILE_SIZE * 5,
-      this.mesh.position.z + WOLRD_CONFIG.TILE_SIZE * 8,
+      this.mesh.position.x + WORLD_CONFIG.TILE_SIZE * 2,
+      this.mesh.position.y + WORLD_CONFIG.TILE_SIZE * 5,
+      this.mesh.position.z + WORLD_CONFIG.TILE_SIZE * 8,
     );
 
     container.camera.lookAt(this.mesh.position);

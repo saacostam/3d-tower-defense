@@ -1,6 +1,6 @@
 import { Color, Mesh, Vector2, Vector3 } from "three";
 import { COLOR_PALETTE } from "../colors";
-import { WOLRD_CONFIG } from "../config";
+import { WORLD_CONFIG } from "../config";
 import { Composite, Container, Game } from "../game";
 import { MeshUtils } from "../mesh";
 import { Gun } from "./gun";
@@ -15,12 +15,12 @@ export class SimpleGun extends Gun {
   public constructor(args: SimpleGunArgs) {
     const pos3 = new Vector3(
       args.position.x,
-      WOLRD_CONFIG.TILE_SIZE,
+      WORLD_CONFIG.TILE_SIZE,
       args.position.y,
     );
 
     const gem = MeshUtils.createGem({
-      size: WOLRD_CONFIG.TILE_SIZE / 4,
+      size: WORLD_CONFIG.TILE_SIZE / 4,
       color: new Color(COLOR_PALETTE.WHITE),
     });
 
@@ -29,34 +29,34 @@ export class SimpleGun extends Gun {
       parts: [
         {
           mesh: MeshUtils.createBox({
-            width: WOLRD_CONFIG.TILE_SIZE,
-            height: WOLRD_CONFIG.TILE_SIZE / 2,
-            depth: WOLRD_CONFIG.TILE_SIZE,
+            width: WORLD_CONFIG.TILE_SIZE,
+            height: WORLD_CONFIG.TILE_SIZE / 2,
+            depth: WORLD_CONFIG.TILE_SIZE,
             color: new Color(COLOR_PALETTE.DARK),
           }),
-          offset: new Vector3(0, (-WOLRD_CONFIG.TILE_SIZE * 3) / 4, 0),
+          offset: new Vector3(0, (-WORLD_CONFIG.TILE_SIZE * 3) / 4, 0),
         },
         {
           mesh: MeshUtils.createBox({
-            width: (WOLRD_CONFIG.TILE_SIZE * 3) / 4,
-            height: WOLRD_CONFIG.TILE_SIZE,
-            depth: (WOLRD_CONFIG.TILE_SIZE * 3) / 4,
+            width: (WORLD_CONFIG.TILE_SIZE * 3) / 4,
+            height: WORLD_CONFIG.TILE_SIZE,
+            depth: (WORLD_CONFIG.TILE_SIZE * 3) / 4,
             color: new Color(COLOR_PALETTE.METAL),
           }),
           offset: new Vector3(0, 0, 0),
         },
         {
           mesh: MeshUtils.createBox({
-            width: WOLRD_CONFIG.TILE_SIZE,
-            height: WOLRD_CONFIG.TILE_SIZE / 2,
-            depth: WOLRD_CONFIG.TILE_SIZE,
+            width: WORLD_CONFIG.TILE_SIZE,
+            height: WORLD_CONFIG.TILE_SIZE / 2,
+            depth: WORLD_CONFIG.TILE_SIZE,
             color: new Color(COLOR_PALETTE.DARK),
           }),
-          offset: new Vector3(0, (WOLRD_CONFIG.TILE_SIZE * 3) / 4, 0),
+          offset: new Vector3(0, (WORLD_CONFIG.TILE_SIZE * 3) / 4, 0),
         },
         {
           mesh: gem,
-          offset: new Vector3(0, (WOLRD_CONFIG.TILE_SIZE * 3) / 2, 0),
+          offset: new Vector3(0, (WORLD_CONFIG.TILE_SIZE * 3) / 2, 0),
         },
       ],
     });

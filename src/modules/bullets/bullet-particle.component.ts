@@ -1,6 +1,6 @@
 import { Color, Mesh, Vector3 } from "three";
 import { COLOR_PALETTE } from "../colors";
-import { WOLRD_CONFIG } from "../config";
+import { WORLD_CONFIG } from "../config";
 import { Component, Container, Game } from "../game";
 import { MeshUtils } from "../mesh";
 
@@ -19,7 +19,7 @@ export class BulletParticleComponent extends Component {
   private velocity: Vector3;
 
   constructor({ position, color }: BulletParticleComponentArgs) {
-    const radius = WOLRD_CONFIG.TILE_SIZE / 72;
+    const radius = WORLD_CONFIG.TILE_SIZE / 72;
 
     const mesh = MeshUtils.createSphere({
       radius,
@@ -40,7 +40,7 @@ export class BulletParticleComponent extends Component {
       Math.random() - 0.5,
     )
       .normalize()
-      .multiplyScalar(WOLRD_CONFIG.TILE_SIZE * 0.00005);
+      .multiplyScalar(WORLD_CONFIG.TILE_SIZE * 0.00005);
   }
 
   public update(game: Game, delta: number, container: Container): void {

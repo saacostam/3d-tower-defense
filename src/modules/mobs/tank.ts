@@ -1,7 +1,7 @@
 import { Color, Vector2, Vector3 } from "three";
 import { TBattleSide } from "../battlefield-container";
 import { COLOR_PALETTE } from "../colors";
-import { WOLRD_CONFIG } from "../config";
+import { WORLD_CONFIG } from "../config";
 import { Composite } from "../game";
 import { MeshUtils } from "../mesh";
 import { Mob } from "./mob";
@@ -24,8 +24,8 @@ export class Tank extends Mob {
   public SPEED = 0.7;
 
   constructor(args: TankArgs) {
-    const radius = WOLRD_CONFIG.TILE_SIZE / 3;
-    const height = (WOLRD_CONFIG.TILE_SIZE * 3) / 4;
+    const radius = WORLD_CONFIG.TILE_SIZE / 3;
+    const height = (WORLD_CONFIG.TILE_SIZE * 3) / 4;
 
     const pos3 = new Vector3(args.pos.x, height / 2, args.pos.y);
 

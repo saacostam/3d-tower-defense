@@ -1,6 +1,6 @@
 import { Color, Mesh, PointLight, Vector2, Vector3 } from "three";
 import { Actor, Composite, Container, Game } from "../game";
-import { WOLRD_CONFIG } from "../config";
+import { WORLD_CONFIG } from "../config";
 import { MeshUtils } from "../mesh";
 import { COLOR_PALETTE } from "../colors";
 import { HealthBar } from "../health-bar";
@@ -30,11 +30,11 @@ export class HeadQuarters extends Actor {
   }
 
   constructor({ health, position }: HeadQuartersArgs) {
-    const width = WOLRD_CONFIG.TILE_SIZE / 2;
-    const height = WOLRD_CONFIG.TILE_SIZE * 2;
-    const depth = WOLRD_CONFIG.TILE_SIZE / 2;
+    const width = WORLD_CONFIG.TILE_SIZE / 2;
+    const height = WORLD_CONFIG.TILE_SIZE * 2;
+    const depth = WORLD_CONFIG.TILE_SIZE / 2;
 
-    const pos3 = new Vector3(position.x, WOLRD_CONFIG.TILE_SIZE, position.y);
+    const pos3 = new Vector3(position.x, WORLD_CONFIG.TILE_SIZE, position.y);
 
     const gem = MeshUtils.createGem({
       size: height / 4,
@@ -76,7 +76,7 @@ export class HeadQuarters extends Actor {
       fullHealth: this.fullHealth,
       currentHealth: this.health,
       position: this.mesh.position.clone(),
-      offset: new Vector3(0, height / 2 + WOLRD_CONFIG.TILE_SIZE / 2, 0),
+      offset: new Vector3(0, height / 2 + WORLD_CONFIG.TILE_SIZE / 2, 0),
     });
   }
 

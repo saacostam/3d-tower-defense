@@ -1,7 +1,7 @@
 import { Color, Vector2, Vector3 } from "three";
 import { TBattleSide } from "../battlefield-container";
 import { COLOR_PALETTE } from "../colors";
-import { WOLRD_CONFIG } from "../config";
+import { WORLD_CONFIG } from "../config";
 import { Drop } from "./drop";
 import { Composite, Container, Game } from "../game";
 import { MeshUtils } from "../mesh";
@@ -27,12 +27,12 @@ export class GroupMob extends Mob {
   };
 
   constructor(args: GroupMobArgs) {
-    const radius = WOLRD_CONFIG.TILE_SIZE / 4;
-    const height = WOLRD_CONFIG.TILE_SIZE;
+    const radius = WORLD_CONFIG.TILE_SIZE / 4;
+    const height = WORLD_CONFIG.TILE_SIZE;
 
     const pos3 = new Vector3(
       args.pos.x,
-      WOLRD_CONFIG.TILE_SIZE / 2,
+      WORLD_CONFIG.TILE_SIZE / 2,
       args.pos.y,
     );
 

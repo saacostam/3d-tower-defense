@@ -1,5 +1,5 @@
 import { Color, Vector3 } from "three";
-import { WOLRD_CONFIG } from "../config";
+import { WORLD_CONFIG } from "../config";
 import { Component, Container, Game } from "../game";
 import { MeshUtils } from "../mesh";
 import { COLOR_PALETTE } from "../colors";
@@ -19,7 +19,7 @@ export class Particle extends Component {
 
   constructor(args: ParticleArgs) {
     const size = args?.size ?? 1;
-    const DEFUALT_SIZE = WOLRD_CONFIG.TILE_SIZE / 32;
+    const DEFUALT_SIZE = WORLD_CONFIG.TILE_SIZE / 32;
     const mesh = MeshUtils.createSphere({
       radius: DEFUALT_SIZE * size,
       color: args?.color ?? new Color(COLOR_PALETTE.LIGHT_GREEN),

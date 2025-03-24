@@ -1,7 +1,7 @@
 import { Color, Vector2, Vector3 } from "three";
 import { TBattleSide } from "../battlefield-container";
 import { COLOR_PALETTE } from "../colors";
-import { WOLRD_CONFIG } from "../config";
+import { WORLD_CONFIG } from "../config";
 import { Composite } from "../game";
 import { MeshUtils } from "../mesh";
 import { HeadQuarters } from "../player";
@@ -27,12 +27,12 @@ export class Drop extends Mob {
   public SPEED: number = 1.5;
 
   constructor(args: DropArgs) {
-    const radius = WOLRD_CONFIG.TILE_SIZE / 5;
-    const height = WOLRD_CONFIG.TILE_SIZE / 2;
+    const radius = WORLD_CONFIG.TILE_SIZE / 5;
+    const height = WORLD_CONFIG.TILE_SIZE / 2;
 
     const pos3 = new Vector3(
       args.pos.x,
-      WOLRD_CONFIG.TILE_SIZE / 4,
+      WORLD_CONFIG.TILE_SIZE / 4,
       args.pos.y,
     );
 
