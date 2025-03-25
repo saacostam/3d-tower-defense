@@ -11,7 +11,7 @@ export interface MountainComponentArgs {
 export class MountainComponent extends Component {
   constructor(args: MountainComponentArgs) {
     const L = WORLD_CONFIG.TILE_SIZE / 2;
-    const RANGE = WORLD_CONFIG.TILE_SIZE * 3;
+    const RANGE = WORLD_CONFIG.TILE_SIZE;
 
     const height = L + Math.random() * RANGE;
 

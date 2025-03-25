@@ -1,6 +1,11 @@
 import { AxesHelper, Color, HemisphereLight, Vector2, Vector3 } from "three";
 import { COLOR_PALETTE } from "../colors";
-import { MountainComponent, StarComponent, WaterComponent } from "./components";
+import {
+  MountainComponent,
+  StarComponent,
+  TreeComponent,
+  WaterComponent,
+} from "./components";
 import { WORLD_CONFIG } from "../config";
 import { DebugUtils } from "../debug";
 import { Component, Container, Game } from "../game";
@@ -56,6 +61,10 @@ export class BattleFieldContainer extends Container {
 
     this.createMountains({ width, height }).forEach((mountain) =>
       this.addComponent(mountain),
+    );
+
+    this.createTrees({ width, height }).forEach((tree) =>
+      this.addComponent(tree),
     );
 
     const water = new WaterComponent({
@@ -170,5 +179,56 @@ export class BattleFieldContainer extends Container {
     }
 
     return mountains;
+  }
+
+  public createTrees(args: { width: number; height: number }): Component[] {
+    const { width: _width, height: _height } = args;
+
+    const trees: Component[] = [];
+
+    const width = _width * 1.5;
+    const height = _height * 1.5;
+
+    for (let i = 0; i < width; i++) {
+      const tree = new TreeComponent({
+        position: new Vector2(
+          i - width / 8,
+          (-height * 3) / 16 + (Math.random() - 0.5) * WORLD_CONFIG.TILE_SIZE,
+        ),
+      });
+      trees.push(tree);
+    }
+
+    for (let i = 0; i < width; i++) {
+      const tree = new TreeComponent({
+        position: new Vector2(
+          i - width / 8,
+          (height * 7) / 8 + (Math.random() - 0.5) * WORLD_CONFIG.TILE_SIZE,
+        ),
+      });
+      trees.push(tree);
+    }
+
+    for (let i = 0; i < height; i++) {
+      const tree = new TreeComponent({
+        position: new Vector2(
+          (-width * 2) / 8 + (Math.random() - 0.5) * WORLD_CONFIG.TILE_SIZE,
+          i - height / 8,
+        ),
+      });
+      trees.push(tree);
+    }
+
+    for (let i = 0; i < height; i++) {
+      const tree = new TreeComponent({
+        position: new Vector2(
+          (width * 7) / 8 + (Math.random() - 0.5) * WORLD_CONFIG.TILE_SIZE,
+          i - height / 16,
+        ),
+      });
+      trees.push(tree);
+    }
+
+    return trees;
   }
 }

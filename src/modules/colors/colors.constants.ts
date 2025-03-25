@@ -13,4 +13,5 @@ export const COLOR_PALETTE = {
   ORANGE: "#da863e",
   PINK: "#df84a5",
   METAL: "#c7cfcc",
+  WOOD: "#341c27",
 };
