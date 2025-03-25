@@ -50,8 +50,8 @@ A strategy game where players defend against waves of enemies by strategically p
 
 ## Tasks - Game Loop
 
-- [ ] FEAT: Enhance game loop I.
-  - [ ] FEAT: Define a level.
+- [x] FEAT: Enhance game loop I.
+  - [x] FEAT: Define a level.
 - [ ] FEAT: Start modeling world decor.
   - [ ] FEAT: Create trees.
   - [ ] FEAT: Add bonfire.
