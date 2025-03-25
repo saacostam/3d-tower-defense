@@ -13,7 +13,7 @@ A strategy game where players defend against waves of enemies by strategically p
 
 - [Color Palette](https://lospec.com/palette-list/apollo)
 
-## Tasks
+## Tasks - Basics
 
 - [x] FEAT: Place actors into a grid-like structure.
 - [x] FEAT: Add three-js logic into existing game-loop.
@@ -44,14 +44,24 @@ A strategy game where players defend against waves of enemies by strategically p
 - [x] FEAT: Create tank-mob.
 - [x] FEAT: Implement rocket-gun.
 - [x] FEAT: Enhance path-finding by targeting enemies closest to me but also closest to position I should defend.
-- [ ] FEAT: Start modeling world decor.
+- [x] FEAT: Start modeling world decor.
   - [x] FEAT: Model World Limits (idk... hills)
   - [x] FEAT: Enhance mobs.
+
+## Tasks - Game Loop
+
+- [ ] FEAT: Enhance game loop I.
+  - [ ] FEAT: Define a level.
+- [ ] FEAT: Start modeling world decor.
+  - [ ] FEAT: Create trees.
+  - [ ] FEAT: Add bonfire.
+  - [ ] FEAT: Add rivers and bridges.
+  - [ ] FEAT: Add default walls/obstacles/structures.
+- [ ] FEAT: Enhance game loop II.
+  - [ ] FEAT: Scale enemy stats based on level number.
+- [ ] FEAT: Enhance player models.
   - [ ] FEAT: Enhance guns.
   - [ ] FEAT: Enhance cursor.
 - [ ] FEAT: Add health to towers.
 - [ ] FEAT: Block wall-placement if it fully blocks a path to the objective.
   - [ ] FEAT: If a tower is close to an explosion they should reduce health.
-- [ ] FEAT: Enhance game loop.
-  - [ ] FEAT: Implement a level-creator.
-    - [ ] FEAT: Scale enemy stats based on level number.
