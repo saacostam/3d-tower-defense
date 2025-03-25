@@ -8,16 +8,14 @@ import {
 } from "./components";
 import { WORLD_CONFIG } from "../config";
 import { DebugUtils } from "../debug";
-import { Component, Container, Game } from "../game";
-import { GroupMob, Tank, Walker } from "../mobs";
+import { Actor, Component, Container, Game } from "../game";
+import { Spawner } from "../mobs";
 import { Cursor, HeadQuarters } from "../player";
 import { WorldBuilderUtils } from "./utils";
 
 const DEBUG = false;
 
 export class BattleFieldContainer extends Container {
-  private static SPAWN_TIMEOUT = 2_000;
-  private spawnTimeout = 0;
   public headQuarters: HeadQuarters;
 
   private static TILE_SIZE = 1;
@@ -74,6 +72,11 @@ export class BattleFieldContainer extends Container {
     });
     this.addComponent(water);
 
+    // Create spawns
+    this.createSpawns({ width, height }).forEach((spawn) =>
+      this.addActor(spawn.actor, spawn.position),
+    );
+
     // DEBUG
     const axesHelper = new AxesHelper(Math.max(width, height));
     this.scene.add(axesHelper);
@@ -81,32 +84,6 @@ export class BattleFieldContainer extends Container {
 
   public update(game: Game, delta: number): void {
     super.update(game, delta);
-
-    const newSpawnTimeout = this.spawnTimeout + delta;
-    const updates = Math.floor(
-      newSpawnTimeout / BattleFieldContainer.SPAWN_TIMEOUT,
-    );
-    this.spawnTimeout = newSpawnTimeout % BattleFieldContainer.SPAWN_TIMEOUT;
-
-    for (let i = 0; i < updates; i++) {
-      const x = Math.floor(Math.random() * this.actorsGrid.length);
-      const pos = new Vector2(x, this.actorsGrid[x].length - 1);
-
-      const args = {
-        pos,
-        objective: this.headQuarters,
-      };
-
-      const rand = Math.random();
-      if (Math.random() < 0.33) {
-        this.addActor(new Walker(args), pos);
-      } else if (rand < 0.66) {
-        this.addActor(new Tank(args), pos);
-      } else {
-        this.addActor(new GroupMob(args), pos);
-      }
-    }
-
     if (DEBUG) DebugUtils.logMobCount(this.actorsGrid);
   }
 
@@ -230,5 +207,28 @@ export class BattleFieldContainer extends Container {
     }
 
     return trees;
+  }
+
+  public createSpawns(args: {
+    width: number;
+    height: number;
+  }): { actor: Actor; position: Vector2 }[] {
+    const { width, height } = args;
+
+    const spawns: { actor: Actor; position: Vector2 }[] = [];
+
+    const spawnerOnePosition = new Vector2(2, height - 1);
+    const spawnerOne = new Spawner({
+      position: spawnerOnePosition,
+    });
+    spawns.push({ actor: spawnerOne, position: spawnerOnePosition });
+
+    const spawnerTwoPosition = new Vector2(width - 3, height - 1);
+    const spawnerTwo = new Spawner({
+      position: spawnerTwoPosition,
+    });
+    spawns.push({ actor: spawnerTwo, position: spawnerTwoPosition });
+
+    return spawns;
   }
 }
