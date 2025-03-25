@@ -15,6 +15,8 @@ export interface GroupMobArgs {
 }
 
 export class GroupMob extends Mob {
+  public SPEED: number = 0.9;
+
   public DEATH_EXPLOSION_CONFIG: CreateExplosionArgs = {
     colors: [
       new Color(COLOR_PALETTE.LIGHT_GREEN),
@@ -40,12 +42,25 @@ export class GroupMob extends Mob {
       center: pos3,
       parts: [
         {
-          mesh: MeshUtils.createCylinder({
+          mesh: MeshUtils.createGem({
+            size: radius,
+            color: new Color(COLOR_PALETTE.METAL),
+          }),
+          offset: new Vector3(0, height / 3, 0),
+        },
+        {
+          mesh: MeshUtils.createTorus({
             radius: radius,
-            height: height,
             color: new Color(COLOR_PALETTE.LIGHT_GREEN),
           }),
           offset: new Vector3(0, 0, 0),
+        },
+        {
+          mesh: MeshUtils.createSphere({
+            radius: radius / 2,
+            color: new Color(COLOR_PALETTE.DARK),
+          }),
+          offset: new Vector3(0, -height / 3, 0),
         },
       ],
     });
@@ -69,5 +84,25 @@ export class GroupMob extends Mob {
       }),
       pos,
     );
+  }
+
+  public update(
+    game: Game,
+    delta: number,
+    container: Container,
+    pos: Vector2,
+  ): void {
+    super.update(game, delta, container, pos);
+
+    this.mesh.parts.forEach((part, index) => {
+      const multiplier = index % 2 ? -1 : 1;
+
+      part.mesh.rotation.y += (delta / 200) * multiplier;
+
+      if (index === 2) {
+        part.mesh.rotation.x += (delta / 100) * multiplier;
+        part.mesh.rotation.z += (delta / 50) * multiplier;
+      }
+    });
   }
 }

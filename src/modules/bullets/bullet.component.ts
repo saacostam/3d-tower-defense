@@ -110,10 +110,10 @@ export class BulletComponent extends Component {
     const height = container.actorsGrid[0]?.length ?? 0;
 
     const inBounds =
-      0 <= this.position.x &&
-      this.position.x < width &&
-      0 <= this.position.z &&
-      this.position.z < height;
+      -width <= this.position.x &&
+      this.position.x < 2 * width &&
+      -height <= this.position.z &&
+      this.position.z < 2 * height;
 
     if (!inBounds) this.kill();
 

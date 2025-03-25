@@ -2,7 +2,7 @@ import { Color, Vector2, Vector3 } from "three";
 import { TBattleSide } from "../battlefield-container";
 import { COLOR_PALETTE } from "../colors";
 import { WORLD_CONFIG } from "../config";
-import { Composite } from "../game";
+import { Composite, Container, Game } from "../game";
 import { MeshUtils } from "../mesh";
 import { Mob } from "./mob";
 import { HeadQuarters } from "../player";
@@ -25,7 +25,7 @@ export class Tank extends Mob {
 
   constructor(args: TankArgs) {
     const radius = WORLD_CONFIG.TILE_SIZE / 3;
-    const height = (WORLD_CONFIG.TILE_SIZE * 4) / 5;
+    const height = WORLD_CONFIG.TILE_SIZE;
 
     const pos3 = new Vector3(args.pos.x, height / 2, args.pos.y);
 
@@ -33,10 +33,16 @@ export class Tank extends Mob {
       center: pos3,
       parts: [
         {
-          mesh: MeshUtils.createCylinder({
+          mesh: MeshUtils.createTorusKnotBlob({
             radius: radius,
-            height: height,
             color: new Color(COLOR_PALETTE.YELLOW),
+          }),
+          offset: new Vector3(0, 0, 0),
+        },
+        {
+          mesh: MeshUtils.createTorusKnotBlob({
+            radius: (radius * 2) / 3,
+            color: new Color(COLOR_PALETTE.ORANGE),
           }),
           offset: new Vector3(0, 0, 0),
         },
@@ -50,6 +56,26 @@ export class Tank extends Mob {
       radius: radius,
       health: 10,
       objective: args.objective,
+    });
+  }
+
+  public update(
+    game: Game,
+    delta: number,
+    container: Container,
+    pos: Vector2,
+  ): void {
+    super.update(game, delta, container, pos);
+
+    this.mesh.parts.forEach((part, index) => {
+      const multiplier = index % 2 ? -1 : 1;
+
+      part.mesh.rotation.y += (delta / 100) * multiplier;
+
+      if (index === 1) {
+        part.mesh.rotation.x += (delta / 200) * multiplier;
+        part.mesh.rotation.z += (delta / 100) * multiplier;
+      }
     });
   }
 }

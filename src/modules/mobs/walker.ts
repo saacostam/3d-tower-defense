@@ -2,7 +2,7 @@ import { Color, Vector2, Vector3 } from "three";
 import { TBattleSide } from "../battlefield-container";
 import { COLOR_PALETTE } from "../colors";
 import { WORLD_CONFIG } from "../config";
-import { Composite } from "../game";
+import { Composite, Container, Game } from "../game";
 import { MeshUtils } from "../mesh";
 import { Mob } from "./mob";
 import { HeadQuarters } from "../player";
@@ -14,7 +14,7 @@ export interface WalkerArgs {
 
 export class Walker extends Mob {
   constructor(args: WalkerArgs) {
-    const radius = WORLD_CONFIG.TILE_SIZE / 5;
+    const radius = WORLD_CONFIG.TILE_SIZE / 4;
     const height = WORLD_CONFIG.TILE_SIZE;
 
     const pos3 = new Vector3(
@@ -27,12 +27,25 @@ export class Walker extends Mob {
       center: pos3,
       parts: [
         {
-          mesh: MeshUtils.createCylinder({
-            radius: radius,
-            height: height,
-            color: new Color(COLOR_PALETTE.RED),
+          mesh: MeshUtils.createGem({
+            size: radius,
+            color: new Color(COLOR_PALETTE.WHITE),
           }),
           offset: new Vector3(0, 0, 0),
+        },
+        {
+          mesh: MeshUtils.createSphere({
+            radius: radius,
+            color: new Color(COLOR_PALETTE.DARK),
+          }),
+          offset: new Vector3(0, -height / 3, 0),
+        },
+        {
+          mesh: MeshUtils.createSphere({
+            radius: radius,
+            color: new Color(COLOR_PALETTE.RED),
+          }),
+          offset: new Vector3(0, height / 3, 0),
         },
       ],
     });
@@ -44,6 +57,23 @@ export class Walker extends Mob {
       radius: radius,
       health: 5,
       objective: args.objective,
+    });
+  }
+
+  public update(
+    game: Game,
+    delta: number,
+    container: Container,
+    pos: Vector2,
+  ): void {
+    super.update(game, delta, container, pos);
+
+    this.mesh.parts.forEach((part, index) => {
+      const multiplier = index % 2 ? -1 : 1;
+
+      part.mesh.rotation.y += (delta / 500) * multiplier;
+      part.mesh.rotation.z += (delta / 200) * multiplier;
+      part.mesh.rotation.x += (delta / 100) * multiplier;
     });
   }
 }

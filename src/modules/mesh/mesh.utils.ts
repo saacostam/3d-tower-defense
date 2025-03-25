@@ -8,6 +8,8 @@ import {
   MeshStandardMaterial,
   OctahedronGeometry,
   SphereGeometry,
+  TorusGeometry,
+  TorusKnotGeometry,
 } from "three";
 import { COLOR_PALETTE } from "../colors";
 
@@ -148,6 +150,58 @@ export const MeshUtils = {
     const color = args?.color ?? new Color(COLOR_PALETTE.RED);
 
     const geometry = new OctahedronGeometry(size, 0);
+
+    const materialArgs = {
+      color: color,
+    };
+    const material = args?.basicMaterial
+      ? new MeshBasicMaterial(materialArgs)
+      : new MeshStandardMaterial(materialArgs);
+
+    return new Mesh(geometry, material);
+  },
+  createTorus: (args: {
+    radius: number;
+    color?: Color;
+    basicMaterial?: boolean;
+  }) => {
+    const radius = args.radius;
+    const tube = args.radius / 2;
+    const color = args?.color ?? new Color(COLOR_PALETTE.RED);
+
+    const geometry = new TorusGeometry(
+      radius,
+      tube,
+      SEGMENT_NUM * 2,
+      SEGMENT_NUM,
+    );
+
+    const materialArgs = {
+      color: color,
+    };
+    const material = args?.basicMaterial
+      ? new MeshBasicMaterial(materialArgs)
+      : new MeshStandardMaterial(materialArgs);
+
+    return new Mesh(geometry, material);
+  },
+  createTorusKnotBlob: (args: {
+    radius: number;
+    color?: Color;
+    basicMaterial?: boolean;
+  }) => {
+    const radius = args.radius;
+    const tube = args.radius / 4;
+    const color = args?.color ?? new Color(COLOR_PALETTE.RED);
+
+    const geometry = new TorusKnotGeometry(
+      radius,
+      tube,
+      SEGMENT_NUM * 16,
+      SEGMENT_NUM,
+      SEGMENT_NUM * 6,
+      SEGMENT_NUM * 2,
+    );
 
     const materialArgs = {
       color: color,

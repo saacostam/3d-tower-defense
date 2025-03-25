@@ -46,7 +46,7 @@ A strategy game where players defend against waves of enemies by strategically p
 - [x] FEAT: Enhance path-finding by targeting enemies closest to me but also closest to position I should defend.
 - [ ] FEAT: Start modeling world decor.
   - [x] FEAT: Model World Limits (idk... hills)
-  - [ ] FEAT: Enhance mobs.
+  - [x] FEAT: Enhance mobs.
   - [ ] FEAT: Enhance guns.
   - [ ] FEAT: Enhance cursor.
 - [ ] FEAT: Add health to towers.
