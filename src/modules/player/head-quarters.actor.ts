@@ -6,11 +6,12 @@ import { COLOR_PALETTE } from "../colors";
 import { HealthBar } from "../health-bar";
 
 export interface HeadQuartersArgs {
-  position: Vector2;
   health: number;
 }
 
 export class HeadQuarters extends Actor {
+  declare mesh: Composite;
+
   private gem: Mesh;
   private hb: HealthBar;
 
@@ -29,11 +30,12 @@ export class HeadQuarters extends Actor {
     this.hb.end(container);
   }
 
-  constructor({ health, position }: HeadQuartersArgs) {
+  constructor({ health }: HeadQuartersArgs) {
     const width = WORLD_CONFIG.TILE_SIZE / 2;
     const height = WORLD_CONFIG.TILE_SIZE * 2;
     const depth = WORLD_CONFIG.TILE_SIZE / 2;
 
+    const position = new Vector2(0, 0);
     const pos3 = new Vector3(position.x, WORLD_CONFIG.TILE_SIZE, position.y);
 
     const gem = MeshUtils.createGem({
@@ -61,6 +63,15 @@ export class HeadQuarters extends Actor {
         {
           mesh: new PointLight(new Color(COLOR_PALETTE.LIGHT_GREEN), 20),
           offset: new Vector3(0, (height * 2) / 8, 0),
+        },
+        {
+          mesh: MeshUtils.createBox({
+            color: new Color(COLOR_PALETTE.LIGHT_GREEN),
+            depth: WORLD_CONFIG.TILE_SIZE,
+            height: WORLD_CONFIG.TILE_SIZE,
+            width: WORLD_CONFIG.TILE_SIZE,
+          }),
+          offset: new Vector3(0, (-WORLD_CONFIG.TILE_SIZE * 3) / 2, 0),
         },
       ],
     });
@@ -92,6 +103,23 @@ export class HeadQuarters extends Actor {
     this.gem.rotateY(delta / 1900);
     this.gem.rotateZ(delta / 500);
 
+    this.position = pos;
+
     this.hb.update(this.health, this.mesh.position.clone());
+  }
+
+  public graphics(
+    game: Game,
+    delta: number,
+    container: Container,
+    pos: Vector2,
+  ): void {
+    super.graphics(game, delta, container, pos);
+
+    this.mesh.position = new Vector3(
+      this.position.x,
+      this.mesh.position.y,
+      this.position.y,
+    );
   }
 }
