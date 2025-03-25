@@ -1,6 +1,6 @@
 import { AxesHelper, Color, HemisphereLight, Vector2, Vector3 } from "three";
 import { COLOR_PALETTE } from "../colors";
-import { StarComponent, WaterComponent } from "./components";
+import { MountainComponent, StarComponent, WaterComponent } from "./components";
 import { WORLD_CONFIG } from "../config";
 import { DebugUtils } from "../debug";
 import { Component, Container, Game } from "../game";
@@ -54,9 +54,13 @@ export class BattleFieldContainer extends Container {
       this.addComponent(star),
     );
 
+    this.createMountains({ width, height }).forEach((mountain) =>
+      this.addComponent(mountain),
+    );
+
     const water = new WaterComponent({
-      width: width * 2,
-      height: height * 2,
+      width: width * 1.6,
+      height: height * 1.6,
       position: new Vector3(width / 2, -WORLD_CONFIG.TILE_SIZE / 2, height / 2),
     });
     this.addComponent(water);
@@ -127,5 +131,44 @@ export class BattleFieldContainer extends Container {
     }
 
     return stars;
+  }
+
+  public createMountains(args: { width: number; height: number }): Component[] {
+    const { width: _width, height: _height } = args;
+
+    const mountains: Component[] = [];
+
+    const width = _width * 1.5;
+    const height = _height * 1.5;
+
+    for (let i = 0; i < width; i++) {
+      const mountain = new MountainComponent({
+        position: new Vector2(i - width / 8, (-height * 3) / 16),
+      });
+      mountains.push(mountain);
+    }
+
+    for (let i = 0; i < width; i++) {
+      const mountain = new MountainComponent({
+        position: new Vector2(i - width / 8, (height * 7) / 8),
+      });
+      mountains.push(mountain);
+    }
+
+    for (let i = 0; i < height; i++) {
+      const mountain = new MountainComponent({
+        position: new Vector2((-width * 2) / 8, i - height / 8),
+      });
+      mountains.push(mountain);
+    }
+
+    for (let i = 0; i < height; i++) {
+      const mountain = new MountainComponent({
+        position: new Vector2((width * 7) / 8, i - height / 16),
+      });
+      mountains.push(mountain);
+    }
+
+    return mountains;
   }
 }
