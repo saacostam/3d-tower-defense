@@ -6,10 +6,10 @@ A strategy game where players defend against waves of enemies by strategically p
 
 - Real-time strategy gameplay – Place towers to stop incoming enemies.
 - Multiple tower types – Each with unique attack patterns and upgrades.
-- Wave-based progression – Increasing difficulty with each wave.
+- Level-based progression – Increasing difficulty with each level.
 - 3D environment – Immersive visuals and dynamic enemy movement.
 
-##
+## Resources
 
 - [Color Palette](https://lospec.com/palette-list/apollo)
 
