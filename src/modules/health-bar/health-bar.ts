@@ -57,7 +57,7 @@ export class HealthBar {
     this.currentHealth = currentHealth;
 
     const w = this.widthFactor * 1;
-    const size = this.heightFactor * 0.2;
+    const size = this.heightFactor * 0.12;
 
     this.red.scale.set(w, size, size);
     this.red.position.set(

@@ -2,6 +2,7 @@ import { AStarFinder } from "astar-typescript";
 import { Color, Vector2, Vector3 } from "three";
 import { TBattleSide } from "../battlefield-container";
 import { COLOR_PALETTE } from "../colors";
+import { WORLD_CONFIG } from "../config";
 import { Actor, ActorArgs, Composite, Container, Game } from "../game";
 import { HealthBar } from "../health-bar";
 import { CreateExplosionArgs, ParticleManager } from "../particle-systems";
@@ -29,6 +30,8 @@ export class Mob extends Actor {
   public health: number;
 
   public objective: HeadQuarters;
+
+  public healthBarOffset = new Vector3(0, WORLD_CONFIG.TILE_SIZE * 0.65, 0);
 
   public DEATH_EXPLOSION_CONFIG: CreateExplosionArgs = {
     colors: [new Color(COLOR_PALETTE.RED), new Color(COLOR_PALETTE.DARK)],
@@ -78,7 +81,7 @@ export class Mob extends Actor {
       fullHealth: this.fullHealth,
       currentHealth: this.health,
       position: this.mesh.position,
-      offset: new Vector3(0, this.radius * 3, 0),
+      offset: this.healthBarOffset,
       heightFactor: 0.5,
       widthFactor: 0.6,
     });

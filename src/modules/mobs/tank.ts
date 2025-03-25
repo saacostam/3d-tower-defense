@@ -25,7 +25,7 @@ export class Tank extends Mob {
 
   constructor(args: TankArgs) {
     const radius = WORLD_CONFIG.TILE_SIZE / 3;
-    const height = (WORLD_CONFIG.TILE_SIZE * 3) / 4;
+    const height = (WORLD_CONFIG.TILE_SIZE * 4) / 5;
 
     const pos3 = new Vector3(args.pos.x, height / 2, args.pos.y);
 
