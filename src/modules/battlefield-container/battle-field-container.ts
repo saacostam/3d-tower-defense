@@ -21,7 +21,7 @@ export class BattleFieldContainer extends Container {
   private static TILE_SIZE = 1;
 
   public constructor() {
-    super({ width: 15, height: 20 });
+    super({ width: WORLD_CONFIG.WIDTH, height: WORLD_CONFIG.HEIGHT });
     this.headQuarters = new HeadQuarters({
       position: new Vector2(Math.floor(this.actorsGrid.length / 2), 1),
       health: 30,
