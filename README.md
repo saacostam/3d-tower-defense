@@ -65,3 +65,7 @@ A strategy game where players defend against waves of enemies by strategically p
 - [ ] FEAT: Add health to towers.
 - [ ] FEAT: Block wall-placement if it fully blocks a path to the objective.
   - [ ] FEAT: If a tower is close to an explosion they should reduce health.
+
+## Tasks - Polish
+
+- [ ] FEAT(Spawner): Add timer-like sprite that shows timeout for spawning.

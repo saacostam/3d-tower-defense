@@ -51,11 +51,16 @@ export class BattleFieldContainer extends Container {
     worldBuildingCommands.forEach((command) => {
       if (command.type === "component") {
         this.addComponent(command.component);
-      } else {
+      } else if (command.type === "actor") {
         this.addActor(command.actor, command.position);
         if (command.static)
           this.actorsGrid[command.position.x][command.position.y].isWalkable =
             false;
+      } else if (command.type === "static") {
+        this.actorsGrid[command.position.x][command.position.y].isWalkable =
+          false;
+      } else {
+        throw new Error(`Unknown command type: ${(command as any)?.type}`);
       }
     });
 

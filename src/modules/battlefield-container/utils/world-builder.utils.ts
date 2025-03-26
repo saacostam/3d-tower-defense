@@ -1,6 +1,6 @@
 import { Color, Vector2, Vector3 } from "three";
 import { COLOR_PALETTE } from "../../colors";
-import { GrassComponent } from "../components";
+import { BridgeComponent, GrassComponent } from "../components";
 import { Actor, Component } from "../../game";
 import { LevelDefinition, LTT } from "../../levels";
 import { HeadQuarters } from "../../player";
@@ -16,6 +16,10 @@ type WorldBuilderCommand =
       actor: Actor;
       position: Vector2;
       static: boolean;
+    }
+  | {
+      type: "static";
+      position: Vector2;
     };
 
 export const WorldBuilderUtils = {
@@ -50,6 +54,17 @@ export const WorldBuilderUtils = {
             }),
           });
         } else {
+          const posVector2 = new Vector2(
+            tile.position.x * args.tileSize,
+            tile.position.y * args.tileSize,
+          );
+
+          const posVector3 = new Vector3(
+            i * args.tileSize,
+            -args.tileSize / 2,
+            j * args.tileSize,
+          );
+
           switch (tile.type) {
             case LTT.HQ: {
               if (hasPlacedHeadquarters)
@@ -57,28 +72,38 @@ export const WorldBuilderUtils = {
               worldBuilderCommands.push({
                 type: "actor",
                 actor: args.headQuarters,
-                position: new Vector2(
-                  tile.position.x * args.tileSize,
-                  tile.position.y * args.tileSize,
-                ),
+                position: posVector2,
                 static: false,
               });
               break;
             }
             case LTT.SPW: {
-              const position = new Vector2(
-                tile.position.x * args.tileSize,
-                tile.position.y * args.tileSize,
-              );
-
               worldBuilderCommands.push({
                 type: "actor",
                 actor: new Spawner({
-                  position: position,
+                  position: posVector2,
                 }),
-                position: position,
+                position: posVector2,
                 static: false,
               });
+              break;
+            }
+            case LTT.RV: {
+              worldBuilderCommands.push({
+                type: "static",
+                position: posVector2,
+              });
+              break;
+            }
+            case LTT.BR: {
+              worldBuilderCommands.push({
+                type: "component",
+                component: new BridgeComponent({
+                  position: posVector3,
+                  size: args.tileSize,
+                }),
+              });
+              break;
             }
           }
         }
