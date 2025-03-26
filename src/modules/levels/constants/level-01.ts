@@ -15,10 +15,17 @@ const createHorizontalWaterStream = (y: number) => [
         position: pos,
       };
     })
-    .filter(({ position }) => !(4 <= position.x && position.x <= 8)),
+    .filter(
+      ({ position }) =>
+        !(
+          2 <= position.x &&
+          position.x <= 10 &&
+          !(5 <= position.x && position.x <= 7)
+        ),
+    ),
   ...LevelUtils.createHorizontalLine({
-    x1: 4,
-    x2: 8,
+    x1: 2,
+    x2: 10,
     y: y,
   }).map((pos) => {
     return {
@@ -50,5 +57,17 @@ export const LEVEL_1: LevelDefinition = {
     })
       .map((pos) => createHorizontalWaterStream(pos.y))
       .flat(),
+    {
+      type: LTT.BF,
+      position: new Vector2(2, 14),
+    },
+    {
+      type: LTT.BF,
+      position: new Vector2(11, 15),
+    },
+    {
+      type: LTT.BF,
+      position: new Vector2(7, 18),
+    },
   ],
 };

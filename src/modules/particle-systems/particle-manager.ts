@@ -1,7 +1,7 @@
 import { Vector3 } from "three";
 import { Container } from "../game";
 import { Particle } from "./particle";
-import { CreateExplosionArgs } from "./particle.type";
+import { CreateExplosionArgs, CreateSmokeArgs } from "./particle.type";
 
 export const ParticleManager = {
   createExplosion(
@@ -23,5 +23,24 @@ export const ParticleManager = {
       });
       container.addComponent(particle);
     }
+  },
+  createSingleSmokeParticle(
+    container: Container,
+    position: Vector3,
+    args: CreateSmokeArgs,
+  ) {
+    const { colors } = args;
+    const usableColors = Array.isArray(colors) ? colors : [colors];
+    const color = usableColors[Math.floor(Math.random() * usableColors.length)];
+
+    const particle = new Particle({
+      position: position.clone(),
+      color,
+      force: args.force,
+      size: args.size,
+      gravity: args.gravity,
+      shouldFadeout: true,
+    });
+    container.addComponent(particle);
   },
 };

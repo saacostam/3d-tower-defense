@@ -5,6 +5,7 @@ import { Actor, Component } from "../../game";
 import { LevelDefinition, LTT } from "../../levels";
 import { HeadQuarters } from "../../player";
 import { Spawner } from "../../mobs";
+import { BonfireActor } from "../actors";
 
 type WorldBuilderCommand =
   | {
@@ -104,6 +105,17 @@ export const WorldBuilderUtils = {
                 }),
               });
               break;
+            }
+            case LTT.BF: {
+              worldBuilderCommands.push({
+                type: "actor",
+                actor: new BonfireActor({
+                  position: posVector3,
+                  size: args.tileSize,
+                }),
+                position: posVector2,
+                static: true,
+              });
             }
           }
         }
