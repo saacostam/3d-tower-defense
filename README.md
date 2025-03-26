@@ -70,3 +70,5 @@ A strategy game where players defend against waves of enemies by strategically p
 ## Tasks - Polish
 
 - [ ] FEAT(Spawner): Add timer-like sprite that shows timeout for spawning.
+- [ ] FEAT: Add animals.
+  - [ ] FEAT: Add birds.
