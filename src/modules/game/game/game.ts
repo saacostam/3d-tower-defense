@@ -35,7 +35,9 @@ export class Game {
         this.currentContainer.camera.updateProjectionMatrix();
       }
 
-      this.renderer.setSize(window.innerWidth, window.innerHeight);
+      this.renderer.setSize(window.innerWidth * 2, window.innerHeight * 2);
+      this.renderer.domElement.style.width = `${window.innerWidth}px`;
+      this.renderer.domElement.style.height = `${window.innerHeight}px`;
     };
     window.addEventListener("resize", onResize);
     window.requestAnimationFrame(onResize);
