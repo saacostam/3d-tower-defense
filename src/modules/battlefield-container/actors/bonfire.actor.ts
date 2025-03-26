@@ -21,6 +21,8 @@ export class BonfireActor extends Actor {
 
   private position: Vector3;
 
+  private randomAngle = Math.random() * Math.PI * 2;
+
   public constructor(args: BonfireActorArgs) {
     const ligth = new PointLight(
       new Color(COLOR_PALETTE.ORANGE),
@@ -81,11 +83,11 @@ export class BonfireActor extends Actor {
     super.update(game, delta, container, pos);
 
     this.light.intensity =
-      BonfireActor.INTENSITY + Math.sin(Date.now() / 200) / 2;
+      BonfireActor.INTENSITY + Math.sin(this.randomAngle + Date.now() / 200);
 
-    this.flame.rotation.y += 0.02 * delta;
-    this.flame.rotation.z = Math.sin(Date.now() / 500);
-    this.flame.rotation.x = Math.sin(Date.now() / 500);
+    this.flame.rotation.y += 0.012 * delta;
+    this.flame.rotation.z = Math.sin(Date.now() / 1000);
+    this.flame.rotation.x = Math.sin(Date.now() / 1000);
 
     this.particleTimeout += delta;
     const particleCount = Math.floor(
@@ -107,7 +109,7 @@ export class BonfireActor extends Actor {
           ],
           size: 1,
           force: 0.2,
-          gravity: -0.000005,
+          gravity: -0.0000025,
         },
       );
     }
