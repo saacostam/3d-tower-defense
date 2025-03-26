@@ -1,4 +1,4 @@
-import { AxesHelper, Color, HemisphereLight, Vector2, Vector3 } from "three";
+import { Color, HemisphereLight, Vector2, Vector3 } from "three";
 import { COLOR_PALETTE } from "../colors";
 import {
   MountainComponent,
@@ -85,10 +85,6 @@ export class BattleFieldContainer extends Container {
       position: new Vector3(width / 2, -WORLD_CONFIG.TILE_SIZE / 2, height / 2),
     });
     this.addComponent(water);
-
-    // DEBUG
-    const axesHelper = new AxesHelper(Math.max(width, height));
-    this.scene.add(axesHelper);
   }
 
   public update(game: Game, delta: number): void {
