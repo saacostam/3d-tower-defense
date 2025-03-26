@@ -103,14 +103,20 @@ export const MeshUtils = {
     radius?: number;
     color?: Color;
     basicMaterial?: boolean;
+    transparent?: {
+      value: number;
+    };
   }): Mesh => {
     const radius = args?.radius ?? 1;
     const color = args?.color ?? new Color(COLOR_PALETTE.RED);
 
     const geometry = new SphereGeometry(radius, SEGMENT_NUM, SEGMENT_NUM);
 
+    const hasTransparency = !!args?.transparent;
     const materialArgs = {
       color: color,
+      transparent: hasTransparency,
+      opacity: hasTransparency ? args?.transparent?.value : 1,
     };
     const material = args?.basicMaterial
       ? new MeshBasicMaterial(materialArgs)

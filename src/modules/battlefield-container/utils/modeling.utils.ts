@@ -1,23 +1,18 @@
-import { Color, Vector2, Vector3 } from "three";
-import { COLOR_PALETTE } from "../../colors";
+import { Color, Vector3 } from "three";
 import { WORLD_CONFIG } from "../../config";
-import { Component, Composite } from "../../game";
+import { COLOR_PALETTE } from "../../colors";
+import { Composite } from "../../game";
 import { MeshUtils } from "../../mesh";
 
-export interface TreeComponentArgs {
-  position: Vector2;
-}
-
-export class TreeComponent extends Component {
-  constructor(args: TreeComponentArgs) {
-    const height = WORLD_CONFIG.TILE_SIZE * 2.5;
+export const ModelingUtils = {
+  createTreeComposite: (args: {
+    position: Vector3;
+    height: number;
+  }): Composite => {
+    const { height } = args;
 
     const mesh = new Composite({
-      center: new Vector3(
-        args.position.x,
-        height / 2 + (Math.random() - 0.5),
-        args.position.y,
-      ),
+      center: args.position,
       parts: [
         {
           mesh: MeshUtils.createCylinder({
@@ -62,6 +57,6 @@ export class TreeComponent extends Component {
       ],
     });
 
-    super({ mesh });
-  }
-}
+    return mesh;
+  },
+};

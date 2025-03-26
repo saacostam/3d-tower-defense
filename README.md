@@ -50,13 +50,13 @@ A strategy game where players defend against waves of enemies by strategically p
 
 ## Tasks - Game Loop
 
-- [ ] FEAT: Enhance game loop I.
-  - [ ] FEAT: Define a level.
+- [x] FEAT: Enhance game loop I.
+  - [x] FEAT: Define a level.
 - [ ] FEAT: Start modeling world decor.
-  - [ ] FEAT: Create trees.
-  - [ ] FEAT: Add bonfire.
-  - [ ] FEAT: Add rivers and bridges.
-  - [ ] FEAT: Add default walls/obstacles/structures.
+  - [x] FEAT: Create trees.
+  - [x] FEAT: Add bonfire.
+  - [x] FEAT: Add rivers and bridges.
+  - [ ] FEAT: Add default bush/stone/ruins.
 - [ ] FEAT: Enhance game loop II.
   - [ ] FEAT: Scale enemy stats based on level number.
 - [ ] FEAT: Enhance player models.
@@ -65,3 +65,10 @@ A strategy game where players defend against waves of enemies by strategically p
 - [ ] FEAT: Add health to towers.
 - [ ] FEAT: Block wall-placement if it fully blocks a path to the objective.
   - [ ] FEAT: If a tower is close to an explosion they should reduce health.
+- [ ] FEAT: Only able to place defenses in "my side of the board".
+
+## Tasks - Polish
+
+- [ ] FEAT(Spawner): Add timer-like sprite that shows timeout for spawning.
+- [ ] FEAT: Add animals.
+  - [ ] FEAT: Add birds.

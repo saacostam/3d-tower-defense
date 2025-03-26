@@ -17,7 +17,7 @@ export class Spawner extends Actor {
   private spawnTimeout = 0;
 
   constructor(args: SpawnerArgs) {
-    const height = WORLD_CONFIG.TILE_SIZE / 3;
+    const height = WORLD_CONFIG.TILE_SIZE;
 
     const mesh = new Composite({
       center: new Vector3(args.position.x, height / 2, args.position.y),
@@ -29,11 +29,11 @@ export class Spawner extends Actor {
             height: height,
             width: WORLD_CONFIG.TILE_SIZE,
           }),
-          offset: new Vector3(0, 0, 0),
+          offset: new Vector3(0, -WORLD_CONFIG.TILE_SIZE, 0),
         },
         {
           mesh: new PointLight(new Color(COLOR_PALETTE.RED), 5),
-          offset: new Vector3(0, (height / 2) * 1.5, 0),
+          offset: new Vector3(0, -WORLD_CONFIG.TILE_SIZE / 8, 0),
         },
       ],
     });

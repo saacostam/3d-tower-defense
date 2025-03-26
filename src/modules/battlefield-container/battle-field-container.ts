@@ -1,4 +1,4 @@
-import { AxesHelper, Color, HemisphereLight, Vector2, Vector3 } from "three";
+import { Color, HemisphereLight, Vector2, Vector3 } from "three";
 import { COLOR_PALETTE } from "../colors";
 import {
   MountainComponent,
@@ -8,10 +8,10 @@ import {
 } from "./components";
 import { WORLD_CONFIG } from "../config";
 import { DebugUtils } from "../debug";
-import { Actor, Component, Container, Game } from "../game";
-import { Spawner } from "../mobs";
+import { Component, Container, Game } from "../game";
 import { Cursor, HeadQuarters } from "../player";
 import { WorldBuilderUtils } from "./utils";
+import { LEVELS } from "../levels";
 
 const DEBUG = false;
 
@@ -23,7 +23,6 @@ export class BattleFieldContainer extends Container {
   public constructor() {
     super({ width: WORLD_CONFIG.WIDTH, height: WORLD_CONFIG.HEIGHT });
     this.headQuarters = new HeadQuarters({
-      position: new Vector2(Math.floor(this.actorsGrid.length / 2), 1),
       health: 30,
     });
   }
@@ -42,26 +41,41 @@ export class BattleFieldContainer extends Container {
       ),
     );
 
-    const worldComponents = WorldBuilderUtils.buildWorldComponents({
+    const worldBuildingCommands = WorldBuilderUtils.buildLevel({
       width,
       height,
       tileSize: BattleFieldContainer.TILE_SIZE,
+      level: LEVELS[0],
+      headQuarters: this.headQuarters,
     });
-    worldComponents.forEach((component) => this.addComponent(component));
+    worldBuildingCommands.forEach((command) => {
+      if (command.type === "component") {
+        this.addComponent(command.component);
+      } else if (command.type === "actor") {
+        this.addActor(command.actor, command.position);
+        if (command.static)
+          this.actorsGrid[command.position.x][command.position.y].isWalkable =
+            false;
+      } else if (command.type === "static") {
+        this.actorsGrid[command.position.x][command.position.y].isWalkable =
+          false;
+      } else {
+        throw new Error(`Unknown command type: ${(command as any)?.type}`);
+      }
+    });
 
     const pos = new Vector2(Math.floor(width / 2), Math.floor(height / 2));
     this.addActor(new Cursor({ pos }), pos);
-    this.addActor(this.headQuarters, this.headQuarters.position);
 
-    this.createStars({ width, height }).forEach((star) =>
+    this.createSceneryStars({ width, height }).forEach((star) =>
       this.addComponent(star),
     );
 
-    this.createMountains({ width, height }).forEach((mountain) =>
+    this.createSceneryMountains({ width, height }).forEach((mountain) =>
       this.addComponent(mountain),
     );
 
-    this.createTrees({ width, height }).forEach((tree) =>
+    this.createSceneryTrees({ width, height }).forEach((tree) =>
       this.addComponent(tree),
     );
 
@@ -71,15 +85,6 @@ export class BattleFieldContainer extends Container {
       position: new Vector3(width / 2, -WORLD_CONFIG.TILE_SIZE / 2, height / 2),
     });
     this.addComponent(water);
-
-    // Create spawns
-    this.createSpawns({ width, height }).forEach((spawn) =>
-      this.addActor(spawn.actor, spawn.position),
-    );
-
-    // DEBUG
-    const axesHelper = new AxesHelper(Math.max(width, height));
-    this.scene.add(axesHelper);
   }
 
   public update(game: Game, delta: number): void {
@@ -87,7 +92,10 @@ export class BattleFieldContainer extends Container {
     if (DEBUG) DebugUtils.logMobCount(this.actorsGrid);
   }
 
-  public createStars(args: { width: number; height: number }): Component[] {
+  public createSceneryStars(args: {
+    width: number;
+    height: number;
+  }): Component[] {
     const { width, height } = args;
 
     const AMOUNT_OF_STARS = 200;
@@ -119,7 +127,10 @@ export class BattleFieldContainer extends Container {
     return stars;
   }
 
-  public createMountains(args: { width: number; height: number }): Component[] {
+  public createSceneryMountains(args: {
+    width: number;
+    height: number;
+  }): Component[] {
     const { width: _width, height: _height } = args;
 
     const mountains: Component[] = [];
@@ -158,7 +169,10 @@ export class BattleFieldContainer extends Container {
     return mountains;
   }
 
-  public createTrees(args: { width: number; height: number }): Component[] {
+  public createSceneryTrees(args: {
+    width: number;
+    height: number;
+  }): Component[] {
     const { width: _width, height: _height } = args;
 
     const trees: Component[] = [];
@@ -207,28 +221,5 @@ export class BattleFieldContainer extends Container {
     }
 
     return trees;
-  }
-
-  public createSpawns(args: {
-    width: number;
-    height: number;
-  }): { actor: Actor; position: Vector2 }[] {
-    const { width, height } = args;
-
-    const spawns: { actor: Actor; position: Vector2 }[] = [];
-
-    const spawnerOnePosition = new Vector2(2, height - 1);
-    const spawnerOne = new Spawner({
-      position: spawnerOnePosition,
-    });
-    spawns.push({ actor: spawnerOne, position: spawnerOnePosition });
-
-    const spawnerTwoPosition = new Vector2(width - 3, height - 1);
-    const spawnerTwo = new Spawner({
-      position: spawnerTwoPosition,
-    });
-    spawns.push({ actor: spawnerTwo, position: spawnerTwoPosition });
-
-    return spawns;
   }
 }
