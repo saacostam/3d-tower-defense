@@ -8,11 +8,11 @@ export interface CompositeArgs {
 
 export class Composite<T extends Object3D = Object3D> {
   private center: Vector3;
-  public parts: CompositePart<T>[];
+  private _parts: CompositePart<T>[];
 
   constructor(args: CompositeArgs) {
     this.center = args.center;
-    this.parts = args.parts as CompositePart<T>[];
+    this._parts = args.parts as CompositePart<T>[];
     this.updateParts();
   }
 
@@ -26,12 +26,21 @@ export class Composite<T extends Object3D = Object3D> {
   }
 
   private updateParts() {
-    for (const part of this.parts) {
+    for (const part of this._parts) {
       part.mesh.position.set(
         this.center.x + part.offset.x,
         this.center.y + part.offset.y,
         this.center.z + part.offset.z,
       );
     }
+  }
+
+  set parts(parts: CompositePart<T>[]) {
+    this._parts = parts;
+    this.updateParts();
+  }
+
+  get parts() {
+    return this._parts;
   }
 }

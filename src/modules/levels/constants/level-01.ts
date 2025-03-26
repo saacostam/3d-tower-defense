@@ -1,6 +1,6 @@
 import { Vector2 } from "three";
-import { LevelDefinition, LTT } from "../level.type";
 import { WORLD_CONFIG } from "../../config";
+import { LevelDefinition, LTT } from "../level.type";
 import { LevelUtils } from "../utils";
 
 const createHorizontalWaterStream = (y: number) => [
@@ -68,6 +68,30 @@ export const LEVEL_1: LevelDefinition = {
     {
       type: LTT.BF,
       position: new Vector2(7, 18),
+    },
+    {
+      type: LTT.TR,
+      position: new Vector2(1, 13),
+    },
+    {
+      type: LTT.TR,
+      position: new Vector2(0, 14),
+    },
+    {
+      type: LTT.TR,
+      position: new Vector2(0, 16),
+    },
+    {
+      type: LTT.TR,
+      position: new Vector2(7, 13),
+    },
+    {
+      type: LTT.TR,
+      position: new Vector2(12, 13),
+    },
+    {
+      type: LTT.TR,
+      position: new Vector2(12, 16),
     },
   ],
 };

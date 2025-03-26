@@ -1,11 +1,11 @@
 import { Color, Vector2, Vector3 } from "three";
+import { BonfireActor, TreeActor } from "../actors";
 import { COLOR_PALETTE } from "../../colors";
 import { BridgeComponent, GrassComponent } from "../components";
 import { Actor, Component } from "../../game";
 import { LevelDefinition, LTT } from "../../levels";
-import { HeadQuarters } from "../../player";
 import { Spawner } from "../../mobs";
-import { BonfireActor } from "../actors";
+import { HeadQuarters } from "../../player";
 
 type WorldBuilderCommand =
   | {
@@ -116,6 +116,19 @@ export const WorldBuilderUtils = {
                 position: posVector2,
                 static: true,
               });
+              break;
+            }
+            case LTT.TR: {
+              worldBuilderCommands.push({
+                type: "actor",
+                actor: new TreeActor({
+                  position: posVector3,
+                  size: args.tileSize,
+                }),
+                position: posVector2,
+                static: true,
+              });
+              break;
             }
           }
         }
