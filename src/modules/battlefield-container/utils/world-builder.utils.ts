@@ -1,5 +1,5 @@
 import { Color, Vector2, Vector3 } from "three";
-import { BonfireActor, TreeActor } from "../actors";
+import { BonfireActor, StoneActor, TreeActor } from "../actors";
 import { COLOR_PALETTE } from "../../colors";
 import { BridgeComponent, GrassComponent } from "../components";
 import { Actor, Component } from "../../game";
@@ -122,6 +122,18 @@ export const WorldBuilderUtils = {
               worldBuilderCommands.push({
                 type: "actor",
                 actor: new TreeActor({
+                  position: posVector3,
+                  size: args.tileSize,
+                }),
+                position: posVector2,
+                static: true,
+              });
+              break;
+            }
+            case LTT.STN: {
+              worldBuilderCommands.push({
+                type: "actor",
+                actor: new StoneActor({
                   position: posVector3,
                   size: args.tileSize,
                 }),

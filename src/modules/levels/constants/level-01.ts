@@ -93,5 +93,25 @@ export const LEVEL_1: LevelDefinition = {
       type: LTT.TR,
       position: new Vector2(12, 16),
     },
+    {
+      type: LTT.STN,
+      position: new Vector2(0, 15),
+    },
+    {
+      type: LTT.STN,
+      position: new Vector2(5, 13),
+    },
+    {
+      type: LTT.STN,
+      position: new Vector2(3, 19),
+    },
+    {
+      type: LTT.STN,
+      position: new Vector2(12, 17),
+    },
+    {
+      type: LTT.STN,
+      position: new Vector2(12, 14),
+    },
   ],
 };

@@ -14,4 +14,6 @@ export const COLOR_PALETTE = {
   PINK: "#df84a5",
   METAL: "#c7cfcc",
   WOOD: "#341c27",
+  LIGHT_GRAY: "#ebede9",
+  GRAY: "#819796",
 };

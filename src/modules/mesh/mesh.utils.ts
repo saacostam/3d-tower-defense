@@ -1,8 +1,10 @@
 import {
   BoxGeometry,
+  CapsuleGeometry,
   Color,
   ConeGeometry,
   CylinderGeometry,
+  DodecahedronGeometry,
   Mesh,
   MeshBasicMaterial,
   MeshStandardMaterial,
@@ -208,6 +210,46 @@ export const MeshUtils = {
       SEGMENT_NUM * 6,
       SEGMENT_NUM * 2,
     );
+
+    const materialArgs = {
+      color: color,
+    };
+    const material = args?.basicMaterial
+      ? new MeshBasicMaterial(materialArgs)
+      : new MeshStandardMaterial(materialArgs);
+
+    return new Mesh(geometry, material);
+  },
+  createCapsule: (args: {
+    radius: number;
+    height: number;
+    color?: Color;
+    basicMaterial?: boolean;
+  }) => {
+    const radius = args.radius;
+    const height = args.height;
+    const color = args?.color ?? new Color(COLOR_PALETTE.RED);
+
+    const geometry = new CapsuleGeometry(radius, height, 1, 4);
+
+    const materialArgs = {
+      color: color,
+    };
+    const material = args?.basicMaterial
+      ? new MeshBasicMaterial(materialArgs)
+      : new MeshStandardMaterial(materialArgs);
+
+    return new Mesh(geometry, material);
+  },
+  createDodecahedron: (args: {
+    radius: number;
+    color?: Color;
+    basicMaterial?: boolean;
+  }) => {
+    const radius = args.radius;
+    const color = args?.color ?? new Color(COLOR_PALETTE.RED);
+
+    const geometry = new DodecahedronGeometry(radius, 0);
 
     const materialArgs = {
       color: color,
