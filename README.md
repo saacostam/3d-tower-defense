@@ -72,3 +72,5 @@ A strategy game where players defend against waves of enemies by strategically p
 - [ ] FEAT(Spawner): Add timer-like sprite that shows timeout for spawning.
 - [ ] FEAT: Add animals.
   - [ ] FEAT: Add birds.
+- [ ] REFACTOR: Centralize grass-patch rendering
+  - INFO: Some elemenets, such as trees, bon-fires, stones, render their own patch of grass. Ideally, they are all centralized into a single ModelingUtil method.

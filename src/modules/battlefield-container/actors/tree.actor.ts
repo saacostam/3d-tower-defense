@@ -24,11 +24,20 @@ export class TreeActor extends Actor {
       {
         mesh: MeshUtils.createBox({
           width: args.size,
-          height: args.size,
+          height: args.size / 4,
           depth: args.size,
           color: new Color(COLOR_PALETTE.DARK_GREEN),
         }),
-        offset: new Vector3(0, (-args.size * 3) / 2, 0),
+        offset: new Vector3(0, -(args.size * 9) / 8, 0),
+      },
+      {
+        mesh: MeshUtils.createBox({
+          width: args.size,
+          height: (args.size * 3) / 4,
+          depth: args.size,
+          color: new Color(COLOR_PALETTE.DIRT),
+        }),
+        offset: new Vector3(0, -(args.size * 12) / 8, 0),
       },
     ];
 
