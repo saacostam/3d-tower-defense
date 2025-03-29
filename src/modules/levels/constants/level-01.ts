@@ -99,10 +99,6 @@ export const LEVEL_1: LevelDefinition = {
     },
     {
       type: LTT.STN,
-      position: new Vector2(5, 13),
-    },
-    {
-      type: LTT.STN,
       position: new Vector2(3, 19),
     },
     {
@@ -112,6 +108,18 @@ export const LEVEL_1: LevelDefinition = {
     {
       type: LTT.STN,
       position: new Vector2(12, 14),
+    },
+    {
+      type: LTT.BSH,
+      position: new Vector2(4, 19),
+    },
+    {
+      type: LTT.BSH,
+      position: new Vector2(6, 13),
+    },
+    {
+      type: LTT.BSH,
+      position: new Vector2(10, 17),
     },
   ],
 };

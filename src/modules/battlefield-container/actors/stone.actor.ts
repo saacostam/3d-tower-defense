@@ -40,9 +40,7 @@ export class StoneActor extends Actor {
             mesh: MeshUtils.createCone({
               radius: radius / 2,
               height: radius / 2,
-              color: new Color(
-                Math.random() < 0.5 ? COLOR_PALETTE.GREEN : COLOR_PALETTE.BOX,
-              ),
+              color: new Color(COLOR_PALETTE.BOX),
             }),
             offset: offset.clone(),
           };

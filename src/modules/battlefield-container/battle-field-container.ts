@@ -64,7 +64,10 @@ export class BattleFieldContainer extends Container {
       }
     });
 
-    const pos = new Vector2(Math.floor(width / 2), Math.floor(height / 2));
+    const pos = new Vector2(
+      Math.floor(width / 2),
+      Math.floor((height * 3) / 4),
+    );
     this.addActor(new Cursor({ pos }), pos);
 
     this.createSceneryStars({ width, height }).forEach((star) =>
