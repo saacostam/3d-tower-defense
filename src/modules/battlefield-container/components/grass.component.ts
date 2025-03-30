@@ -52,7 +52,7 @@ export class GrassComponent extends Component {
         color:
           Math.random() < 0.5
             ? new Color(COLOR_PALETTE.PINK)
-            : new Color(COLOR_PALETTE.YELLOW),
+            : new Color(COLOR_PALETTE.RED),
       });
 
       const x = -args.size / 2 + Math.random() * args.size;
