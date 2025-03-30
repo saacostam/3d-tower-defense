@@ -52,25 +52,36 @@ A strategy game where players defend against waves of enemies by strategically p
 
 - [x] FEAT: Enhance game loop I.
   - [x] FEAT: Define a level.
-- [ ] FEAT: Start modeling world decor.
+- [x] FEAT: Start modeling world decor.
   - [x] FEAT: Create trees.
   - [x] FEAT: Add bonfire.
   - [x] FEAT: Add rivers and bridges.
-  - [ ] FEAT: Add default bush/stone/ruins.
+  - [x] FEAT: Add default bush/stone/ruins.
+- [ ] FEAT: Create Home Page
+  - [ ] FEAT: Integrate React
+  - [ ] FEAT: Create Scene
+  - [ ] FEAT: Create UI (React)
+- [ ] FEAT: Create Level Selection
+  - [ ] FEAT: Create Scene
+  - [ ] FEAT: Create UI
 - [ ] FEAT: Enhance game loop II.
-  - [ ] FEAT: Scale enemy stats based on level number.
-- [ ] FEAT: Enhance player models.
-  - [ ] FEAT: Enhance guns.
-  - [ ] FEAT: Enhance cursor.
-- [ ] FEAT: Add health to towers.
-- [ ] FEAT: Block wall-placement if it fully blocks a path to the objective.
-  - [ ] FEAT: If a tower is close to an explosion they should reduce health.
+  - [ ] FEAT: Scale enemy stats based on value (level number).
 - [ ] FEAT: Only able to place defenses in "my side of the board".
+- [ ] FEAT: Block wall-placement if it fully blocks a path to the objective.
 
 ## Tasks - Polish
 
+- [ ] FEAT: Enhance player models.
+  - [ ] FEAT: Enhance guns.
+  - [ ] FEAT: Enhance cursor.
 - [ ] FEAT(Spawner): Add timer-like sprite that shows timeout for spawning.
 - [ ] FEAT: Add animals.
   - [ ] FEAT: Add birds.
+  - [ ] FEAT: Add fire-flies.
 - [ ] REFACTOR: Centralize grass-patch rendering
-  - INFO: Some elemenets, such as trees, bon-fires, stones, render their own patch of grass. Ideally, they are all centralized into a single ModelingUtil method.
+  - INFO: Some elements, such as trees, bon-fires, stones, render their own patch of grass. Ideally, they are all centralized into a single ModelingUtil method.
+
+## Tasks Game Loop 2
+
+- [ ] FEAT: Add health to towers.
+  - [ ] FEAT: If a tower is close to an explosion they should reduce health.
