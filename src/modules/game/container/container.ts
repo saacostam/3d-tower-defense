@@ -1,11 +1,11 @@
 import { PerspectiveCamera, Scene, Vector2 } from "three";
 import { Actor } from "../actor";
+import { DebugUtils } from "../../debug";
 import { Component } from "../component";
 import { Composite } from "../composite";
 import { GridCell } from "./container.types";
 import { ContainerUtils } from "./container.utils";
 import { Game } from "../game";
-import { DebugUtils } from "../../debug";
 
 const DEBUG = false;
 
