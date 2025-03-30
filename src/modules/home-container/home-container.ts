@@ -18,7 +18,7 @@ export class HomeContainer extends Container {
 
   public provideProps(game: Game): HomeContainerUiProps {
     return {
-      goToNext: () => game.setContainer(ContainerKey.BATTLEFIELD_CONTAINER),
+      goToNext: () => game.setContainer(ContainerKey.LEVEL_SELECTION_CONTAINER),
     };
   }
 }

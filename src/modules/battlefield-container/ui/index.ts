@@ -1,1 +1,1 @@
-export * from "./battle-field-container-ui";
+export * from "./battle-field-container.ui";

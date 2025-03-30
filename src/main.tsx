@@ -3,9 +3,10 @@ import ReactDom from "react-dom/client";
 import "./style.css";
 
 import { BattleFieldContainer } from "./modules/battlefield-container";
-import { Game } from "./modules/game";
 import { ContainerKey } from "./modules/config";
+import { Game } from "./modules/game";
 import { HomeContainer } from "./modules/home-container";
+import { LevelSelectionContainer } from "./modules/level-selection-container";
 
 // React Integration
 const App = () => {
@@ -19,13 +20,17 @@ const App = () => {
 
     game.current = new Game({ triggerRender });
 
-    game.current.addContainer(ContainerKey.HOME, new HomeContainer());
+    game.current.addContainer(ContainerKey.HOME_CONTAINER, new HomeContainer());
+    game.current.addContainer(
+      ContainerKey.LEVEL_SELECTION_CONTAINER,
+      new LevelSelectionContainer(),
+    );
     game.current.addContainer(
       ContainerKey.BATTLEFIELD_CONTAINER,
       new BattleFieldContainer(),
     );
 
-    game.current.setContainer(ContainerKey.HOME);
+    game.current.setContainer(ContainerKey.HOME_CONTAINER);
     game.current.start();
   }, [triggerRender]);
 
