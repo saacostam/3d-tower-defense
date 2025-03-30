@@ -12,6 +12,7 @@ import { Component, Container, Game } from "../game";
 import { Cursor, HeadQuarters } from "../player";
 import { WorldBuilderUtils } from "./utils";
 import { LEVELS } from "../levels";
+import { BattleFieldContainerUI } from "./ui";
 
 const DEBUG = false;
 
@@ -26,6 +27,8 @@ export class BattleFieldContainer extends Container {
       health: 30,
     });
   }
+
+  public Render = BattleFieldContainerUI;
 
   public onStart() {
     const width = this.actorsGrid.length;

@@ -1,11 +1,11 @@
 import { PerspectiveCamera, Scene, Vector2 } from "three";
 import { Actor } from "../actor";
+import { DebugUtils } from "../../debug";
 import { Component } from "../component";
 import { Composite } from "../composite";
 import { GridCell } from "./container.types";
 import { ContainerUtils } from "./container.utils";
 import { Game } from "../game";
-import { DebugUtils } from "../../debug";
 
 const DEBUG = false;
 
@@ -16,12 +16,14 @@ export interface ContainerArgs {
   scene?: Scene;
 }
 
-export class Container {
+export class Container<ContainerUiProps = any> {
   public actorsGrid: GridCell[][];
   public components: Component[] = [];
 
   public camera: PerspectiveCamera;
   public scene: Scene;
+
+  public Render: React.FC<ContainerUiProps> = () => null;
 
   public constructor(args: ContainerArgs) {
     this.actorsGrid = ContainerUtils.createGrid(args.width, args.height);
@@ -125,5 +127,9 @@ export class Container {
     this.components.forEach((component) =>
       component.graphics(game, delta, this),
     );
+  }
+
+  public provideProps(_game: Game): ContainerUiProps {
+    return {} as ContainerUiProps;
   }
 }
