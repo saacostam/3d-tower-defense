@@ -57,10 +57,10 @@ A strategy game where players defend against waves of enemies by strategically p
   - [x] FEAT: Add bonfire.
   - [x] FEAT: Add rivers and bridges.
   - [x] FEAT: Add default bush/stone/ruins.
-- [ ] FEAT: Create Home Page
-  - [ ] FEAT: Integrate React
-  - [ ] FEAT: Create Scene
-  - [ ] FEAT: Create UI (React)
+- [x] FEAT: Create Home Page
+  - [x] FEAT: Integrate React
+  - [x] FEAT: Create Scene
+  - [x] FEAT: Create UI (React)
 - [ ] FEAT: Create Level Selection
   - [ ] FEAT: Create Scene
   - [ ] FEAT: Create UI
