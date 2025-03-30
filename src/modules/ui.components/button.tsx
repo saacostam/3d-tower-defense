@@ -26,6 +26,7 @@ export function Button({
         display: "inline-block",
         cursor: "pointer",
         borderRadius: "12px",
+        fontSize: "20px",
       }}
     >
       {children}
