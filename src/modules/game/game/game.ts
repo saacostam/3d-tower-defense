@@ -4,6 +4,8 @@ import { Container } from "../container";
 import { CANVAS_ID } from "../../dom";
 import { KeyboardHandler, keyboardHandler } from "../../keyboard";
 
+const DEBUG = false;
+
 export class Game {
   public renderer: WebGLRenderer;
 
@@ -26,7 +28,7 @@ export class Game {
     this.keyboardHandler = keyboardHandler;
 
     this.stats = new Stats();
-    document.body.appendChild(this.stats.dom);
+    if (DEBUG) document.body.appendChild(this.stats.dom);
 
     const onResize = () => {
       if (this.currentContainer) {
