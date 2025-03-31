@@ -26,28 +26,36 @@ export function LevelSelectionContainerUI({
         }}
       >
         <h1 style={{ marginBottom: "20px" }}>Choose a Level</h1>
-        {levels.map((level, index) => (
-          <Button key={index} type="primary" onClick={() => goToLevel(index)}>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                fontWeight: "bold",
-              }}
-            >
-              {index + 1}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(2, 1fr)",
+            gap: "20px",
+          }}
+        >
+          {levels.map((level, index) => (
+            <Button key={index} type="primary" onClick={() => goToLevel(index)}>
               <div
                 style={{
-                  fontSize: "14px",
-                  marginTop: "5px",
-                  fontWeight: "normal",
+                  display: "flex",
+                  flexDirection: "column",
+                  fontWeight: "bold",
                 }}
               >
-                {level.name}
+                {index + 1}
+                <div
+                  style={{
+                    fontSize: "14px",
+                    marginTop: "5px",
+                    fontWeight: "normal",
+                  }}
+                >
+                  {level.name}
+                </div>
               </div>
-            </div>
-          </Button>
-        ))}
+            </Button>
+          ))}
+        </div>
       </div>
     </div>
   );

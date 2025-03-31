@@ -21,6 +21,9 @@ export class BattleFieldContainer extends Container {
 
   private static TILE_SIZE = 1;
 
+  private level = 0;
+  private levels = LEVELS;
+
   public constructor() {
     super({ width: WORLD_CONFIG.WIDTH, height: WORLD_CONFIG.HEIGHT });
     this.headQuarters = new HeadQuarters({
@@ -29,6 +32,12 @@ export class BattleFieldContainer extends Container {
   }
 
   public Render = BattleFieldContainerUI;
+
+  public setLevel(level: number) {
+    this.reset();
+    this.level = Math.max(0, Math.min(level, this.levels.length - 1));
+    this.onStart();
+  }
 
   public onStart() {
     const width = this.actorsGrid.length;
@@ -48,7 +57,7 @@ export class BattleFieldContainer extends Container {
       width,
       height,
       tileSize: BattleFieldContainer.TILE_SIZE,
-      level: LEVELS[0],
+      level: this.levels[this.level],
       headQuarters: this.headQuarters,
     });
     worldBuildingCommands.forEach((command) => {

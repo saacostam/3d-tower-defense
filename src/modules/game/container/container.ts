@@ -23,13 +23,23 @@ export class Container<ContainerUiProps = any> {
   public camera: PerspectiveCamera;
   public scene: Scene;
 
+  private width: number;
+  private height: number;
+
   public Render: React.FC<ContainerUiProps> = () => null;
 
+  public static createActorsGrid(width: number, height: number) {
+    return ContainerUtils.createGrid(width, height);
+  }
+
   public constructor(args: ContainerArgs) {
-    this.actorsGrid = ContainerUtils.createGrid(args.width, args.height);
+    this.actorsGrid = Container.createActorsGrid(args.width, args.height);
 
     this.camera = args.camera ?? new PerspectiveCamera();
     this.scene = args.scene ?? new Scene();
+
+    this.width = args.width;
+    this.height = args.height;
   }
 
   public onStart(_game: Game) {}
@@ -131,5 +141,10 @@ export class Container<ContainerUiProps = any> {
 
   public provideProps(_game: Game): ContainerUiProps {
     return {} as ContainerUiProps;
+  }
+
+  public reset() {
+    this.scene.clear();
+    this.actorsGrid = Container.createActorsGrid(this.width, this.height);
   }
 }

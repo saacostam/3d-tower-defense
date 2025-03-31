@@ -1,3 +1,4 @@
+import { BattleFieldContainer } from "../battlefield-container";
 import { ContainerKey, WORLD_CONFIG } from "../config";
 import { Container, Game } from "../game";
 import { LevelDefinition, LEVELS } from "../levels";
@@ -21,7 +22,12 @@ export class LevelSelectionContainer extends Container {
   public provideProps(game: Game): LevelSelectionContainerUiProps {
     return {
       levels: LEVELS,
-      goToLevel: () => game.setContainer(ContainerKey.BATTLEFIELD_CONTAINER),
+      goToLevel: (level: number) => {
+        game.setContainer(ContainerKey.BATTLEFIELD_CONTAINER);
+        if (!(game.currentContainer instanceof BattleFieldContainer))
+          throw new Error("Something went wrong whilst switching containers");
+        game.currentContainer.setLevel(level);
+      },
     };
   }
 }
