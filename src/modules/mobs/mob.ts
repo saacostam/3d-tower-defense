@@ -15,6 +15,7 @@ export interface MobArgs extends ActorArgs {
   radius: number;
   health: number;
   objective: HeadQuarters;
+  multiplier: number;
 }
 
 export class Mob extends Actor {
@@ -51,6 +52,8 @@ export class Mob extends Actor {
 
   public SPEED = 1;
 
+  public multiplier: number;
+
   public afterSpawn(container: Container, pos: Vector2): void {
     super.afterSpawn(container, pos);
     this.hb.start(container);
@@ -85,6 +88,8 @@ export class Mob extends Actor {
       heightFactor: 0.5,
       widthFactor: 0.6,
     });
+
+    this.multiplier = args.multiplier;
   }
 
   public update(
@@ -100,7 +105,7 @@ export class Mob extends Actor {
     if (
       this.pos.distanceTo(this.objective.position.clone()) < ACCEPTABLE_DISTANCE
     ) {
-      this.objective.health -= 1;
+      this.objective.health -= this.multiplier;
       this.kill();
 
       // Explosion
@@ -133,8 +138,8 @@ export class Mob extends Actor {
         container.actorsGrid[nextPos.x][nextPos.y].actors.push(this);
       }
     } else {
-      const DELTA_MULTIPLIER = 0.0012 * this.SPEED;
-      const deltaMovement = delta * DELTA_MULTIPLIER;
+      const DELTA_CONST = 0.0012 * this.SPEED;
+      const deltaMovement = delta * DELTA_CONST;
 
       const direction = pos.clone().sub(this.pos).normalize();
       const distanceToObjective = this.pos.distanceTo(pos);

@@ -10,11 +10,14 @@ import { GroupMob } from "./group-mob";
 
 export interface SpawnerArgs {
   position: Vector2;
+  multiplier: number;
 }
 
 export class Spawner extends Actor {
   private static SPAWN_TIMEOUT = 3_000;
   private spawnTimeout = 0;
+
+  private multiplier: number;
 
   constructor(args: SpawnerArgs) {
     const height = WORLD_CONFIG.TILE_SIZE;
@@ -39,6 +42,8 @@ export class Spawner extends Actor {
     });
 
     super({ mesh });
+
+    this.multiplier = args.multiplier;
   }
 
   public update(
@@ -60,6 +65,7 @@ export class Spawner extends Actor {
       const args = {
         pos,
         objective: container.headQuarters,
+        multiplier: this.multiplier,
       };
 
       const rand = Math.random();

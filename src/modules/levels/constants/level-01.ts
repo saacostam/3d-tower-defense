@@ -37,6 +37,7 @@ const createHorizontalWaterStream = (y: number) => [
 
 export const LEVEL_1: LevelDefinition = {
   name: "Learning the Basics",
+  difficultyMultiplier: 1,
   tiles: [
     {
       type: LTT.HQ,

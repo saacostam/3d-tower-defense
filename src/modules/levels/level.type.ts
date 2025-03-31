@@ -16,6 +16,7 @@ export enum LTT {
 
 export interface LevelDefinition {
   name: string;
+  difficultyMultiplier: number;
   tiles: {
     type: LTT;
     position: Vector2;

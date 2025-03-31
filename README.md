@@ -64,8 +64,8 @@ A strategy game where players defend against waves of enemies by strategically p
 - [x] FEAT: Create Level Selection
   - [x] FEAT: Create Scene
   - [x] FEAT: Create UI
-- [ ] FEAT: Enhance game loop II.
-  - [ ] FEAT: Scale enemy stats based on value (level number).
+- [x] FEAT: Enhance game loop II.
+  - [x] FEAT: Scale enemy stats based on value (level number).
 - [ ] FEAT: Only able to place defenses in "my side of the board".
 - [ ] FEAT: Block wall-placement if it fully blocks a path to the objective.
 

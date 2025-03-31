@@ -11,6 +11,7 @@ import { CreateExplosionArgs } from "../particle-systems";
 export interface TankArgs {
   pos: Vector2;
   objective: HeadQuarters;
+  multiplier: number;
 }
 
 export class Tank extends Mob {
@@ -56,6 +57,7 @@ export class Tank extends Mob {
       radius: radius,
       health: 10,
       objective: args.objective,
+      multiplier: args.multiplier,
     });
   }
 
@@ -68,13 +70,13 @@ export class Tank extends Mob {
     super.update(game, delta, container, pos);
 
     this.mesh.parts.forEach((part, index) => {
-      const multiplier = index % 2 ? -1 : 1;
+      const variation = index % 2 ? -1 : 1;
 
-      part.mesh.rotation.y += (delta / 100) * multiplier;
+      part.mesh.rotation.y += (delta / 100) * variation;
 
       if (index === 1) {
-        part.mesh.rotation.x += (delta / 200) * multiplier;
-        part.mesh.rotation.z += (delta / 100) * multiplier;
+        part.mesh.rotation.x += (delta / 200) * variation;
+        part.mesh.rotation.z += (delta / 100) * variation;
       }
     });
   }

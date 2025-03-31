@@ -83,6 +83,7 @@ export const WorldBuilderUtils = {
                 type: "actor",
                 actor: new Spawner({
                   position: posVector2,
+                  multiplier: args.level.difficultyMultiplier,
                 }),
                 position: posVector2,
                 static: false,

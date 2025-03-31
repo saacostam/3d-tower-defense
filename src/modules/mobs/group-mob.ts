@@ -12,6 +12,7 @@ import { CreateExplosionArgs } from "../particle-systems";
 export interface GroupMobArgs {
   pos: Vector2;
   objective: HeadQuarters;
+  multiplier: number;
 }
 
 export class GroupMob extends Mob {
@@ -72,6 +73,7 @@ export class GroupMob extends Mob {
       radius: radius,
       health: 5,
       objective: args.objective,
+      multiplier: args.multiplier,
     });
   }
 
@@ -81,6 +83,7 @@ export class GroupMob extends Mob {
       new Drop({
         pos: pos,
         objective: this.objective,
+        multiplier: this.multiplier,
       }),
       pos,
     );
@@ -95,13 +98,13 @@ export class GroupMob extends Mob {
     super.update(game, delta, container, pos);
 
     this.mesh.parts.forEach((part, index) => {
-      const multiplier = index % 2 ? -1 : 1;
+      const variation = index % 2 ? -1 : 1;
 
-      part.mesh.rotation.y += (delta / 200) * multiplier;
+      part.mesh.rotation.y += (delta / 200) * variation;
 
       if (index === 2) {
-        part.mesh.rotation.x += (delta / 100) * multiplier;
-        part.mesh.rotation.z += (delta / 50) * multiplier;
+        part.mesh.rotation.x += (delta / 100) * variation;
+        part.mesh.rotation.z += (delta / 50) * variation;
       }
     });
   }
