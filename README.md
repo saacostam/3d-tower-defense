@@ -78,6 +78,7 @@ A strategy game where players defend against waves of enemies by strategically p
 - [ ] FEAT: Add animals.
   - [ ] FEAT: Add birds.
   - [ ] FEAT: Add fire-flies.
+- [ ] FEAT: Integrate tailwind.
 - [ ] REFACTOR: Centralize grass-patch rendering
   - INFO: Some elements, such as trees, bon-fires, stones, render their own patch of grass. Ideally, they are all centralized into a single ModelingUtil method.
 

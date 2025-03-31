@@ -6,7 +6,7 @@ import {
   TreeComponent,
   WaterComponent,
 } from "./components";
-import { WORLD_CONFIG } from "../config";
+import { ContainerKey, WORLD_CONFIG } from "../config";
 import { DebugUtils } from "../debug";
 import { Component, Container, Game } from "../game";
 import { Cursor, HeadQuarters } from "../player";
@@ -15,6 +15,10 @@ import { LEVELS } from "../levels";
 import { BattleFieldContainerUI } from "./ui";
 
 const DEBUG = false;
+
+export interface BattleFieldContainerUiProps {
+  goToLevelSelection: () => void;
+}
 
 export class BattleFieldContainer extends Container {
   public headQuarters: HeadQuarters;
@@ -236,5 +240,12 @@ export class BattleFieldContainer extends Container {
     }
 
     return trees;
+  }
+
+  public provideProps(game: Game): BattleFieldContainerUiProps {
+    return {
+      goToLevelSelection: () =>
+        game.setContainer(ContainerKey.LEVEL_SELECTION_CONTAINER),
+    };
   }
 }

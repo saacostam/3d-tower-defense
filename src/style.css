@@ -32,3 +32,8 @@ canvas {
   padding: 0;
   color: white;
 }
+
+.size-6 {
+  width: 24px;
+  height: 24px;
+}

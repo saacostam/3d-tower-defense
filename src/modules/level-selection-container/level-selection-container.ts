@@ -7,6 +7,7 @@ import { LevelSelectionContainerUI } from "./ui";
 export interface LevelSelectionContainerUiProps {
   levels: LevelDefinition[];
   goToLevel: (levelNumber: number) => void;
+  goToHome: () => void;
 }
 
 export class LevelSelectionContainer extends Container {
@@ -28,6 +29,7 @@ export class LevelSelectionContainer extends Container {
           throw new Error("Something went wrong whilst switching containers");
         game.currentContainer.setLevel(level);
       },
+      goToHome: () => game.setContainer(ContainerKey.HOME_CONTAINER),
     };
   }
 }

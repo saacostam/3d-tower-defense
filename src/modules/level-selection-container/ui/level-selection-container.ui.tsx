@@ -1,18 +1,20 @@
 import React from "react";
 import { COLOR_PALETTE } from "../../colors";
+import { ArrowLeftIcon } from "../../icons";
 import { LevelSelectionContainerUiProps } from "../level-selection-container";
 import { Button } from "../../ui.components";
 
 export function LevelSelectionContainerUI({
   levels,
   goToLevel,
+  goToHome,
 }: LevelSelectionContainerUiProps) {
   return (
     <div
       style={{
         width: "100%",
         height: "100%",
-        backgroundColor: COLOR_PALETTE.DARK,
+        backgroundColor: COLOR_PALETTE.VOID,
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
@@ -29,8 +31,8 @@ export function LevelSelectionContainerUI({
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(2, 1fr)",
-            gap: "20px",
+            gridTemplateColumns: "repeat(3, 1fr)",
+            gap: "16px",
           }}
         >
           {levels.map((level, index) => (
@@ -42,10 +44,10 @@ export function LevelSelectionContainerUI({
                   fontWeight: "bold",
                 }}
               >
-                {index + 1}
+                <div style={{ fontSize: "24px" }}>{index + 1}</div>
                 <div
                   style={{
-                    fontSize: "14px",
+                    fontSize: "16px",
                     marginTop: "5px",
                     fontWeight: "normal",
                   }}
@@ -57,6 +59,18 @@ export function LevelSelectionContainerUI({
           ))}
         </div>
       </div>
+      <Button
+        onClick={goToHome}
+        type="secondary"
+        style={{
+          position: "absolute",
+          top: "10px",
+          left: "10px",
+        }}
+        variation="square"
+      >
+        <ArrowLeftIcon />
+      </Button>
     </div>
   );
 }

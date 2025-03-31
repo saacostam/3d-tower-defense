@@ -3,7 +3,7 @@ import { WORLD_CONFIG } from "../../config";
 import { LevelDefinition, LTT } from "../level.type";
 
 export const LEVEL_2: LevelDefinition = {
-  name: "Flank Attack",
+  name: "In Progress",
   tiles: [
     {
       type: LTT.HQ,

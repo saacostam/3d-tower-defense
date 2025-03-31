@@ -1,7 +1,7 @@
 import React from "react";
+import { COLOR_PALETTE } from "../../colors";
 import { HomeContainerUiProps } from "../home-container";
 import { Button } from "../../ui.components";
-import { COLOR_PALETTE } from "../../colors";
 
 export function HomeContainerUI({ goToNext }: HomeContainerUiProps) {
   return (
@@ -9,7 +9,7 @@ export function HomeContainerUI({ goToNext }: HomeContainerUiProps) {
       style={{
         width: "100%",
         height: "100%",
-        backgroundColor: COLOR_PALETTE.DARK,
+        backgroundColor: COLOR_PALETTE.VOID,
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
@@ -24,7 +24,7 @@ export function HomeContainerUI({ goToNext }: HomeContainerUiProps) {
       >
         <h1 style={{ marginBottom: "20px" }}>3D Tower Defense</h1>
         <Button type="primary" onClick={goToNext}>
-          Start
+          <span style={{ fontSize: "22px" }}>Start</span>
         </Button>
       </div>
     </div>
