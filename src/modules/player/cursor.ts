@@ -1,10 +1,10 @@
 import { Color, Mesh, MeshBasicMaterial, Vector2, Vector3 } from "three";
+import { BattleFieldContainer, BoxActor } from "../battlefield-container";
 import { COLOR_PALETTE } from "../colors";
 import { WORLD_CONFIG } from "../config";
 import { Actor, Composite, Container, Game } from "../game";
 import { MeshUtils } from "../mesh";
 import { SimpleGun } from "./simple-gun";
-import { BattleFieldContainer, BoxActor } from "../battlefield-container";
 import { RocketGun } from "./rocket-gun";
 
 export interface CursorArgs {
