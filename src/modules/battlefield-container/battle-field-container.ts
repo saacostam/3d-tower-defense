@@ -57,6 +57,10 @@ export class BattleFieldContainer extends Container {
       ),
     );
 
+    this.headQuarters = new HeadQuarters({
+      health: 30,
+    });
+
     const worldBuildingCommands = WorldBuilderUtils.buildLevel({
       width,
       height,
