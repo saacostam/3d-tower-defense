@@ -19,4 +19,7 @@ export const LEVEL_2: LevelDefinition = {
       position: new Vector2(11, 18),
     },
   ],
+  zones: {
+    type: "disabled",
+  },
 };

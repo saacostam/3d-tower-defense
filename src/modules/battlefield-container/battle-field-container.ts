@@ -61,11 +61,13 @@ export class BattleFieldContainer extends Container {
       health: 30,
     });
 
+    const currentLevel = this.levels[this.level];
+
     const worldBuildingCommands = WorldBuilderUtils.buildLevel({
       width,
       height,
       tileSize: BattleFieldContainer.TILE_SIZE,
-      level: this.levels[this.level],
+      level: currentLevel,
       headQuarters: this.headQuarters,
     });
     worldBuildingCommands.forEach((command) => {
@@ -82,6 +84,14 @@ export class BattleFieldContainer extends Container {
       } else {
         throw new Error(`Unknown command type: ${(command as any)?.type}`);
       }
+    });
+
+    WorldBuilderUtils.inlineUpdateLevelGridsPlaceableStatus({
+      container: this,
+      grid: this.actorsGrid,
+      levelDefinition: currentLevel,
+      height,
+      width,
     });
 
     const pos = new Vector2(

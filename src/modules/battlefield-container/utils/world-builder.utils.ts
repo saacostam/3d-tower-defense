@@ -1,11 +1,17 @@
 import { Color, Vector2, Vector3 } from "three";
 import { BonfireActor, BushActor, StoneActor, TreeActor } from "../actors";
 import { COLOR_PALETTE } from "../../colors";
-import { BridgeComponent, GrassComponent } from "../components";
-import { Actor, Component } from "../../game";
+import {
+  BridgeComponent,
+  GrassComponent,
+  PlacementZoneDivisionComponent,
+} from "../components";
+import { Actor, Component, GridCell } from "../../game";
 import { LevelDefinition, LTT } from "../../levels";
 import { Spawner } from "../../mobs";
 import { HeadQuarters } from "../../player";
+import { BattleFieldContainer } from "../battle-field-container";
+import { WORLD_CONFIG } from "../../config";
 
 type WorldBuilderCommand =
   | {
@@ -161,5 +167,32 @@ export const WorldBuilderUtils = {
     }
 
     return worldBuilderCommands;
+  },
+  inlineUpdateLevelGridsPlaceableStatus: (args: {
+    container: BattleFieldContainer;
+    grid: GridCell[][];
+    levelDefinition: LevelDefinition;
+    height: number;
+    width: number;
+  }): void => {
+    const { container, grid, levelDefinition, height, width } = args;
+
+    if (levelDefinition.zones.type === "disabled") return;
+
+    const placementZoneDivision = new PlacementZoneDivisionComponent({
+      linePosition: levelDefinition.zones.line * WORLD_CONFIG.TILE_SIZE,
+      height: height,
+      width: width,
+    });
+
+    for (let x = 0; x < grid.length; x++) {
+      for (let y = 0; y < grid[x].length; y++) {
+        const isPlaceable = y >= levelDefinition.zones.line;
+        grid[x][y].isPlaceable = isPlaceable;
+
+        if (y === levelDefinition.zones.line)
+          container.addComponent(placementZoneDivision);
+      }
+    }
   },
 };

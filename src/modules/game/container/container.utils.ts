@@ -10,6 +10,7 @@ export const ContainerUtils = {
         const gridCell: GridCell = {
           actors: [],
           isWalkable: true,
+          isPlaceable: true,
         };
         grid[x][y] = gridCell;
       }

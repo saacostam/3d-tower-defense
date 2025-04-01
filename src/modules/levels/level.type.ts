@@ -21,4 +21,12 @@ export interface LevelDefinition {
     type: LTT;
     position: Vector2;
   }[];
+  zones:
+    | {
+        type: "disabled";
+      }
+    | {
+        type: "enabled";
+        line: number;
+      };
 }

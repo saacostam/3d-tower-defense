@@ -112,6 +112,7 @@ export class Cursor extends Actor {
     }
 
     this.canPlace =
+      !container.actorsGrid[pos.x][pos.y].isPlaceable &&
       container.actorsGrid[pos.x][pos.y].isWalkable &&
       container.actorsGrid[pos.x][pos.y].actors.find(
         (actor) => actor !== this,

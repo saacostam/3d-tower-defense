@@ -67,7 +67,7 @@ A strategy game where players defend against waves of enemies by strategically p
 - [x] FEAT: Enhance game loop II.
   - [x] FEAT: Scale enemy stats based on value (level number).
 - [x] FIX: Reset HQ health when level is switched.
-- [ ] FEAT: Only able to place defenses in "my side of the board".
+- [x] FEAT: Only able to place defenses in "my side of the board".
 - [ ] FEAT: Block wall-placement if it fully blocks a path to the objective.
 - [ ] FEAT: Enable click tile and move cursor.
 - [ ] FEAT: Add elements using UI buttons.

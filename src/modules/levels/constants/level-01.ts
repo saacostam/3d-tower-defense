@@ -123,4 +123,8 @@ export const LEVEL_1: LevelDefinition = {
       position: new Vector2(10, 17),
     },
   ],
+  zones: {
+    type: "enabled",
+    line: 13,
+  },
 };
