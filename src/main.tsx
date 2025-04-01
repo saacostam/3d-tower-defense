@@ -30,7 +30,7 @@ const App = () => {
       new BattleFieldContainer(),
     );
 
-    game.current.setContainer(ContainerKey.HOME_CONTAINER);
+    game.current.setContainer(ContainerKey.BATTLEFIELD_CONTAINER);
     game.current.start();
   }, [triggerRender]);
 
