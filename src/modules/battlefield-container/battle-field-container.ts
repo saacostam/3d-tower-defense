@@ -18,6 +18,7 @@ const DEBUG = false;
 
 export interface BattleFieldContainerUiProps {
   goToLevelSelection: () => void;
+  cursorUIFeedbackCopy: string | null;
 }
 
 export class BattleFieldContainer extends Container {
@@ -27,6 +28,8 @@ export class BattleFieldContainer extends Container {
 
   private level = 0;
   private levels = LEVELS;
+
+  private cursorUIFeedbackCopy: string | null = null;
 
   public constructor() {
     super({ width: WORLD_CONFIG.WIDTH, height: WORLD_CONFIG.HEIGHT });
@@ -94,11 +97,15 @@ export class BattleFieldContainer extends Container {
       width,
     });
 
-    const pos = new Vector2(
-      Math.floor(width / 2),
-      Math.floor((height * 3) / 4),
+    const pos = new Vector2(Math.floor(width / 2), Math.floor(height / 4));
+    this.addActor(
+      new Cursor({
+        pos,
+        updateCursorUIFeedbackCopy: (copy: string | null) =>
+          (this.cursorUIFeedbackCopy = copy),
+      }),
+      pos,
     );
-    this.addActor(new Cursor({ pos }), pos);
 
     this.createSceneryStars({ width, height }).forEach((star) =>
       this.addComponent(star),
@@ -260,6 +267,7 @@ export class BattleFieldContainer extends Container {
     return {
       goToLevelSelection: () =>
         game.setContainer(ContainerKey.LEVEL_SELECTION_CONTAINER),
+      cursorUIFeedbackCopy: this.cursorUIFeedbackCopy,
     };
   }
 }

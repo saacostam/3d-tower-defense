@@ -7,8 +7,11 @@ import { MeshUtils } from "../mesh";
 import { SimpleGun } from "./simple-gun";
 import { RocketGun } from "./rocket-gun";
 
+type UpdateCursorUIFeedbackCopy = (copy: string | null) => void;
+
 export interface CursorArgs {
   pos: Vector2;
+  updateCursorUIFeedbackCopy: UpdateCursorUIFeedbackCopy;
 }
 
 export class Cursor extends Actor {
@@ -23,6 +26,11 @@ export class Cursor extends Actor {
   private redMaterial = new MeshBasicMaterial({
     color: new Color(COLOR_PALETTE.RED),
   });
+
+  private RENDER_TIMEOUT = 50;
+  private renderTimeout = 0;
+
+  private updateCursorUIFeedbackCopy: UpdateCursorUIFeedbackCopy;
 
   constructor(args: CursorArgs) {
     const createLine = (type: "horizontal" | "vertical") => {
@@ -71,6 +79,7 @@ export class Cursor extends Actor {
     super({ mesh });
 
     this.pos = args.pos;
+    this.updateCursorUIFeedbackCopy = args.updateCursorUIFeedbackCopy;
   }
 
   public update(
@@ -111,12 +120,20 @@ export class Cursor extends Actor {
       container.actorsGrid[this.pos.x][this.pos.y].actors.push(this);
     }
 
-    this.canPlace =
-      !container.actorsGrid[pos.x][pos.y].isPlaceable &&
-      container.actorsGrid[pos.x][pos.y].isWalkable &&
+    const { isPlaceable, isWalkable } = container.actorsGrid[pos.x][pos.y];
+    const isNotOccupied =
       container.actorsGrid[pos.x][pos.y].actors.find(
         (actor) => actor !== this,
       ) === undefined;
+
+    this.canPlace = !isPlaceable && isWalkable && isNotOccupied;
+    if (!this.canPlace && isPlaceable) {
+      this.updateCursorUIFeedbackCopy(
+        "You cannot place defenses in enemy territory",
+      );
+    } else {
+      this.updateCursorUIFeedbackCopy(null);
+    }
 
     if (this.canPlace) {
       let actorToBeAdded: Actor | undefined = undefined;
@@ -145,7 +162,7 @@ export class Cursor extends Actor {
     }
   }
 
-  public graphics(_: Game, delta: number, container: Container): void {
+  public graphics(game: Game, delta: number, container: Container): void {
     const DRAG = 0.005;
     const factor = 1 - Math.exp(-DRAG * delta);
 
@@ -172,5 +189,9 @@ export class Cursor extends Actor {
         (part) => (part.mesh.material = this.redMaterial),
       );
     }
+
+    this.renderTimeout += delta;
+    if (this.renderTimeout > this.RENDER_TIMEOUT) game.triggerRender();
+    this.renderTimeout = this.renderTimeout % this.RENDER_TIMEOUT;
   }
 }

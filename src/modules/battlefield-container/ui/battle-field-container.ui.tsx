@@ -5,6 +5,7 @@ import { ArrowLeftIcon } from "../../icons";
 import { Button } from "../../ui.components";
 
 export function BattleFieldContainerUI({
+  cursorUIFeedbackCopy,
   goToLevelSelection,
 }: BattleFieldContainerUiProps) {
   const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
@@ -53,6 +54,24 @@ export function BattleFieldContainerUI({
           >
             <ArrowLeftIcon />
           </Button>
+          {cursorUIFeedbackCopy && (
+            <div
+              style={{
+                borderRadius: "12px",
+                position: "absolute",
+                top: "10px",
+                transform: "translate(-50%, 0)",
+                left: "50%",
+                textAlign: "center",
+                fontSize: "smaller",
+                backgroundColor: COLOR_PALETTE.RED,
+                padding: "8px",
+                opacity: 0.8,
+              }}
+            >
+              {cursorUIFeedbackCopy}
+            </div>
+          )}
         </>
       )}
       {isConfirmationModalOpen && (

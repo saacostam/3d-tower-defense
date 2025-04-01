@@ -72,7 +72,7 @@ A strategy game where players defend against waves of enemies by strategically p
 - [ ] FEAT: Enable click tile and move cursor.
 - [ ] FEAT: Add elements using UI buttons.
 - [ ] FEAT: Show feeback with copy when user can't add element to scene.
-  - [ ] FEAT: Non-placeable place.
+  - [x] FEAT: Non-placeable place.
   - [ ] FEAT: Not able to fully block paths.
 
 ## Tasks - Polish

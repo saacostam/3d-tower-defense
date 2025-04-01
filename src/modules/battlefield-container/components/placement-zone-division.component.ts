@@ -30,7 +30,7 @@ export class PlacementZoneDivisionComponent extends Component {
             width: width,
             height: WORLD_CONFIG.TILE_SIZE / 16,
             depth: WORLD_CONFIG.TILE_SIZE / 16,
-            color: new Color(COLOR_PALETTE.PINK),
+            color: new Color(COLOR_PALETTE.RED),
             transparent: {
               value: 0.5,
             },
@@ -42,7 +42,7 @@ export class PlacementZoneDivisionComponent extends Component {
             width: width,
             height: WORLD_CONFIG.TILE_SIZE / 16,
             depth: WORLD_CONFIG.TILE_SIZE / 16,
-            color: new Color(COLOR_PALETTE.PINK),
+            color: new Color(COLOR_PALETTE.RED),
             transparent: {
               value: 0.5,
             },
@@ -54,7 +54,7 @@ export class PlacementZoneDivisionComponent extends Component {
             width: WORLD_CONFIG.TILE_SIZE / 16,
             height: WORLD_CONFIG.TILE_SIZE / 16,
             depth: subSegmentHeight,
-            color: new Color(COLOR_PALETTE.PINK),
+            color: new Color(COLOR_PALETTE.RED),
             transparent: {
               value: 0.5,
             },
@@ -66,7 +66,7 @@ export class PlacementZoneDivisionComponent extends Component {
             width: WORLD_CONFIG.TILE_SIZE / 16,
             height: WORLD_CONFIG.TILE_SIZE / 16,
             depth: subSegmentHeight,
-            color: new Color(COLOR_PALETTE.PINK),
+            color: new Color(COLOR_PALETTE.RED),
             transparent: {
               value: 0.5,
             },
@@ -79,7 +79,7 @@ export class PlacementZoneDivisionComponent extends Component {
             height: WORLD_CONFIG.TILE_SIZE / 16,
             depth: subSegmentHeight,
             basicMaterial: true,
-            color: new Color(COLOR_PALETTE.PINK),
+            color: new Color(COLOR_PALETTE.RED),
             transparent: {
               value: 0.1,
             },

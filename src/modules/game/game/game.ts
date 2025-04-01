@@ -20,7 +20,7 @@ export class Game {
   public containers = new Map<string, Container>();
   public currentContainer?: Container;
 
-  private triggerRender: () => void;
+  public triggerRender: () => void;
 
   public constructor(args: { triggerRender: () => void }) {
     this.renderer = new WebGLRenderer({
