@@ -2,7 +2,6 @@ import { DomUtils } from "../dom";
 
 export class MouseHandler {
   public position = { x: 0, y: 0 };
-  public isDown = false;
   public wasClicked = false;
 
   constructor() {
@@ -15,12 +14,9 @@ export class MouseHandler {
       };
     });
 
-    window.addEventListener("mousedown", () => {
-      this.isDown = true;
+    window.addEventListener("click", () => {
       this.wasClicked = true;
     });
-
-    window.addEventListener("mouseup", () => (this.isDown = false));
   }
 
   public consumeClick(): boolean {

@@ -20,7 +20,10 @@ export function Button({
 
   return (
     <button
-      onClick={onClick}
+      onClick={(e) => {
+        e.stopPropagation();
+        onClick();
+      }}
       style={{
         backgroundColor: color,
         border: "none",
@@ -31,6 +34,7 @@ export function Button({
         borderRadius: "12px",
         fontSize: "16px",
         fill: "white",
+        zIndex: 100,
         ...(variation === "padded"
           ? { padding: "16px 32px" }
           : { padding: "16px 16px" }),
