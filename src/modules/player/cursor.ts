@@ -5,6 +5,7 @@ import { WORLD_CONFIG } from "../config";
 import { Actor, Composite, Container, Game } from "../game";
 import { MeshUtils } from "../mesh";
 import { SimpleGun } from "./simple-gun";
+import { DefenseType } from "./shared-types";
 import { RocketGun } from "./rocket-gun";
 
 type UpdateCursorUIFeedbackCopy = (copy: string | null) => void;
@@ -18,7 +19,6 @@ export class Cursor extends Actor {
   declare mesh: Composite<Mesh>;
 
   private pos: Vector2;
-  private canPlace: boolean = false;
 
   private greenMaterial = new MeshBasicMaterial({
     color: new Color(COLOR_PALETTE.LIGHT_GREEN),
@@ -120,14 +120,10 @@ export class Cursor extends Actor {
       container.actorsGrid[this.pos.x][this.pos.y].actors.push(this);
     }
 
-    const { isPlaceable, isWalkable } = container.actorsGrid[pos.x][pos.y];
-    const isNotOccupied =
-      container.actorsGrid[pos.x][pos.y].actors.find(
-        (actor) => actor !== this,
-      ) === undefined;
-
-    this.canPlace = !isPlaceable && isWalkable && isNotOccupied;
-    if (!this.canPlace && isPlaceable) {
+    const { canPlace, feedback } = this.checkCanPlace({
+      container,
+    });
+    if (!canPlace && feedback.isPlaceable) {
       this.updateCursorUIFeedbackCopy(
         "You cannot place defenses in enemy territory",
       );
@@ -135,34 +131,29 @@ export class Cursor extends Actor {
       this.updateCursorUIFeedbackCopy(null);
     }
 
-    if (this.canPlace) {
-      let actorToBeAdded: Actor | undefined = undefined;
-
-      if (game.keyboardHandler.wasPressed("z")) {
-        actorToBeAdded = new SimpleGun({
-          position: pos.clone(),
-          objective: container.headQuarters,
-        });
-      } else if (game.keyboardHandler.wasPressed("x")) {
-        actorToBeAdded = new RocketGun({
-          position: pos.clone(),
-          objective: container.headQuarters,
-        });
-      } else if (game.keyboardHandler.wasPressed("c")) {
-        actorToBeAdded = new BoxActor({
-          position: new Vector3(pos.x, WORLD_CONFIG.TILE_SIZE / 2, pos.y),
-          size: WORLD_CONFIG.TILE_SIZE,
-        });
-      }
-
-      if (actorToBeAdded !== undefined) {
-        container.addActor(actorToBeAdded, pos.clone());
-        container.actorsGrid[pos.x][pos.y].isWalkable = false;
-      }
+    if (game.keyboardHandler.wasPressed("z")) {
+      this.addDefense({
+        container,
+        type: "simple",
+      });
+    } else if (game.keyboardHandler.wasPressed("x")) {
+      this.addDefense({
+        container,
+        type: "rocket",
+      });
+    } else if (game.keyboardHandler.wasPressed("c")) {
+      this.addDefense({
+        container,
+        type: "box",
+      });
     }
   }
 
   public graphics(game: Game, delta: number, container: Container): void {
+    if (!(container instanceof BattleFieldContainer)) {
+      throw new Error("Cursor can only be used in a BattleFieldContainer");
+    }
+
     const DRAG = 0.005;
     const factor = 1 - Math.exp(-DRAG * delta);
 
@@ -180,7 +171,11 @@ export class Cursor extends Actor {
 
     container.camera.lookAt(this.mesh.position);
 
-    if (this.canPlace) {
+    const { canPlace } = this.checkCanPlace({
+      container,
+    });
+
+    if (canPlace) {
       this.mesh.parts.forEach(
         (part) => (part.mesh.material = this.greenMaterial),
       );
@@ -193,5 +188,68 @@ export class Cursor extends Actor {
     this.renderTimeout += delta;
     if (this.renderTimeout > this.RENDER_TIMEOUT) game.triggerRender();
     this.renderTimeout = this.renderTimeout % this.RENDER_TIMEOUT;
+  }
+
+  public addDefense(args: {
+    container: BattleFieldContainer;
+    type: DefenseType;
+  }): void {
+    const { container, type } = args;
+
+    const { canPlace } = this.checkCanPlace({
+      container,
+    });
+    if (!canPlace) return;
+
+    let mob: Actor;
+    switch (type) {
+      case "simple":
+        mob = new SimpleGun({
+          position: this.pos.clone(),
+          objective: container.headQuarters,
+        });
+        break;
+      case "rocket":
+        mob = new RocketGun({
+          position: this.pos.clone(),
+          objective: container.headQuarters,
+        });
+        break;
+      case "box":
+        mob = new BoxActor({
+          position: new Vector3(
+            this.pos.x,
+            WORLD_CONFIG.TILE_SIZE / 2,
+            this.pos.y,
+          ),
+          size: WORLD_CONFIG.TILE_SIZE,
+        });
+        break;
+    }
+
+    container.addActor(mob, this.pos.clone());
+    container.actorsGrid[this.pos.x][this.pos.y].isWalkable = false;
+  }
+
+  private checkCanPlace(args: { container: BattleFieldContainer }) {
+    const { container } = args;
+
+    const { isPlaceable, isWalkable } =
+      container.actorsGrid[this.pos.x][this.pos.y];
+    const isNotOccupied =
+      container.actorsGrid[this.pos.x][this.pos.y].actors.find(
+        (actor) => actor !== this,
+      ) === undefined;
+
+    const canPlace = !isPlaceable && isWalkable && isNotOccupied;
+
+    return {
+      canPlace,
+      feedback: {
+        isPlaceable,
+        isWalkable,
+        isNotOccupied,
+      },
+    };
   }
 }

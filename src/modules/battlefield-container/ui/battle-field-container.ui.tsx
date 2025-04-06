@@ -1,11 +1,14 @@
 import React, { useState } from "react";
+import { AddDefenseCta } from "./add-defense-cta";
 import { BattleFieldContainerUiProps } from "../battle-field-container";
 import { COLOR_PALETTE } from "../../colors";
 import { ArrowLeftIcon } from "../../icons";
 import { Button } from "../../ui.components";
 
 export function BattleFieldContainerUI({
+  addDefense,
   cursorUIFeedbackCopy,
+  defenses,
   goToLevelSelection,
 }: BattleFieldContainerUiProps) {
   const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
@@ -72,6 +75,19 @@ export function BattleFieldContainerUI({
               {cursorUIFeedbackCopy}
             </div>
           )}
+          <div
+            style={{
+              position: "absolute",
+              bottom: "10px",
+              left: "10px",
+              display: "flex",
+              gap: "10px",
+            }}
+          >
+            {defenses.map((defense) => (
+              <AddDefenseCta addDefense={addDefense} defense={defense} />
+            ))}
+          </div>
         </>
       )}
       {isConfirmationModalOpen && (

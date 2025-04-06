@@ -9,16 +9,19 @@ import {
 import { ContainerKey, WORLD_CONFIG } from "../config";
 import { DebugUtils } from "../debug";
 import { Component, Container, Game } from "../game";
-import { Cursor, HeadQuarters } from "../player";
-import { WorldBuilderUtils } from "./utils";
 import { LEVELS } from "../levels";
+import { Cursor, HeadQuarters, DefenseType } from "../player";
 import { BattleFieldContainerUI } from "./ui";
+import { WorldBuilderUtils } from "./utils";
+import { AddDefense, DefenseDefinition } from "./types";
 
 const DEBUG = false;
 
 export interface BattleFieldContainerUiProps {
-  goToLevelSelection: () => void;
+  addDefense: AddDefense;
   cursorUIFeedbackCopy: string | null;
+  defenses: DefenseDefinition[];
+  goToLevelSelection: () => void;
 }
 
 export class BattleFieldContainer extends Container {
@@ -30,6 +33,8 @@ export class BattleFieldContainer extends Container {
   private levels = LEVELS;
 
   private cursorUIFeedbackCopy: string | null = null;
+
+  private cursor!: Cursor;
 
   public constructor() {
     super({ width: WORLD_CONFIG.WIDTH, height: WORLD_CONFIG.HEIGHT });
@@ -97,15 +102,16 @@ export class BattleFieldContainer extends Container {
       width,
     });
 
-    const pos = new Vector2(Math.floor(width / 2), Math.floor(height / 4));
-    this.addActor(
-      new Cursor({
-        pos,
-        updateCursorUIFeedbackCopy: (copy: string | null) =>
-          (this.cursorUIFeedbackCopy = copy),
-      }),
-      pos,
+    const cursorPosition = new Vector2(
+      Math.floor(width / 2),
+      Math.floor(height / 4),
     );
+    this.cursor = new Cursor({
+      pos: cursorPosition,
+      updateCursorUIFeedbackCopy: (copy: string | null) =>
+        (this.cursorUIFeedbackCopy = copy),
+    });
+    this.addActor(this.cursor, cursorPosition);
 
     this.createSceneryStars({ width, height }).forEach((star) =>
       this.addComponent(star),
@@ -265,9 +271,28 @@ export class BattleFieldContainer extends Container {
 
   public provideProps(game: Game): BattleFieldContainerUiProps {
     return {
+      addDefense: (defenseType: DefenseType) =>
+        this.cursor.addDefense({
+          type: defenseType,
+          container: game.currentContainer as BattleFieldContainer,
+        }),
+      cursorUIFeedbackCopy: this.cursorUIFeedbackCopy,
+      defenses: [
+        {
+          label: "🚀",
+          type: "simple",
+        },
+        {
+          label: "🧨",
+          type: "rocket",
+        },
+        {
+          label: "📦",
+          type: "box",
+        },
+      ],
       goToLevelSelection: () =>
         game.setContainer(ContainerKey.LEVEL_SELECTION_CONTAINER),
-      cursorUIFeedbackCopy: this.cursorUIFeedbackCopy,
     };
   }
 }
