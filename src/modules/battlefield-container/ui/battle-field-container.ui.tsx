@@ -85,7 +85,11 @@ export function BattleFieldContainerUI({
             }}
           >
             {defenses.map((defense) => (
-              <AddDefenseCta addDefense={addDefense} defense={defense} />
+              <AddDefenseCta
+                addDefense={addDefense}
+                defense={defense}
+                key={defense.type}
+              />
             ))}
           </div>
         </>
