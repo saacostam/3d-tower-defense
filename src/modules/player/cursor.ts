@@ -203,6 +203,15 @@ export class Cursor extends Actor {
     this.renderTimeout += delta;
     if (this.renderTimeout > this.RENDER_TIMEOUT) game.triggerRender();
     this.renderTimeout = this.renderTimeout % this.RENDER_TIMEOUT;
+
+    const mouseWheelDelta = game.mouseHandler.consumeWheel();
+    if (mouseWheelDelta !== 0) {
+      container.camera.zoom = Math.max(
+        0.8,
+        Math.min(container.camera.zoom + -mouseWheelDelta * 0.0003, 1.2),
+      );
+      container.camera.updateProjectionMatrix();
+    }
   }
 
   public addDefense(args: {
