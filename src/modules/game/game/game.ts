@@ -3,6 +3,7 @@ import Stats from "three/addons/libs/stats.module.js";
 import { Container } from "../container";
 import { DomUtils } from "../../dom";
 import { KeyboardHandler, keyboardHandler } from "../../keyboard";
+import { mouseHandler, MouseHandler } from "../../mouse";
 
 const DEBUG = false;
 
@@ -10,6 +11,7 @@ export class Game {
   public renderer: WebGLRenderer;
 
   public keyboardHandler: KeyboardHandler;
+  public mouseHandler: MouseHandler;
 
   public isGameOver = false;
 
@@ -29,6 +31,7 @@ export class Game {
     this.renderer.setSize(800, 800);
     document.body.appendChild(this.renderer.domElement);
     this.keyboardHandler = keyboardHandler;
+    this.mouseHandler = mouseHandler;
 
     this.stats = new Stats();
     if (DEBUG) document.body.appendChild(this.stats.dom);

@@ -10,7 +10,7 @@ import { ContainerKey, WORLD_CONFIG } from "../config";
 import { DebugUtils } from "../debug";
 import { Component, Container, Game } from "../game";
 import { LEVELS } from "../levels";
-import { Cursor, HeadQuarters, DefenseType } from "../player";
+import { Cursor, HeadQuarters, DefenseType, HoverCursor } from "../player";
 import { BattleFieldContainerUI } from "./ui";
 import { WorldBuilderUtils } from "./utils";
 import { AddDefense, DefenseDefinition } from "./types";
@@ -112,6 +112,8 @@ export class BattleFieldContainer extends Container {
         (this.cursorUIFeedbackCopy = copy),
     });
     this.addActor(this.cursor, cursorPosition);
+
+    this.addComponent(new HoverCursor());
 
     this.createSceneryStars({ width, height }).forEach((star) =>
       this.addComponent(star),
