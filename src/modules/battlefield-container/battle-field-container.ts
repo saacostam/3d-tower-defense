@@ -11,9 +11,9 @@ import { DebugUtils } from "../debug";
 import { Component, Container, Game } from "../game";
 import { LEVELS } from "../levels";
 import { Cursor, HeadQuarters, DefenseType, HoverCursor } from "../player";
+import { AddDefense, DefenseDefinition } from "./types";
 import { BattleFieldContainerUI } from "./ui";
 import { WorldBuilderUtils } from "./utils";
-import { AddDefense, DefenseDefinition } from "./types";
 
 const DEBUG = false;
 

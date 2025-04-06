@@ -1,12 +1,12 @@
 import { Color, Vector2, Vector3 } from "three";
 import { TBattleSide } from "../battlefield-container";
 import { BulletParticleComponent } from "./bullet-particle.component";
+import { BulletConfig } from "./bullet.types";
 import { COLOR_PALETTE } from "../colors";
 import { WORLD_CONFIG } from "../config";
 import { Component, Container, Game } from "../game";
 import { MeshUtils } from "../mesh";
 import { Mob } from "../mobs";
-import { BulletConfig } from "./bullet.types";
 
 export interface BulletComponentArgs {
   battleSide: TBattleSide;

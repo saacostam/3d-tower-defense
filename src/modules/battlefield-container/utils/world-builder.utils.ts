@@ -1,17 +1,17 @@
 import { Color, Vector2, Vector3 } from "three";
 import { BonfireActor, BushActor, StoneActor, TreeActor } from "../actors";
+import { BattleFieldContainer } from "../battle-field-container";
 import { COLOR_PALETTE } from "../../colors";
 import {
   BridgeComponent,
   GrassComponent,
   PlacementZoneDivisionComponent,
 } from "../components";
+import { WORLD_CONFIG } from "../../config";
 import { Actor, Component, GridCell } from "../../game";
 import { LevelDefinition, LTT } from "../../levels";
 import { Spawner } from "../../mobs";
 import { HeadQuarters } from "../../player";
-import { BattleFieldContainer } from "../battle-field-container";
-import { WORLD_CONFIG } from "../../config";
 
 type WorldBuilderCommand =
   | {

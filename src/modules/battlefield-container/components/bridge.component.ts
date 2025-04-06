@@ -1,7 +1,7 @@
 import { Color, Vector3 } from "three";
+import { COLOR_PALETTE } from "../../colors";
 import { Component, Composite } from "../../game";
 import { MeshUtils } from "../../mesh";
-import { COLOR_PALETTE } from "../../colors";
 
 export interface BridgeComponentArgs {
   position: Vector3;

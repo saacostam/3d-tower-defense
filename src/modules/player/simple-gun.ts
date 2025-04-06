@@ -2,9 +2,9 @@ import { Color, Mesh, Vector2, Vector3 } from "three";
 import { COLOR_PALETTE } from "../colors";
 import { WORLD_CONFIG } from "../config";
 import { Composite, Container, Game } from "../game";
-import { MeshUtils } from "../mesh";
 import { Gun } from "./gun";
 import { HeadQuarters } from "./head-quarters.actor";
+import { MeshUtils } from "../mesh";
 
 export interface SimpleGunArgs {
   position: Vector2;

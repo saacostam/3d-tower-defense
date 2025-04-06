@@ -1,7 +1,7 @@
 import { Vector2 } from "three";
+import { TBattleSide } from "../../battlefield-container";
 import { Actor, GridCell } from "../../game";
 import { Mob } from "../../mobs";
-import { TBattleSide } from "../../battlefield-container";
 
 export const PathfindingUtils = {
   createSimpleGrid: (grid: GridCell[][]): number[][] => {

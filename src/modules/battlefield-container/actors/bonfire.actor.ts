@@ -1,9 +1,9 @@
 import { Color, Mesh, PointLight, Vector2, Vector3 } from "three";
+import { COLOR_PALETTE } from "../../colors";
+import { WORLD_CONFIG } from "../../config";
 import { Actor, Composite, Container, Game } from "../../game";
 import { MeshUtils } from "../../mesh";
-import { COLOR_PALETTE } from "../../colors";
 import { ParticleManager } from "../../particle-systems";
-import { WORLD_CONFIG } from "../../config";
 
 export interface BonfireActorArgs {
   position: Vector3;

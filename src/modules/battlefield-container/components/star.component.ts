@@ -1,8 +1,8 @@
 import { Color, Vector3 } from "three";
-import { Component } from "../../game";
-import { MeshUtils } from "../../mesh";
 import { WORLD_CONFIG } from "../../config";
 import { COLOR_PALETTE } from "../../colors";
+import { Component } from "../../game";
+import { MeshUtils } from "../../mesh";
 
 export interface StarComponentArgs {
   position: Vector3;

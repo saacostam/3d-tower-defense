@@ -5,8 +5,8 @@ import { WORLD_CONFIG } from "../config";
 import { Composite, Container, Game } from "../game";
 import { MeshUtils } from "../mesh";
 import { Mob } from "./mob";
-import { HeadQuarters } from "../player";
 import { CreateExplosionArgs } from "../particle-systems";
+import { HeadQuarters } from "../player";
 
 export interface TankArgs {
   pos: Vector2;

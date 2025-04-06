@@ -1,12 +1,12 @@
 import { Color, PointLight, Vector2, Vector3 } from "three";
+import { BattleFieldContainer } from "../battlefield-container";
 import { COLOR_PALETTE } from "../colors";
 import { WORLD_CONFIG } from "../config";
 import { Actor, Composite, Container, Game } from "../game";
+import { GroupMob } from "./group-mob";
 import { MeshUtils } from "../mesh";
-import { BattleFieldContainer } from "../battlefield-container";
 import { Tank } from "./tank";
 import { Walker } from "./walker";
-import { GroupMob } from "./group-mob";
 
 export interface SpawnerArgs {
   position: Vector2;

@@ -5,10 +5,10 @@ import {
   SphereGeometry,
   Vector3,
 } from "three";
+import { COLOR_PALETTE } from "../colors";
 import { WORLD_CONFIG } from "../config";
 import { Component, Container, Game } from "../game";
 import { MeshUtils } from "../mesh";
-import { COLOR_PALETTE } from "../colors";
 
 export interface ParticleArgs {
   position: Vector3;

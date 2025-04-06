@@ -1,8 +1,8 @@
 import { Color, Vector3 } from "three";
+import { COLOR_PALETTE } from "../../colors";
+import { WORLD_CONFIG } from "../../config";
 import { Component, Composite } from "../../game";
 import { MeshUtils } from "../../mesh";
-import { WORLD_CONFIG } from "../../config";
-import { COLOR_PALETTE } from "../../colors";
 
 export interface PlacementZoneDivisionComponentArgs {
   linePosition: number;

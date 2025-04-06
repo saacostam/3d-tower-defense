@@ -4,9 +4,9 @@ import { COLOR_PALETTE } from "../colors";
 import { WORLD_CONFIG } from "../config";
 import { Composite, Container, Game } from "../game";
 import { MeshUtils } from "../mesh";
-import { HeadQuarters } from "../player";
 import { Mob } from "./mob";
 import { CreateExplosionArgs } from "../particle-systems";
+import { HeadQuarters } from "../player";
 
 export interface DropArgs {
   pos: Vector2;

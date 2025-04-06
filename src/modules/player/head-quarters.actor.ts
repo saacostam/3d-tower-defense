@@ -1,9 +1,9 @@
 import { Color, Mesh, PointLight, Vector2, Vector3 } from "three";
-import { Actor, Composite, Container, Game } from "../game";
-import { WORLD_CONFIG } from "../config";
-import { MeshUtils } from "../mesh";
 import { COLOR_PALETTE } from "../colors";
+import { WORLD_CONFIG } from "../config";
+import { Actor, Composite, Container, Game } from "../game";
 import { HealthBar } from "../health-bar";
+import { MeshUtils } from "../mesh";
 
 export interface HeadQuartersArgs {
   health: number;

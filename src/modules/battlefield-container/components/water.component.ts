@@ -1,8 +1,8 @@
 import { Color, Vector3 } from "three";
-import { Component, Composite } from "../../game";
-import { MeshUtils } from "../../mesh";
 import { WORLD_CONFIG } from "../../config";
 import { COLOR_PALETTE } from "../../colors";
+import { Component, Composite } from "../../game";
+import { MeshUtils } from "../../mesh";
 
 export interface WaterComponentArgs {
   position: Vector3;

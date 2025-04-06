@@ -6,8 +6,8 @@ import { Drop } from "./drop";
 import { Composite, Container, Game } from "../game";
 import { MeshUtils } from "../mesh";
 import { Mob } from "./mob";
-import { HeadQuarters } from "../player";
 import { CreateExplosionArgs } from "../particle-systems";
+import { HeadQuarters } from "../player";
 
 export interface GroupMobArgs {
   pos: Vector2;

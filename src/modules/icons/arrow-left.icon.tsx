@@ -1,6 +1,6 @@
 import React from "react";
-import { IconProps } from "./icon.type";
 import clsx from "clsx";
+import { IconProps } from "./icon.type";
 
 export function ArrowLeftIcon(props: IconProps) {
   return (
