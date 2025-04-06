@@ -69,7 +69,7 @@ A strategy game where players defend against waves of enemies by strategically p
 - [x] FIX: Reset HQ health when level is switched.
 - [x] FEAT: Only able to place defenses in "my side of the board".
 - [ ] FEAT: Block wall-placement if it fully blocks a path to the objective.
-- [ ] FEAT: Enable click tile and move cursor.
+- [x] FEAT: Enable click tile and move cursor.
 - [x] FEAT: Add elements using UI buttons.
 - [ ] FEAT: Show feeback with copy when user can't add element to scene.
   - [x] FEAT: Non-placeable place.
@@ -81,14 +81,18 @@ A strategy game where players defend against waves of enemies by strategically p
   - [ ] FEAT: Enhance guns.
   - [ ] FEAT: Enhance cursor.
 - [ ] FEAT(Spawner): Add timer-like sprite that shows timeout for spawning.
-- [ ] FEAT: Add animals.
-  - [ ] FEAT: Add birds.
-  - [ ] FEAT: Add fire-flies.
-- [ ] FEAT: Integrate tailwind.
-- [ ] REFACTOR: Centralize grass-patch rendering
-  - INFO: Some elements, such as trees, bon-fires, stones, render their own patch of grass. Ideally, they are all centralized into a single ModelingUtil method.
 
 ## Tasks Game Loop 2
 
 - [ ] FEAT: Add health to towers.
   - [ ] FEAT: If a tower is close to an explosion they should reduce health.
+- [ ] FEAT: Enhance mouse-and-click look-and-feel.
+
+## Tasks - Polish 2
+
+- [ ] FEAT: Add animals.
+  - [ ] FEAT: Add birds.
+  - [ ] FEAT: Add fire-flies.
+- [ ] REFACTOR: Centralize grass-patch rendering
+  - INFO: Some elements, such as trees, bon-fires, stones, render their own patch of grass. Ideally, they are all centralized into a single ModelingUtil method.
+- [ ] FEAT: Integrate tailwind.
