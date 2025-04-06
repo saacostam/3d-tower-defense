@@ -1,4 +1,5 @@
 import { Color, Mesh, Vector2, Vector3 } from "three";
+import { BattleFieldContainer } from "../battlefield-container";
 import { COLOR_PALETTE } from "../colors";
 import { WORLD_CONFIG } from "../config";
 import { Component, Composite, Container, Game } from "../game";
@@ -33,6 +34,10 @@ export class HoverCursor extends Component {
   public update(game: Game, _delta: number, container: Container): void {
     super.update(game, _delta, container);
 
+    if (!(container instanceof BattleFieldContainer)) {
+      throw new Error("Cursor can only be used in a BattleFieldContainer");
+    }
+
     const data = MouseUtils.projectMousePosition({
       camera: container.camera,
       mousePosition: new Vector2(
@@ -64,8 +69,13 @@ export class HoverCursor extends Component {
       position.y * WORLD_CONFIG.TILE_SIZE,
     );
 
-    if (withinBounds && game.mouseHandler.consumeClick()) {
-      // TODO: Update cursor position
+    if (game.mouseHandler.consumeClick()) {
+      if (withinBounds) {
+        container.cursor.attemptToMove({
+          container,
+          newPos: position,
+        });
+      }
     }
   }
 }

@@ -104,20 +104,11 @@ export class Cursor extends Actor {
 
     if (DELTA_X !== 0 || DELTA_Y !== 0) {
       const newPos = pos.clone().add(new Vector2(DELTA_X, DELTA_Y));
-
-      if (
-        !(0 <= newPos.x && newPos.x < container.actorsGrid.length) ||
-        !(0 <= newPos.y && newPos.y < (container.actorsGrid[0]?.length ?? 0))
-      ) {
-        return;
-      }
-
-      this.pos = newPos;
-
-      container.actorsGrid[pos.x][pos.y].actors = container.actorsGrid[pos.x][
-        pos.y
-      ].actors.filter((actor) => actor !== this);
-      container.actorsGrid[this.pos.x][this.pos.y].actors.push(this);
+      this.attemptToMove({
+        container,
+        newPos,
+        currentPos: pos,
+      });
     }
 
     const { canPlace, feedback } = this.checkCanPlace({
@@ -147,6 +138,30 @@ export class Cursor extends Actor {
         type: "box",
       });
     }
+  }
+
+  public attemptToMove(args: {
+    container: BattleFieldContainer;
+    newPos: Vector2;
+    currentPos?: Vector2;
+  }) {
+    const { container, newPos, currentPos: _currentPos } = args;
+    const currentPos = _currentPos ?? this.pos;
+
+    if (
+      !(0 <= newPos.x && newPos.x < container.actorsGrid.length) ||
+      !(0 <= newPos.y && newPos.y < (container.actorsGrid[0]?.length ?? 0))
+    ) {
+      return;
+    }
+
+    this.pos = newPos;
+
+    container.actorsGrid[currentPos.x][currentPos.y].actors =
+      container.actorsGrid[currentPos.x][currentPos.y].actors.filter(
+        (actor) => actor !== this,
+      );
+    container.actorsGrid[this.pos.x][this.pos.y].actors.push(this);
   }
 
   public graphics(game: Game, delta: number, container: Container): void {

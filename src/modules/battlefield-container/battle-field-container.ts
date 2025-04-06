@@ -34,7 +34,7 @@ export class BattleFieldContainer extends Container {
 
   private cursorUIFeedbackCopy: string | null = null;
 
-  private cursor!: Cursor;
+  public cursor!: Cursor;
 
   public constructor() {
     super({ width: WORLD_CONFIG.WIDTH, height: WORLD_CONFIG.HEIGHT });
