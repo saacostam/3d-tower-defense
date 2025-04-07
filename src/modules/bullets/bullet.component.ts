@@ -60,31 +60,49 @@ export class BulletComponent extends Component {
       .clone()
       .add(new Vector3(dir.x * deltaMove, 0, dir.y * deltaMove));
 
-    const SEGMENT_DISTANCE = WORLD_CONFIG.TILE_SIZE / 4;
+    // The segment between the current position and the new position is partitioned into n (small enough) subsegments, each of which is checked for collisions. This ensures that small actors are not skipped due to high bullet speeds.
+
+    const SEGMENT_DISTANCE = WORLD_CONFIG.TILE_SIZE / 4; // Small enough
     const distance = this.position.distanceTo(newPosition);
 
-    const nSegments = Math.max(1, Math.floor(distance / SEGMENT_DISTANCE));
-    for (let i = 0; i < nSegments; i++) {
-      const point = this.position
+    const numberOfSegments = Math.max(
+      1,
+      Math.floor(distance / SEGMENT_DISTANCE),
+    );
+    for (let i = 0; i < numberOfSegments; i++) {
+      const pointInSegment = this.position
         .clone()
         .add(
           new Vector3(dir.x * SEGMENT_DISTANCE, 0, dir.y * SEGMENT_DISTANCE),
         );
 
       const neighboringCoords = [
-        new Vector2(point.x - SEGMENT_DISTANCE, point.z - SEGMENT_DISTANCE),
-        new Vector2(point.x - SEGMENT_DISTANCE, point.z),
-        new Vector2(point.x - SEGMENT_DISTANCE, point.z + SEGMENT_DISTANCE),
-        new Vector2(point.x, point.z - SEGMENT_DISTANCE),
-        new Vector2(point.x, point.z),
-        new Vector2(point.x, point.z + SEGMENT_DISTANCE),
-        new Vector2(point.x + SEGMENT_DISTANCE, point.z - SEGMENT_DISTANCE),
-        new Vector2(point.x + SEGMENT_DISTANCE, point.z),
-        new Vector2(point.x + SEGMENT_DISTANCE, point.z + SEGMENT_DISTANCE),
+        new Vector2(
+          pointInSegment.x - SEGMENT_DISTANCE,
+          pointInSegment.z - SEGMENT_DISTANCE,
+        ),
+        new Vector2(pointInSegment.x - SEGMENT_DISTANCE, pointInSegment.z),
+        new Vector2(
+          pointInSegment.x - SEGMENT_DISTANCE,
+          pointInSegment.z + SEGMENT_DISTANCE,
+        ),
+        new Vector2(pointInSegment.x, pointInSegment.z - SEGMENT_DISTANCE),
+        new Vector2(pointInSegment.x, pointInSegment.z),
+        new Vector2(pointInSegment.x, pointInSegment.z + SEGMENT_DISTANCE),
+        new Vector2(
+          pointInSegment.x + SEGMENT_DISTANCE,
+          pointInSegment.z - SEGMENT_DISTANCE,
+        ),
+        new Vector2(pointInSegment.x + SEGMENT_DISTANCE, pointInSegment.z),
+        new Vector2(
+          pointInSegment.x + SEGMENT_DISTANCE,
+          pointInSegment.z + SEGMENT_DISTANCE,
+        ),
       ].map((v) => new Vector2(Math.floor(v.x), Math.floor(v.y)));
 
-      for (const coords of neighboringCoords) {
-        const cell = container.actorsGrid[coords.x]?.[coords.y];
+      for (const oneNeighborCoords of neighboringCoords) {
+        const cell =
+          container.actorsGrid[oneNeighborCoords.x]?.[oneNeighborCoords.y];
         if (!cell) continue;
 
         for (const actor of cell.actors) {
@@ -93,7 +111,7 @@ export class BulletComponent extends Component {
               new Vector2(this.position.x, this.position.z),
             );
 
-            const hasCollided = distance < this.radius + actor.radius;
+            const hasCollided = distance < this.radius + actor.radius; // circle collision
             if (hasCollided && !this.hasDamaged.has(actor)) {
               actor.health -= this.bulletConfig.damage;
               this.hasDamaged.add(actor);
@@ -113,7 +131,7 @@ export class BulletComponent extends Component {
       -width <= this.position.x &&
       this.position.x < 2 * width &&
       -height <= this.position.z &&
-      this.position.z < 2 * height;
+      this.position.z < 2 * height; // twice the default container size (width x height)
 
     if (!inBounds) this.kill();
 
