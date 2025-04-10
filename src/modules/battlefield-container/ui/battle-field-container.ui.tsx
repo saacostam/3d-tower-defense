@@ -7,7 +7,7 @@ import { Button } from "../../ui.components";
 
 export function BattleFieldContainerUI({
   addDefense,
-  cursorUIFeedbackCopy,
+  messageQueue,
   defenses,
   goToLevelSelection,
 }: BattleFieldContainerUiProps) {
@@ -57,7 +57,7 @@ export function BattleFieldContainerUI({
           >
             <ArrowLeftIcon />
           </Button>
-          {cursorUIFeedbackCopy && (
+          {messageQueue.map((message) => (
             <div
               style={{
                 borderRadius: "12px",
@@ -69,12 +69,13 @@ export function BattleFieldContainerUI({
                 fontSize: "smaller",
                 backgroundColor: COLOR_PALETTE.RED,
                 padding: "8px",
-                opacity: 0.8,
+                opacity: 0.9,
+                marginBottom: "10px",
               }}
             >
-              {cursorUIFeedbackCopy}
+              {message}
             </div>
-          )}
+          ))}
           <div
             style={{
               position: "absolute",

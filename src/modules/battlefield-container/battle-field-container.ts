@@ -1,6 +1,7 @@
 import { Color, HemisphereLight, Vector2, Vector3 } from "three";
 import { COLOR_PALETTE } from "../colors";
 import {
+  MessageQueueComponent,
   MountainComponent,
   StarComponent,
   TreeComponent,
@@ -19,20 +20,19 @@ const DEBUG = false;
 
 export interface BattleFieldContainerUiProps {
   addDefense: AddDefense;
-  cursorUIFeedbackCopy: string | null;
   defenses: DefenseDefinition[];
   goToLevelSelection: () => void;
+  messageQueue: string[];
 }
 
 export class BattleFieldContainer extends Container {
   public headQuarters: HeadQuarters;
+  public messageQueue: MessageQueueComponent;
 
   private static TILE_SIZE = 1;
 
   private level = 0;
   private levels = LEVELS;
-
-  private cursorUIFeedbackCopy: string | null = null;
 
   public cursor!: Cursor;
 
@@ -41,6 +41,7 @@ export class BattleFieldContainer extends Container {
     this.headQuarters = new HeadQuarters({
       health: 30,
     });
+    this.messageQueue = new MessageQueueComponent();
   }
 
   public Render = BattleFieldContainerUI;
@@ -68,6 +69,7 @@ export class BattleFieldContainer extends Container {
     this.headQuarters = new HeadQuarters({
       health: 30,
     });
+    this.messageQueue = new MessageQueueComponent();
 
     const currentLevel = this.levels[this.level];
 
@@ -108,11 +110,11 @@ export class BattleFieldContainer extends Container {
     );
     this.cursor = new Cursor({
       pos: cursorPosition,
-      updateCursorUIFeedbackCopy: (copy: string | null) =>
-        (this.cursorUIFeedbackCopy = copy),
+      addMessage: this.messageQueue.addMessage,
     });
     this.addActor(this.cursor, cursorPosition);
 
+    this.addComponent(this.messageQueue);
     this.addComponent(new HoverCursor());
 
     this.createSceneryStars({ width, height }).forEach((star) =>
@@ -278,7 +280,6 @@ export class BattleFieldContainer extends Container {
           type: defenseType,
           container: game.currentContainer as BattleFieldContainer,
         }),
-      cursorUIFeedbackCopy: this.cursorUIFeedbackCopy,
       defenses: [
         {
           label: "🚀",
@@ -295,6 +296,7 @@ export class BattleFieldContainer extends Container {
       ],
       goToLevelSelection: () =>
         game.setContainer(ContainerKey.LEVEL_SELECTION_CONTAINER),
+      messageQueue: this.messageQueue.messages.map(({ message }) => message),
     };
   }
 }

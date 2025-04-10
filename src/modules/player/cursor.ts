@@ -1,5 +1,9 @@
 import { Color, Mesh, MeshBasicMaterial, Vector2, Vector3 } from "three";
-import { BattleFieldContainer, BoxActor } from "../battlefield-container";
+import {
+  AddMessageCommand,
+  BattleFieldContainer,
+  BoxActor,
+} from "../battlefield-container";
 import { COLOR_PALETTE } from "../colors";
 import { WORLD_CONFIG } from "../config";
 import { Actor, Composite, Container, Game } from "../game";
@@ -8,11 +12,9 @@ import { SimpleGun } from "./simple-gun";
 import { DefenseType } from "./shared-types";
 import { RocketGun } from "./rocket-gun";
 
-type UpdateCursorUIFeedbackCopy = (copy: string | null) => void;
-
 export interface CursorArgs {
   pos: Vector2;
-  updateCursorUIFeedbackCopy: UpdateCursorUIFeedbackCopy;
+  addMessage: AddMessageCommand;
 }
 
 export class Cursor extends Actor {
@@ -30,7 +32,7 @@ export class Cursor extends Actor {
   private RENDER_TIMEOUT = 50;
   private renderTimeout = 0;
 
-  private updateCursorUIFeedbackCopy: UpdateCursorUIFeedbackCopy;
+  private addMessage: AddMessageCommand;
 
   constructor(args: CursorArgs) {
     const createLine = (type: "horizontal" | "vertical") => {
@@ -79,7 +81,7 @@ export class Cursor extends Actor {
     super({ mesh });
 
     this.pos = args.pos;
-    this.updateCursorUIFeedbackCopy = args.updateCursorUIFeedbackCopy;
+    this.addMessage = args.addMessage;
   }
 
   public update(
@@ -115,11 +117,9 @@ export class Cursor extends Actor {
       container,
     });
     if (!canPlace && feedback.isPlaceable) {
-      this.updateCursorUIFeedbackCopy(
-        "You cannot place defenses in enemy territory",
-      );
-    } else {
-      this.updateCursorUIFeedbackCopy(null);
+      this.addMessage("Can't Place Defenses in Enemy Territory!", {
+        id: "enemy-territory",
+      });
     }
 
     if (game.keyboardHandler.wasPressed("z")) {
