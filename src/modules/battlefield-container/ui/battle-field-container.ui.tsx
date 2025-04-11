@@ -67,6 +67,7 @@ export function BattleFieldContainerUI({
           >
             {messageQueue.map((message) => (
               <div
+                key={message}
                 style={{
                   borderRadius: "12px",
                   textAlign: "center",
