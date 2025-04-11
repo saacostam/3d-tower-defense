@@ -3,6 +3,7 @@ import { TBattleSide } from "../../battlefield-container";
 import { Actor, GridCell } from "../../game";
 import { Mob, Spawner } from "../../mobs";
 import { HeadQuarters } from "../../player";
+import { AStarFinder } from "astar-typescript";
 
 export const PathfindingUtils = {
   createSimpleGrid: (grid: GridCell[][]): number[][] => {
@@ -130,56 +131,25 @@ export const PathfindingUtils = {
     positionToCheck?: Vector2,
   ) => {
     let canWalk = true;
-    for (const spawner of spawners)
-      canWalk =
-        canWalk &&
-        PathfindingUtils.checkPathBetweenExists(
-          grid,
-          spawner.position,
-          headQuarters.position.clone(),
-          positionToCheck,
-        );
+    for (const spawner of spawners) {
+      const simpleGrid = PathfindingUtils.createSimpleGrid(grid);
 
-    return canWalk;
-  },
-  checkPathBetweenExists(
-    grid: GridCell[][],
-    origin: Vector2,
-    destination: Vector2,
-    positionToCheck?: Vector2,
-  ) {
-    const start = new Vector2(origin.x, origin.y);
-    const end = new Vector2(destination.x, destination.y);
+      if (positionToCheck) simpleGrid[positionToCheck.y][positionToCheck.x] = 1;
 
-    const queue: Vector2[] = [start];
-    const visited = new Set<string>();
-    visited.add(PathfindingUtils.getPositionHash(start));
+      const pathFinder = new AStarFinder({
+        grid: {
+          matrix: simpleGrid,
+        },
+        diagonalAllowed: true,
+      });
 
-    while (queue.length > 0) {
-      const pos = queue.shift()!;
+      const path = pathFinder.findPath(spawner.position, headQuarters.position);
 
-      if (pos.equals(end)) return true;
-
-      const neighbors = PathfindingUtils.getBoundedUncheckedNeighbors(
-        pos.x,
-        pos.y,
-        grid,
-      );
-      for (const neighbor of neighbors) {
-        if (
-          !grid[neighbor.x][neighbor.y].isWalkable ||
-          visited.has(PathfindingUtils.getPositionHash(neighbor)) ||
-          (positionToCheck &&
-            positionToCheck.x === neighbor.x &&
-            positionToCheck.y === neighbor.y)
-        )
-          continue;
-
-        queue.push(neighbor);
-        visited.add(PathfindingUtils.getPositionHash(neighbor));
+      if (path.length === 0) {
+        canWalk = false;
       }
     }
 
-    return false;
+    return canWalk;
   },
 };
