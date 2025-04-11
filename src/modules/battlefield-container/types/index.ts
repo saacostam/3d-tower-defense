@@ -8,6 +8,7 @@ export enum TBattleSide {
 export interface DefenseDefinition {
   label: string;
   type: DefenseType;
+  kbd: string;
 }
 
 export type AddDefense = (defenseType: DefenseType) => void;

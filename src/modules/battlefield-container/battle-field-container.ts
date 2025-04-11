@@ -287,14 +287,17 @@ export class BattleFieldContainer extends Container {
         {
           label: "🚀",
           type: "simple",
+          kbd: "Z",
         },
         {
           label: "🧨",
           type: "rocket",
+          kbd: "X",
         },
         {
           label: "📦",
           type: "box",
+          kbd: "C",
         },
       ],
       goToLevelSelection: () =>
