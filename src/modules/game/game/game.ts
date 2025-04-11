@@ -84,10 +84,12 @@ export class Game {
       this.update();
       this.graphics();
 
+      const now = Date.now();
       this.renderer.render(
         this.currentContainer.scene,
         this.currentContainer.camera,
       );
+      console.debug("render", Date.now() - now);
       this.stats.update();
 
       requestAnimationFrame(loop);
@@ -103,6 +105,8 @@ export class Game {
     if (this.currentContainer) {
       this.currentContainer.update(this, delta);
     }
+
+    console.debug("update.delta", delta);
   }
 
   public graphics() {
@@ -113,6 +117,8 @@ export class Game {
     if (this.currentContainer) {
       this.currentContainer.graphics(this, delta);
     }
+
+    console.debug("graphics.delta", delta);
   }
 }
 
