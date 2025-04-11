@@ -73,24 +73,23 @@ A strategy game where players defend against waves of enemies by strategically p
 
 ## Tasks - Polish
 
+- [ ] FEAT: Integrate tailwind.
 - [ ] FEAT: Add keyboard short-cuts to the defense-selection buttons.
-- [ ] FEAT: Enhance player models.
-  - [ ] FEAT: Enhance guns.
-  - [ ] FEAT: Enhance cursor.
-- [ ] FEAT(Spawner): Add timer-like sprite that shows timeout for spawning.
 - [ ] FEAT: Add path indicator: Show the path from the spawner to the HQ.
-
-## Tasks Game Loop 2
-
-- [ ] FEAT: Add health to towers.
-  - [ ] FEAT: If a tower is close to an explosion they should reduce health.
-- [ ] FEAT: Enhance mouse-and-click look-and-feel.
-
-## Tasks - Polish 2
-
+- [ ] FEAT(Spawner): Add timer-like sprite that shows timeout for spawning.
 - [ ] FEAT: Add animals.
   - [ ] FEAT: Add birds.
   - [ ] FEAT: Add fire-flies.
+- [ ] FEAT: Enhance player models.
+  - [ ] FEAT: Enhance guns.
+  - [ ] FEAT: Enhance cursor.
 - [ ] REFACTOR: Centralize grass-patch rendering
   - INFO: Some elements, such as trees, bon-fires, stones, render their own patch of grass. Ideally, they are all centralized into a single ModelingUtil method.
-- [ ] FEAT: Integrate tailwind.
+
+## Tasks Game Loop 2
+
+- [ ] FEAT: Add game over screen.
+  - With options to "Leave" (Go to Menu) or "Restart".
+- [ ] FEAT: Add health to towers.
+  - [ ] FEAT: If a tower is close to an explosion they should reduce health.
+- [ ] FEAT: Enhance mouse-and-click look-and-feel.
