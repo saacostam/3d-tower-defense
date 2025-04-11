@@ -76,6 +76,7 @@ export function BattleFieldContainerUI({
                   padding: "8px",
                   opacity: 0.9,
                   marginBottom: "10px",
+                  userSelect: "none",
                 }}
               >
                 {message}

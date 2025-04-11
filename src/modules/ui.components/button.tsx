@@ -34,6 +34,7 @@ export function Button({
         borderRadius: "12px",
         fontSize: "16px",
         fill: "white",
+        userSelect: "none",
         zIndex: 100,
         ...(variation === "padded"
           ? { padding: "16px 32px" }
