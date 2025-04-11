@@ -1,3 +1,6 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
 body {
   background-color: #262626;
   font-family:
