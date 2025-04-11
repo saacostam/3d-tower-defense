@@ -57,25 +57,30 @@ export function BattleFieldContainerUI({
           >
             <ArrowLeftIcon />
           </Button>
-          {messageQueue.map((message) => (
-            <div
-              style={{
-                borderRadius: "12px",
-                position: "absolute",
-                top: "10px",
-                transform: "translate(-50%, 0)",
-                left: "50%",
-                textAlign: "center",
-                fontSize: "smaller",
-                backgroundColor: COLOR_PALETTE.RED,
-                padding: "8px",
-                opacity: 0.9,
-                marginBottom: "10px",
-              }}
-            >
-              {message}
-            </div>
-          ))}
+          <div
+            style={{
+              position: "absolute",
+              top: "10px",
+              left: "50%",
+              transform: "translate(-50%, 0)",
+            }}
+          >
+            {messageQueue.map((message) => (
+              <div
+                style={{
+                  borderRadius: "12px",
+                  textAlign: "center",
+                  fontSize: "smaller",
+                  backgroundColor: COLOR_PALETTE.RED,
+                  padding: "8px",
+                  opacity: 0.9,
+                  marginBottom: "10px",
+                }}
+              >
+                {message}
+              </div>
+            ))}
+          </div>
           <div
             style={{
               position: "absolute",

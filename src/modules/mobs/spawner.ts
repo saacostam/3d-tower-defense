@@ -19,6 +19,8 @@ export class Spawner extends Actor {
 
   private multiplier: number;
 
+  public position: Vector2;
+
   constructor(args: SpawnerArgs) {
     const height = WORLD_CONFIG.TILE_SIZE;
 
@@ -44,6 +46,7 @@ export class Spawner extends Actor {
     super({ mesh });
 
     this.multiplier = args.multiplier;
+    this.position = args.position;
   }
 
   public update(
