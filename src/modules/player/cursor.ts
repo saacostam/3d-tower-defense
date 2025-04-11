@@ -8,7 +8,6 @@ import { COLOR_PALETTE } from "../colors";
 import { WORLD_CONFIG } from "../config";
 import { Actor, Composite, Container, Game } from "../game";
 import { MeshUtils } from "../mesh";
-import { Spawner } from "../mobs";
 import { PathfindingUtils } from "../pathfinding";
 import { SimpleGun } from "./simple-gun";
 import { DefenseType } from "./shared-types";
@@ -84,7 +83,6 @@ export class Cursor extends Actor {
 
     this.pos = args.pos;
     this.addMessage = args.addMessage;
-    this.spawners = args.spawners;
   }
 
   public update(
