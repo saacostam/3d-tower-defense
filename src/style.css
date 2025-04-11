@@ -1,6 +1,3 @@
-@import "tailwindcss";
-@plugin "daisyui";
-
 body {
   background-color: #262626;
   font-family:
@@ -31,12 +28,8 @@ canvas {
 }
 
 * {
-  margin: 0;
-  padding: 0;
   color: white;
 }
 
-.size-6 {
-  width: 24px;
-  height: 24px;
-}
+@import "tailwindcss";
+@plugin "daisyui";

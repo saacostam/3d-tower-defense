@@ -73,7 +73,7 @@ A strategy game where players defend against waves of enemies by strategically p
 
 ## Tasks - Polish
 
-- [ ] FEAT: Integrate tailwind.
+- [x] FEAT: Integrate tailwind.
 - [ ] FEAT: Add keyboard short-cuts to the defense-selection buttons.
 - [ ] FEAT: Add path indicator: Show the path from the spawner to the HQ.
 - [ ] FEAT(Spawner): Add timer-like sprite that shows timeout for spawning.
