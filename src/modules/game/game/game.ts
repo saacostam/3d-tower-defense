@@ -65,8 +65,14 @@ export class Game {
       throw new Error(`A container with key "${key}" does not exist`);
     this.currentContainer = this.containers.get(key)!;
     this.currentContainer.onSwitch(this);
-    this.triggerRender();
-    this.onResize();
+
+    const forceUpdate = () => {
+      this.triggerRender();
+      this.onResize();
+    };
+
+    forceUpdate();
+    window.requestAnimationFrame(forceUpdate);
   }
   public start() {
     if (!this.currentContainer) throw new Error("No container selected");
