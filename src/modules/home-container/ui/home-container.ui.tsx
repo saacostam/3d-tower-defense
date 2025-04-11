@@ -6,25 +6,15 @@ import { Button } from "../../ui.components";
 export function HomeContainerUI({ goToNext }: HomeContainerUiProps) {
   return (
     <div
+      className="w-full h-full flex justify-center items-center"
       style={{
-        width: "100%",
-        height: "100%",
         backgroundColor: COLOR_PALETTE.VOID,
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
       }}
     >
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
-        <h1 style={{ marginBottom: "20px" }}>3D Tower Defense</h1>
+      <div className="flex flex-col items-center">
+        <h1 className="mb-5 text-3xl font-bold">3D Tower Defense</h1>
         <Button type="primary" onClick={goToNext}>
-          <span style={{ fontSize: "22px" }}>Start</span>
+          <span className="text-2xl">Start</span>
         </Button>
       </div>
     </div>

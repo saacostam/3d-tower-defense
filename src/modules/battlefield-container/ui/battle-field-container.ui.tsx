@@ -17,81 +17,45 @@ export function BattleFieldContainerUI({
     <>
       {!isConfirmationModalOpen && (
         <>
-          <h1
+          <div
+            className="block absolute bottom-2.5 right-2.5 rounded-xl p-2 opacity-90"
             style={{
-              display: "block",
-              textAlign: "center",
-              fontSize: "medium",
-              position: "absolute",
-              top: "10px",
-              right: "10px",
+              backgroundColor: COLOR_PALETTE.DARK_GREEN,
             }}
           >
-            3D Tower Defense (Prototype)
-          </h1>
-          <ul
-            style={{
-              display: "block",
-              textAlign: "right",
-              listStyle: "none",
-              fontSize: "smaller",
-              position: "absolute",
-              top: "35px",
-              right: "10px",
-            }}
-          >
-            <li>Arrow-Keys for Movement</li>
-            <li>Z - Place a Tower</li>
-            <li>X - Place a Rocket Tower</li>
-            <li>C - Place a Wall</li>
-          </ul>
+            <h1 className="block text-center text-2xl font-bold">
+              🛡️ 3D Tower Defense
+            </h1>
+            <a
+              className="block text-end link"
+              href="https://github.com/saacostam"
+              target="_blank"
+            >
+              by saacostam
+            </a>
+          </div>
           <Button
+            className="absolute top-2.5 left-2.5"
             onClick={() => setIsConfirmationModalOpen(true)}
             type="secondary"
-            style={{
-              position: "absolute",
-              top: "10px",
-              left: "10px",
-            }}
             variation="square"
           >
             <ArrowLeftIcon />
           </Button>
-          <div
-            style={{
-              position: "absolute",
-              top: "10px",
-              left: "50%",
-              transform: "translate(-50%, 0)",
-            }}
-          >
+          <div className="absolute top-2.5 left-1/2 transform -translate-x-1/2">
             {messageQueue.map((message) => (
               <div
+                className="rounded-xl text-center text-sm p-2 opacity-90 mb-2.5 select-none"
                 key={message}
                 style={{
-                  borderRadius: "12px",
-                  textAlign: "center",
-                  fontSize: "smaller",
                   backgroundColor: COLOR_PALETTE.RED,
-                  padding: "8px",
-                  opacity: 0.9,
-                  marginBottom: "10px",
-                  userSelect: "none",
                 }}
               >
                 {message}
               </div>
             ))}
           </div>
-          <div
-            style={{
-              position: "absolute",
-              bottom: "10px",
-              left: "10px",
-              display: "flex",
-              gap: "10px",
-            }}
-          >
+          <div className="absolute bottom-2.5 left-2.5 flex gap-2.5">
             {defenses.map((defense) => (
               <AddDefenseCta
                 addDefense={addDefense}
@@ -104,29 +68,18 @@ export function BattleFieldContainerUI({
       )}
       {isConfirmationModalOpen && (
         <div
+          className="min-w-24 rounded-xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center p-8"
           style={{
-            minWidth: "100px",
-            borderRadius: "12px",
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            textAlign: "center",
             backgroundColor: COLOR_PALETTE.VOID,
-            padding: "32px",
           }}
         >
-          <h2>Are you sure you want to exit the game?</h2>
-          <p style={{ marginTop: "16px", marginBottom: "32px" }}>
+          <h2 className="text-2xl font-bold">
+            Are you sure you want to exit the game?
+          </h2>
+          <p className="mt-4 mb-8">
             You will lose all progress and be redirected to the level selection.
           </p>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-              gap: "16px",
-            }}
-          >
+          <div className="grid grid-cols-2 gap-4">
             <Button onClick={goToLevelSelection} type="secondary">
               Confirm
             </Button>

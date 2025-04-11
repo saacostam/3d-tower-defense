@@ -12,12 +12,8 @@ export function AddDefenseCta({ addDefense, defense }: AddDefenseCtaProps) {
     <Button
       onClick={() => addDefense(defense.type)}
       type="secondary"
-      style={{
-        width: "72px",
-        height: "72px",
-        padding: "16px",
-        fontSize: "32px",
-      }}
+      className="w-20 h-20 !text-3xl !flex items-center justify-center"
+      variation="padded"
     >
       {defense.label}
     </Button>
