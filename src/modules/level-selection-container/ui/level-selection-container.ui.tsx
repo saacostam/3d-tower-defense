@@ -18,6 +18,7 @@ export function LevelSelectionContainerUI({
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        padding: "10px",
       }}
     >
       <div
@@ -32,7 +33,7 @@ export function LevelSelectionContainerUI({
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(3, 1fr)",
-            gap: "16px",
+            gap: "10px",
           }}
         >
           {levels.map((level, index) => (
