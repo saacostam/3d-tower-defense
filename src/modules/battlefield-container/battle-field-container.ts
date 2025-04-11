@@ -11,6 +11,7 @@ import { ContainerKey, WORLD_CONFIG } from "../config";
 import { DebugUtils } from "../debug";
 import { Component, Container, Game } from "../game";
 import { LEVELS } from "../levels";
+import { Spawner } from "../mobs";
 import { Cursor, HeadQuarters, DefenseType, HoverCursor } from "../player";
 import { AddDefense, DefenseDefinition } from "./types";
 import { BattleFieldContainerUI } from "./ui";
@@ -27,6 +28,7 @@ export interface BattleFieldContainerUiProps {
 
 export class BattleFieldContainer extends Container {
   public headQuarters: HeadQuarters;
+  public spawners: Spawner[] = [];
   public messageQueue: MessageQueueComponent;
 
   private static TILE_SIZE = 1;
@@ -73,14 +75,14 @@ export class BattleFieldContainer extends Container {
 
     const currentLevel = this.levels[this.level];
 
-    const worldBuildingCommands = WorldBuilderUtils.buildLevel({
+    const { worldBuilderCommands, spawners } = WorldBuilderUtils.buildLevel({
       width,
       height,
       tileSize: BattleFieldContainer.TILE_SIZE,
       level: currentLevel,
       headQuarters: this.headQuarters,
     });
-    worldBuildingCommands.forEach((command) => {
+    worldBuilderCommands.forEach((command) => {
       if (command.type === "component") {
         this.addComponent(command.component);
       } else if (command.type === "actor") {
@@ -95,6 +97,7 @@ export class BattleFieldContainer extends Container {
         throw new Error(`Unknown command type: ${(command as any)?.type}`);
       }
     });
+    this.spawners = spawners;
 
     WorldBuilderUtils.inlineUpdateLevelGridsPlaceableStatus({
       container: this,

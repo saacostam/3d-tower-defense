@@ -8,6 +8,8 @@ import { COLOR_PALETTE } from "../colors";
 import { WORLD_CONFIG } from "../config";
 import { Actor, Composite, Container, Game } from "../game";
 import { MeshUtils } from "../mesh";
+import { Spawner } from "../mobs";
+import { PathfindingUtils } from "../pathfinding";
 import { SimpleGun } from "./simple-gun";
 import { DefenseType } from "./shared-types";
 import { RocketGun } from "./rocket-gun";
@@ -82,6 +84,7 @@ export class Cursor extends Actor {
 
     this.pos = args.pos;
     this.addMessage = args.addMessage;
+    this.spawners = args.spawners;
   }
 
   public update(
@@ -116,10 +119,24 @@ export class Cursor extends Actor {
     const { canPlace, feedback } = this.checkCanPlace({
       container,
     });
-    if (!canPlace && feedback.isPlaceable) {
-      this.addMessage("Can't Place Defenses in Enemy Territory!", {
-        id: "enemy-territory",
-      });
+    if (!canPlace) {
+      if (feedback.isPlaceable) {
+        this.addMessage(
+          "Enemy territory is off-limits! Try again on our side.",
+          {
+            id: "enemy-territory",
+          },
+        );
+      }
+
+      if (feedback.itBlocksAvailablePath) {
+        this.addMessage(
+          "The enemies need a way through — you can't block every path!",
+          {
+            id: "only-available-path",
+          },
+        );
+      }
     }
 
     if (game.keyboardHandler.wasPressed("z")) {
@@ -272,7 +289,16 @@ export class Cursor extends Actor {
         (actor) => actor !== this,
       ) === undefined;
 
-    const canPlace = !isPlaceable && isWalkable && isNotOccupied;
+    const itBlocksAvailablePath =
+      !PathfindingUtils.checkIfSpawnersCanWalkToHeadquarters(
+        container.actorsGrid,
+        container.spawners,
+        container.headQuarters,
+        this.pos.clone(),
+      );
+
+    const canPlace =
+      !isPlaceable && isWalkable && isNotOccupied && !itBlocksAvailablePath;
 
     return {
       canPlace,
@@ -280,6 +306,7 @@ export class Cursor extends Actor {
         isPlaceable,
         isWalkable,
         isNotOccupied,
+        itBlocksAvailablePath,
       },
     };
   }

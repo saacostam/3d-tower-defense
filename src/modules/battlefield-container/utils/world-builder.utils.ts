@@ -36,10 +36,14 @@ export const WorldBuilderUtils = {
     tileSize: number;
     level: LevelDefinition;
     headQuarters: HeadQuarters;
-  }): WorldBuilderCommand[] => {
+  }): {
+    worldBuilderCommands: WorldBuilderCommand[];
+    spawners: Spawner[];
+  } => {
     let hasPlacedHeadquarters = false;
 
     const worldBuilderCommands: WorldBuilderCommand[] = [];
+    const spawners: Spawner[] = [];
 
     for (let i = 0; i < args.width; i++) {
       for (let j = 0; j < args.height; j++) {
@@ -85,15 +89,18 @@ export const WorldBuilderUtils = {
               break;
             }
             case LTT.SPW: {
+              const spawner = new Spawner({
+                position: posVector2,
+                multiplier: args.level.difficultyMultiplier,
+              });
+
               worldBuilderCommands.push({
                 type: "actor",
-                actor: new Spawner({
-                  position: posVector2,
-                  multiplier: args.level.difficultyMultiplier,
-                }),
+                actor: spawner,
                 position: posVector2,
                 static: false,
               });
+              spawners.push(spawner);
               break;
             }
             case LTT.RV: {
@@ -166,7 +173,10 @@ export const WorldBuilderUtils = {
       }
     }
 
-    return worldBuilderCommands;
+    return {
+      worldBuilderCommands,
+      spawners,
+    };
   },
   inlineUpdateLevelGridsPlaceableStatus: (args: {
     container: BattleFieldContainer;

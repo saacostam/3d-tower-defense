@@ -1,7 +1,8 @@
 import { Vector2 } from "three";
 import { TBattleSide } from "../../battlefield-container";
 import { Actor, GridCell } from "../../game";
-import { Mob } from "../../mobs";
+import { Mob, Spawner } from "../../mobs";
+import { HeadQuarters } from "../../player";
 
 export const PathfindingUtils = {
   createSimpleGrid: (grid: GridCell[][]): number[][] => {
@@ -31,12 +32,23 @@ export const PathfindingUtils = {
     y: number,
     grid: GridCell[][],
   ): Vector2[] => {
-    const neighbors: Vector2[] = [];
-    if (x > 0) neighbors.push(new Vector2(x - 1, y));
-    if (x < grid.length - 1) neighbors.push(new Vector2(x + 1, y));
-    if (y > 0) neighbors.push(new Vector2(x, y - 1));
-    if (y < grid[0].length - 1) neighbors.push(new Vector2(x, y + 1));
-    return neighbors;
+    const neighbors: Vector2[] = [
+      new Vector2(x + 1, y + 1),
+      new Vector2(x + 1, y),
+      new Vector2(x + 1, y - 1),
+
+      new Vector2(x, y + 1),
+      new Vector2(x, y - 1),
+
+      new Vector2(x - 1, y + 1),
+      new Vector2(x - 1, y),
+      new Vector2(x - 1, y - 1),
+    ];
+
+    return neighbors.filter((neighbor) => {
+      const { x, y } = neighbor;
+      return 0 <= x && x < grid.length && 0 <= y && y < (grid[0]?.length ?? 0);
+    });
   },
   getPositionHash(pos: Vector2): string {
     return `${pos.x},${pos.y}`;
@@ -110,5 +122,64 @@ export const PathfindingUtils = {
     });
 
     return closest;
+  },
+  checkIfSpawnersCanWalkToHeadquarters: (
+    grid: GridCell[][],
+    spawners: Spawner[],
+    headQuarters: HeadQuarters,
+    positionToCheck?: Vector2,
+  ) => {
+    let canWalk = true;
+    for (const spawner of spawners)
+      canWalk =
+        canWalk &&
+        PathfindingUtils.checkPathBetweenExists(
+          grid,
+          spawner.position,
+          headQuarters.position.clone(),
+          positionToCheck,
+        );
+
+    return canWalk;
+  },
+  checkPathBetweenExists(
+    grid: GridCell[][],
+    origin: Vector2,
+    destination: Vector2,
+    positionToCheck?: Vector2,
+  ) {
+    const start = new Vector2(origin.x, origin.y);
+    const end = new Vector2(destination.x, destination.y);
+
+    const queue: Vector2[] = [start];
+    const visited = new Set<string>();
+    visited.add(PathfindingUtils.getPositionHash(start));
+
+    while (queue.length > 0) {
+      const pos = queue.shift()!;
+
+      if (pos.equals(end)) return true;
+
+      const neighbors = PathfindingUtils.getBoundedUncheckedNeighbors(
+        pos.x,
+        pos.y,
+        grid,
+      );
+      for (const neighbor of neighbors) {
+        if (
+          !grid[neighbor.x][neighbor.y].isWalkable ||
+          visited.has(PathfindingUtils.getPositionHash(neighbor)) ||
+          (positionToCheck &&
+            positionToCheck.x === neighbor.x &&
+            positionToCheck.y === neighbor.y)
+        )
+          continue;
+
+        queue.push(neighbor);
+        visited.add(PathfindingUtils.getPositionHash(neighbor));
+      }
+    }
+
+    return false;
   },
 };

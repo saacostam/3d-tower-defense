@@ -64,19 +64,21 @@ A strategy game where players defend against waves of enemies by strategically p
   - [x] FEAT: Scale enemy stats based on value (level number).
 - [x] FIX: Reset HQ health when level is switched.
 - [x] FEAT: Only able to place defenses in "my side of the board".
-- [ ] FEAT: Block wall-placement if it fully blocks a path to the objective.
+- [x] FEAT: Block wall-placement if it fully blocks a path to the objective.
 - [x] FEAT: Enable click tile and move cursor.
 - [x] FEAT: Add elements using UI buttons.
-- [ ] FEAT: Show feeback with copy when user can't add element to scene.
+- [x] FEAT: Show feeback with copy when user can't add element to scene.
   - [x] FEAT: Non-placeable place.
-  - [ ] FEAT: Not able to fully block paths.
+  - [x] FEAT: Not able to fully block paths.
 
 ## Tasks - Polish
 
+- [ ] FEAT: Add keyboard short-cuts to the defense-selection buttons.
 - [ ] FEAT: Enhance player models.
   - [ ] FEAT: Enhance guns.
   - [ ] FEAT: Enhance cursor.
 - [ ] FEAT(Spawner): Add timer-like sprite that shows timeout for spawning.
+- [ ] FEAT: Add path indicator: Show the path from the spawner to the HQ.
 
 ## Tasks Game Loop 2
 
