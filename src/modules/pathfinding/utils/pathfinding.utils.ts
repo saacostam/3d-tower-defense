@@ -129,11 +129,6 @@ export const PathfindingUtils = {
     headQuarters: HeadQuarters,
     positionToCheck?: Vector2,
   ) => {
-    const headQuartersPos = new Vector2(
-      headQuarters.position.x,
-      headQuarters.position.y,
-    );
-
     let canWalk = true;
     for (const spawner of spawners)
       canWalk =
@@ -141,7 +136,7 @@ export const PathfindingUtils = {
         PathfindingUtils.checkPathBetweenExists(
           grid,
           spawner.position,
-          headQuartersPos,
+          headQuarters.position.clone(),
           positionToCheck,
         );
 
