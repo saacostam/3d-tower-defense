@@ -80,6 +80,7 @@ export const WorldBuilderUtils = {
             case LTT.HQ: {
               if (hasPlacedHeadquarters)
                 throw new Error("Can not place Headquarters twice");
+              args.headQuarters.position = posVector2;
               worldBuilderCommands.push({
                 type: "actor",
                 actor: args.headQuarters,

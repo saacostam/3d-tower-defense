@@ -13,9 +13,12 @@ import { SimpleGun } from "./simple-gun";
 import { DefenseType } from "./shared-types";
 import { RocketGun } from "./rocket-gun";
 
+export type NotifyPathChangeEvent = () => void;
+
 export interface CursorArgs {
   pos: Vector2;
   addMessage: AddMessageCommand;
+  notifyPathChangeEvent: NotifyPathChangeEvent;
 }
 
 export class Cursor extends Actor {
@@ -34,6 +37,7 @@ export class Cursor extends Actor {
   private renderTimeout = 0;
 
   private addMessage: AddMessageCommand;
+  private notifyPathChangeEvent: NotifyPathChangeEvent;
 
   constructor(args: CursorArgs) {
     const createLine = (type: "horizontal" | "vertical") => {
@@ -83,6 +87,7 @@ export class Cursor extends Actor {
 
     this.pos = args.pos;
     this.addMessage = args.addMessage;
+    this.notifyPathChangeEvent = args.notifyPathChangeEvent;
   }
 
   public update(
@@ -275,6 +280,8 @@ export class Cursor extends Actor {
 
     container.addActor(mob, this.pos.clone());
     container.actorsGrid[this.pos.x][this.pos.y].isWalkable = false;
+
+    this.notifyPathChangeEvent();
   }
 
   private checkCanPlace(args: { container: BattleFieldContainer }) {
@@ -287,13 +294,13 @@ export class Cursor extends Actor {
         (actor) => actor !== this,
       ) === undefined;
 
-    const itBlocksAvailablePath =
-      !PathfindingUtils.checkIfSpawnersCanWalkToHeadquarters(
-        container.actorsGrid,
-        container.spawners,
-        container.headQuarters,
-        this.pos.clone(),
-      );
+    const { canWalk } = PathfindingUtils.checkIfSpawnersCanWalkToHeadquarters(
+      container.actorsGrid,
+      container.spawners,
+      container.headQuarters,
+      this.pos.clone(),
+    );
+    const itBlocksAvailablePath = !canWalk;
 
     const canPlace =
       !isPlaceable && isWalkable && isNotOccupied && !itBlocksAvailablePath;

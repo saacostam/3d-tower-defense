@@ -5,6 +5,8 @@ import { Mob, Spawner } from "../../mobs";
 import { HeadQuarters } from "../../player";
 import { AStarFinder } from "astar-typescript";
 
+export type V2 = number[];
+
 export const PathfindingUtils = {
   createSimpleGrid: (grid: GridCell[][]): number[][] => {
     const simpleGrid: number[][] = [];
@@ -130,6 +132,8 @@ export const PathfindingUtils = {
     headQuarters: HeadQuarters,
     positionToCheck?: Vector2,
   ) => {
+    const paths: V2[][] = [];
+
     let canWalk = true;
     for (const spawner of spawners) {
       const simpleGrid = PathfindingUtils.createSimpleGrid(grid);
@@ -148,8 +152,13 @@ export const PathfindingUtils = {
       if (path.length === 0) {
         canWalk = false;
       }
+
+      paths.push(path);
     }
 
-    return canWalk;
+    return {
+      canWalk,
+      paths,
+    };
   },
 };
