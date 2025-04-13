@@ -15,27 +15,27 @@ export class BoxActor extends Actor {
       parts: [
         {
           mesh: MeshUtils.createBox({
-            width: args.size,
+            width: (args.size * 4) / 5,
             height: args.size / 4,
-            depth: args.size,
+            depth: (args.size * 4) / 5,
             color: new Color(COLOR_PALETTE.DARK),
           }),
           offset: new Vector3(0, (-args.size * 3) / 8, 0),
         },
         {
           mesh: MeshUtils.createBox({
-            width: (args.size * 4) / 5,
+            width: (args.size * 3) / 5,
             height: args.size / 2,
-            depth: (args.size * 4) / 5,
+            depth: (args.size * 3) / 5,
             color: new Color(COLOR_PALETTE.WHITE),
           }),
           offset: new Vector3(0, 0, 0),
         },
         {
           mesh: MeshUtils.createBox({
-            width: args.size,
+            width: (args.size * 4) / 5,
             height: args.size / 4,
-            depth: args.size,
+            depth: (args.size * 4) / 5,
             color: new Color(COLOR_PALETTE.DARK),
           }),
           offset: new Vector3(0, (args.size * 3) / 8, 0),
