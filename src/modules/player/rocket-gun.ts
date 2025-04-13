@@ -19,7 +19,7 @@ export class RocketGun extends Gun {
   public constructor(args: RocketGunArgs) {
     const pos3 = new Vector3(
       args.position.x,
-      WORLD_CONFIG.TILE_SIZE,
+      (WORLD_CONFIG.TILE_SIZE * 3) / 4,
       args.position.y,
     );
 
@@ -32,35 +32,31 @@ export class RocketGun extends Gun {
       center: pos3,
       parts: [
         {
-          mesh: MeshUtils.createBox({
-            width: WORLD_CONFIG.TILE_SIZE,
-            height: WORLD_CONFIG.TILE_SIZE / 2,
-            depth: WORLD_CONFIG.TILE_SIZE,
-            color: new Color(COLOR_PALETTE.RED),
-          }),
-          offset: new Vector3(0, (-WORLD_CONFIG.TILE_SIZE * 3) / 4, 0),
-        },
-        {
-          mesh: MeshUtils.createBox({
-            width: (WORLD_CONFIG.TILE_SIZE * 3) / 4,
-            height: WORLD_CONFIG.TILE_SIZE,
-            depth: (WORLD_CONFIG.TILE_SIZE * 3) / 4,
+          mesh: MeshUtils.createCone({
+            radius: (WORLD_CONFIG.TILE_SIZE * 2) / 5,
+            height:
+              (WORLD_CONFIG.TILE_SIZE * 3) / 2 - WORLD_CONFIG.TILE_SIZE / 16,
             color: new Color(COLOR_PALETTE.DARK),
           }),
           offset: new Vector3(0, 0, 0),
         },
         {
-          mesh: MeshUtils.createBox({
-            width: WORLD_CONFIG.TILE_SIZE,
-            height: WORLD_CONFIG.TILE_SIZE / 2,
-            depth: WORLD_CONFIG.TILE_SIZE,
+          mesh: MeshUtils.createSphere({
+            radius: WORLD_CONFIG.TILE_SIZE / 4,
             color: new Color(COLOR_PALETTE.RED),
           }),
-          offset: new Vector3(0, (WORLD_CONFIG.TILE_SIZE * 3) / 4, 0),
+          offset: new Vector3(0, 0, 0),
+        },
+        {
+          mesh: MeshUtils.createSphere({
+            radius: (WORLD_CONFIG.TILE_SIZE * 2) / 5,
+            color: new Color(COLOR_PALETTE.RED),
+          }),
+          offset: new Vector3(0, -WORLD_CONFIG.TILE_SIZE / 2, 0),
         },
         {
           mesh: gem,
-          offset: new Vector3(0, (WORLD_CONFIG.TILE_SIZE * 3) / 2, 0),
+          offset: new Vector3(0, WORLD_CONFIG.TILE_SIZE, 0),
         },
       ],
     });
@@ -88,7 +84,6 @@ export class RocketGun extends Gun {
     pos: Vector2,
   ): void {
     super.update(game, delta, container, pos);
-    this.gem.rotateX(delta / 500);
-    this.gem.rotateZ(delta / 250);
+    this.gem.rotateY((delta * this.shootTimeout) / this.SHOOT_TIMEOUT / 50);
   }
 }

@@ -18,7 +18,7 @@ export class Gun extends Actor {
   private bulletConfig: BulletConfig;
 
   public SHOOT_TIMEOUT = 1000;
-  private shootTimeout = 0;
+  public shootTimeout = 0;
 
   public range: number = 5;
 

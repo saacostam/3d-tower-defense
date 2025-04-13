@@ -17,7 +17,7 @@ export class SimpleGun extends Gun {
   public constructor(args: SimpleGunArgs) {
     const pos3 = new Vector3(
       args.position.x,
-      WORLD_CONFIG.TILE_SIZE,
+      (WORLD_CONFIG.TILE_SIZE * 3) / 4,
       args.position.y,
     );
 
@@ -30,35 +30,31 @@ export class SimpleGun extends Gun {
       center: pos3,
       parts: [
         {
-          mesh: MeshUtils.createBox({
-            width: WORLD_CONFIG.TILE_SIZE,
-            height: WORLD_CONFIG.TILE_SIZE / 2,
-            depth: WORLD_CONFIG.TILE_SIZE,
+          mesh: MeshUtils.createCone({
+            radius: (WORLD_CONFIG.TILE_SIZE * 2) / 5,
+            height:
+              (WORLD_CONFIG.TILE_SIZE * 3) / 2 - WORLD_CONFIG.TILE_SIZE / 16,
             color: new Color(COLOR_PALETTE.DARK),
-          }),
-          offset: new Vector3(0, (-WORLD_CONFIG.TILE_SIZE * 3) / 4, 0),
-        },
-        {
-          mesh: MeshUtils.createBox({
-            width: (WORLD_CONFIG.TILE_SIZE * 3) / 4,
-            height: WORLD_CONFIG.TILE_SIZE,
-            depth: (WORLD_CONFIG.TILE_SIZE * 3) / 4,
-            color: new Color(COLOR_PALETTE.METAL),
           }),
           offset: new Vector3(0, 0, 0),
         },
         {
-          mesh: MeshUtils.createBox({
-            width: WORLD_CONFIG.TILE_SIZE,
-            height: WORLD_CONFIG.TILE_SIZE / 2,
-            depth: WORLD_CONFIG.TILE_SIZE,
-            color: new Color(COLOR_PALETTE.DARK),
+          mesh: MeshUtils.createSphere({
+            radius: WORLD_CONFIG.TILE_SIZE / 4,
+            color: new Color(COLOR_PALETTE.WHITE),
           }),
-          offset: new Vector3(0, (WORLD_CONFIG.TILE_SIZE * 3) / 4, 0),
+          offset: new Vector3(0, 0, 0),
+        },
+        {
+          mesh: MeshUtils.createSphere({
+            radius: (WORLD_CONFIG.TILE_SIZE * 2) / 5,
+            color: new Color(COLOR_PALETTE.WHITE),
+          }),
+          offset: new Vector3(0, -WORLD_CONFIG.TILE_SIZE / 2, 0),
         },
         {
           mesh: gem,
-          offset: new Vector3(0, (WORLD_CONFIG.TILE_SIZE * 3) / 2, 0),
+          offset: new Vector3(0, WORLD_CONFIG.TILE_SIZE, 0),
         },
       ],
     });
@@ -85,7 +81,6 @@ export class SimpleGun extends Gun {
     pos: Vector2,
   ): void {
     super.update(game, delta, container, pos);
-    this.gem.rotateX(delta / 1000);
-    this.gem.rotateZ(delta / 500);
+    this.gem.rotateY((delta * this.shootTimeout) / this.SHOOT_TIMEOUT / 50);
   }
 }
