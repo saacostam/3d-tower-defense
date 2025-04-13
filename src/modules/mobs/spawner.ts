@@ -4,6 +4,7 @@ import { COLOR_PALETTE } from "../colors";
 import { WORLD_CONFIG } from "../config";
 import { Actor, Composite, Container, Game } from "../game";
 import { GroupMob } from "./group-mob";
+import { ProgressBar } from "../indicators";
 import { MeshUtils } from "../mesh";
 import { Tank } from "./tank";
 import { Walker } from "./walker";
@@ -20,6 +21,8 @@ export class Spawner extends Actor {
   private multiplier: number;
 
   public position: Vector2;
+
+  private progressBar: ProgressBar;
 
   constructor(args: SpawnerArgs) {
     const height = WORLD_CONFIG.TILE_SIZE;
@@ -47,6 +50,25 @@ export class Spawner extends Actor {
 
     this.multiplier = args.multiplier;
     this.position = args.position;
+
+    this.progressBar = new ProgressBar({
+      total: Spawner.SPAWN_TIMEOUT,
+      value: this.spawnTimeout,
+      position: this.mesh.position,
+      offset: new Vector3(0, -WORLD_CONFIG.TILE_SIZE / 4, 0),
+      heightFactor: 0.5,
+      widthFactor: 0.6,
+    });
+  }
+
+  public afterSpawn(container: Container, pos: Vector2): void {
+    super.afterSpawn(container, pos);
+    this.progressBar.start(container);
+  }
+
+  public beforeDeath(game: Game, container: Container, pos: Vector2): void {
+    super.beforeDeath(game, container, pos);
+    this.progressBar.end(container);
   }
 
   public update(
@@ -82,5 +104,7 @@ export class Spawner extends Actor {
     }
 
     this.spawnTimeout = newSpawnTimeout % Spawner.SPAWN_TIMEOUT;
+
+    this.progressBar.update(this.spawnTimeout, this.mesh.position.clone());
   }
 }
