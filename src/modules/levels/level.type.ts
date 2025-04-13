@@ -7,7 +7,6 @@ export enum LTT {
   GRS = "Grass",
   HQ = "HeadQuarters",
   RV = "River",
-  RN = "Ruin",
   SPW = "Spawner",
   STN = "Stone",
   TR = "Tree",

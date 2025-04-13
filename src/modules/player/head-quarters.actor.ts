@@ -1,4 +1,5 @@
 import { Color, Mesh, PointLight, Vector2, Vector3 } from "three";
+import { ModelingUtils } from "../battlefield-container";
 import { COLOR_PALETTE } from "../colors";
 import { WORLD_CONFIG } from "../config";
 import { Actor, Composite, Container, Game } from "../game";
@@ -64,15 +65,10 @@ export class HeadQuarters extends Actor {
           mesh: new PointLight(new Color(COLOR_PALETTE.LIGHT_GREEN), 20),
           offset: new Vector3(0, (height * 2) / 8, 0),
         },
-        {
-          mesh: MeshUtils.createBox({
-            color: new Color(COLOR_PALETTE.LIGHT_GREEN),
-            depth: WORLD_CONFIG.TILE_SIZE,
-            height: WORLD_CONFIG.TILE_SIZE,
-            width: WORLD_CONFIG.TILE_SIZE,
-          }),
-          offset: new Vector3(0, (-WORLD_CONFIG.TILE_SIZE * 3) / 2, 0),
-        },
+        ...ModelingUtils.createGrassCompositeParts({
+          offset: new Vector3(0, 0, 0),
+          size: WORLD_CONFIG.TILE_SIZE,
+        }),
       ],
     });
 

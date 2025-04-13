@@ -1,7 +1,7 @@
-import { Color, Vector3 } from "three";
+import { Color, Object3D, Vector3 } from "three";
 import { WORLD_CONFIG } from "../../config";
 import { COLOR_PALETTE } from "../../colors";
-import { Composite } from "../../game";
+import { Composite, CompositePart } from "../../game";
 import { MeshUtils } from "../../mesh";
 
 export const ModelingUtils = {
@@ -58,5 +58,38 @@ export const ModelingUtils = {
     });
 
     return mesh;
+  },
+  createGrassCompositeParts: (args: {
+    offset: Vector3;
+    size: number;
+  }): CompositePart<Object3D>[] => {
+    return [
+      {
+        mesh: MeshUtils.createBox({
+          width: args.size,
+          height: args.size / 4,
+          depth: args.size,
+          color: new Color(COLOR_PALETTE.DARK_GREEN),
+        }),
+        offset: new Vector3(
+          args.offset.x,
+          args.offset.y - (args.size * 9) / 8,
+          args.offset.z,
+        ),
+      },
+      {
+        mesh: MeshUtils.createBox({
+          width: args.size,
+          height: (args.size * 3) / 4,
+          depth: args.size,
+          color: new Color(COLOR_PALETTE.DIRT),
+        }),
+        offset: new Vector3(
+          args.offset.x,
+          args.offset.y - (args.size * 13) / 8,
+          args.offset.z,
+        ),
+      },
+    ];
   },
 };

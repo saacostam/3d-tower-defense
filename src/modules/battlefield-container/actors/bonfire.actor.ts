@@ -4,6 +4,7 @@ import { WORLD_CONFIG } from "../../config";
 import { Actor, Composite, Container, Game } from "../../game";
 import { MeshUtils } from "../../mesh";
 import { ParticleManager } from "../../particle-systems";
+import { ModelingUtils } from "../utils";
 
 export interface BonfireActorArgs {
   position: Vector3;
@@ -39,15 +40,6 @@ export class BonfireActor extends Actor {
       center: args.position,
       parts: [
         {
-          mesh: MeshUtils.createBox({
-            width: args.size,
-            height: args.size,
-            depth: args.size,
-            color: new Color(COLOR_PALETTE.DARK_GREEN),
-          }),
-          offset: new Vector3(0, 0, 0),
-        },
-        {
           mesh: ligth,
           offset: new Vector3(0, args.size / 2 + args.size / 2, 0),
         },
@@ -63,6 +55,10 @@ export class BonfireActor extends Actor {
           mesh: flame,
           offset: new Vector3(0, args.size / 2 + args.size / 4, 0),
         },
+        ...ModelingUtils.createGrassCompositeParts({
+          offset: new Vector3(0, (args.size * 3) / 2, 0),
+          size: args.size,
+        }),
       ],
     });
 

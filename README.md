@@ -80,7 +80,7 @@ A strategy game where players defend against waves of enemies by strategically p
 - [x] FEAT: Enhance player models.
   - [x] FEAT: Enhance guns.
   - [x] FEAT: Enhance boxes.
-- [ ] REFACTOR: Centralize grass-patch rendering
+- [x] REFACTOR: Centralize grass-patch rendering
   - INFO: Some elements, such as trees, bon-fires, stones, render their own patch of grass. Ideally, they are all centralized into a single ModelingUtil method.
 
 ## Tasks Game Loop 2

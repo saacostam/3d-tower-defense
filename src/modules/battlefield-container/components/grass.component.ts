@@ -2,6 +2,7 @@ import { Color, Vector3 } from "three";
 import { COLOR_PALETTE } from "../../colors";
 import { Component, Composite, CompositePart } from "../../game";
 import { MeshUtils } from "../../mesh";
+import { ModelingUtils } from "../utils";
 
 export interface GrassComponentArgs {
   position: Vector3;
@@ -74,24 +75,10 @@ export class GrassComponent extends Component {
       mesh: new Composite({
         center: args.position,
         parts: [
-          {
-            mesh: MeshUtils.createBox({
-              width: args.size,
-              height: args.size / 4,
-              depth: args.size,
-              color: args.color ?? new Color(COLOR_PALETTE.DARK_GREEN),
-            }),
-            offset: new Vector3(0, (args.size * 3) / 8, 0),
-          },
-          {
-            mesh: MeshUtils.createBox({
-              width: args.size,
-              height: (args.size * 3) / 4,
-              depth: args.size,
-              color: new Color(COLOR_PALETTE.DIRT),
-            }),
-            offset: new Vector3(0, -args.size / 8, 0),
-          },
+          ...ModelingUtils.createGrassCompositeParts({
+            offset: new Vector3(0, (args.size * 3) / 2, 0),
+            size: args.size,
+          }),
           ...createPlant(),
           ...createPlant(),
           ...(Math.random() < 0.4 ? createFlower() : []),
