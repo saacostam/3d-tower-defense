@@ -4,7 +4,7 @@ import { TBattleSide } from "../battlefield-container";
 import { COLOR_PALETTE } from "../colors";
 import { WORLD_CONFIG } from "../config";
 import { Actor, ActorArgs, Composite, Container, Game } from "../game";
-import { HealthBar } from "../health-bar";
+import { HealthBar } from "../indicators";
 import { CreateExplosionArgs, ParticleManager } from "../particle-systems";
 import { PathfindingUtils } from "../pathfinding";
 import { HeadQuarters } from "../player";

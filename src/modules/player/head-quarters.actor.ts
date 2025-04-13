@@ -2,7 +2,7 @@ import { Color, Mesh, PointLight, Vector2, Vector3 } from "three";
 import { COLOR_PALETTE } from "../colors";
 import { WORLD_CONFIG } from "../config";
 import { Actor, Composite, Container, Game } from "../game";
-import { HealthBar } from "../health-bar";
+import { HealthBar } from "../indicators";
 import { MeshUtils } from "../mesh";
 
 export interface HeadQuartersArgs {
