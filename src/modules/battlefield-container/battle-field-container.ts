@@ -23,7 +23,6 @@ const DEBUG = false;
 export interface BattleFieldContainerUiProps {
   addDefense: AddDefense;
   defenses: DefenseDefinition[];
-  gameState: "on" | "over";
   goToLevelSelection: () => void;
   messageQueue: string[];
 }
@@ -44,7 +43,7 @@ export class BattleFieldContainer extends Container {
   public constructor() {
     super({ width: WORLD_CONFIG.WIDTH, height: WORLD_CONFIG.HEIGHT });
     this.headQuarters = new HeadQuarters({
-      health: 1,
+      health: 30,
     });
     this.messageQueue = new MessageQueueComponent();
     this.pathIndicator = new PathIndicatorComponent();
@@ -73,7 +72,7 @@ export class BattleFieldContainer extends Container {
     );
 
     this.headQuarters = new HeadQuarters({
-      health: 1,
+      health: 30,
     });
     this.messageQueue = new MessageQueueComponent();
     this.pathIndicator = new PathIndicatorComponent();
@@ -316,7 +315,6 @@ export class BattleFieldContainer extends Container {
           kbd: "C",
         },
       ],
-      gameState: game.isGameOver ? "over" : "on",
       goToLevelSelection: () =>
         game.setContainer(ContainerKey.LEVEL_SELECTION_CONTAINER),
       messageQueue: this.messageQueue.messages.map(({ message }) => message),

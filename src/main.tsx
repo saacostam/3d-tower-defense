@@ -10,8 +10,8 @@ import { LevelSelectionContainer } from "./modules/level-selection-container";
 
 // React Integration
 const App = () => {
-  const [_, setRender] = useState(0);
-  const triggerRender = useCallback(() => setRender((c) => c + 1), []);
+  const [_, setRender] = useState(false);
+  const triggerRender = useCallback(() => setRender((v) => !v), []);
 
   const game = useRef<Game | null>(null);
 

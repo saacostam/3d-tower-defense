@@ -102,8 +102,6 @@ export class HeadQuarters extends Actor {
     this.position = pos;
 
     this.hb.update(this.health, this.mesh.position.clone());
-
-    if (this.health <= 0) game.endGame();
   }
 
   public graphics(
