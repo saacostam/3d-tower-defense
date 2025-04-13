@@ -77,10 +77,9 @@ A strategy game where players defend against waves of enemies by strategically p
 - [x] FEAT: Add keyboard short-cuts to the defense-selection buttons.
 - [x] FEAT: Add path indicator: Show the path from the spawner to the HQ.
 - [x] FEAT(Spawner): Add timer-like sprite that shows timeout for spawning.
-- [ ] FEAT: Enhance player models.
+- [x] FEAT: Enhance player models.
   - [x] FEAT: Enhance guns.
   - [x] FEAT: Enhance boxes.
-  - [ ] FEAT: Enhance cursor.
 - [ ] REFACTOR: Centralize grass-patch rendering
   - INFO: Some elements, such as trees, bon-fires, stones, render their own patch of grass. Ideally, they are all centralized into a single ModelingUtil method.
 
