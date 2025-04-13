@@ -32,4 +32,8 @@ canvas {
 }
 
 @import "tailwindcss";
-@plugin "daisyui";
+@plugin "daisyui" {
+  themes:
+    dark --default,
+    dark --prefersdark;
+}
