@@ -75,7 +75,7 @@ A strategy game where players defend against waves of enemies by strategically p
 
 - [x] FEAT: Integrate tailwind.
 - [x] FEAT: Add keyboard short-cuts to the defense-selection buttons.
-- [ ] FEAT: Add path indicator: Show the path from the spawner to the HQ.
+- [x] FEAT: Add path indicator: Show the path from the spawner to the HQ.
 - [ ] FEAT(Spawner): Add timer-like sprite that shows timeout for spawning.
 - [ ] FEAT: Add animals.
   - [ ] FEAT: Add birds.
