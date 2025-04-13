@@ -2,7 +2,7 @@ import { Color, Vector2, Vector3 } from "three";
 import { COLOR_PALETTE } from "../../colors";
 import { Actor, Composite } from "../../game";
 import { MeshUtils } from "../../mesh";
-import { ModelingUtils } from "../utils";
+import { BattleFieldContainerModelingUtils } from "../utils";
 
 export interface StoneArgs {
   position: Vector3;
@@ -50,7 +50,7 @@ export class StoneActor extends Actor {
     const mesh = new Composite({
       center: args.position.clone(),
       parts: [
-        ...ModelingUtils.createGrassCompositeParts({
+        ...BattleFieldContainerModelingUtils.createGrassCompositeParts({
           offset: new Vector3(0, (args.size * 3) / 2, 0),
           size: args.size,
         }),

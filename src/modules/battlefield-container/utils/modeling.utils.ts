@@ -4,7 +4,7 @@ import { COLOR_PALETTE } from "../../colors";
 import { Composite, CompositePart } from "../../game";
 import { MeshUtils } from "../../mesh";
 
-export const ModelingUtils = {
+export const BattleFieldContainerModelingUtils = {
   createTreeComposite: (args: {
     position: Vector3;
     height: number;

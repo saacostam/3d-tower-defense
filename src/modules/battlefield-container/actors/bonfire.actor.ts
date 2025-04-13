@@ -4,7 +4,7 @@ import { WORLD_CONFIG } from "../../config";
 import { Actor, Composite, Container, Game } from "../../game";
 import { MeshUtils } from "../../mesh";
 import { ParticleManager } from "../../particle-systems";
-import { ModelingUtils } from "../utils";
+import { BattleFieldContainerModelingUtils } from "../utils";
 
 export interface BonfireActorArgs {
   position: Vector3;
@@ -55,7 +55,7 @@ export class BonfireActor extends Actor {
           mesh: flame,
           offset: new Vector3(0, args.size / 2 + args.size / 4, 0),
         },
-        ...ModelingUtils.createGrassCompositeParts({
+        ...BattleFieldContainerModelingUtils.createGrassCompositeParts({
           offset: new Vector3(0, (args.size * 3) / 2, 0),
           size: args.size,
         }),

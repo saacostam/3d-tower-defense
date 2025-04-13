@@ -2,7 +2,7 @@ import { Color, Vector3 } from "three";
 import { COLOR_PALETTE } from "../../colors";
 import { Actor, Composite } from "../../game";
 import { MeshUtils } from "../../mesh";
-import { ModelingUtils } from "../utils";
+import { BattleFieldContainerModelingUtils } from "../utils";
 
 export interface BushActorArgs {
   position: Vector3;
@@ -43,7 +43,7 @@ export class BushActor extends Actor {
     const mesh = new Composite({
       center: args.position,
       parts: [
-        ...ModelingUtils.createGrassCompositeParts({
+        ...BattleFieldContainerModelingUtils.createGrassCompositeParts({
           offset: new Vector3(0, (args.size * 3) / 2, 0),
           size: args.size,
         }),
