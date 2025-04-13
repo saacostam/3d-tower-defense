@@ -54,6 +54,11 @@ export class Game {
     this.renderer.domElement.style.height = `${window.innerHeight}px`;
   };
 
+  private forceUpdate = () => {
+    this.triggerRender();
+    this.onResize();
+  };
+
   public addContainer(key: string, container: Container) {
     if (this.containers.has(key))
       throw new Error(`A container with key "${key}" already exists`);
@@ -63,16 +68,12 @@ export class Game {
   public setContainer(key: string) {
     if (!this.containers.has(key))
       throw new Error(`A container with key "${key}" does not exist`);
+
     this.currentContainer = this.containers.get(key)!;
     this.currentContainer.onSwitch(this);
 
-    const forceUpdate = () => {
-      this.triggerRender();
-      this.onResize();
-    };
-
-    forceUpdate();
-    window.requestAnimationFrame(forceUpdate);
+    this.forceUpdate();
+    window.requestAnimationFrame(this.forceUpdate);
   }
   public start() {
     if (!this.currentContainer) throw new Error("No container selected");
@@ -93,6 +94,10 @@ export class Game {
       requestAnimationFrame(loop);
     };
     loop();
+  }
+
+  public endGame() {
+    this.isGameOver = true;
   }
 
   public update() {

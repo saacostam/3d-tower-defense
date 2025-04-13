@@ -3,15 +3,33 @@ import { AddDefenseCta } from "./add-defense-cta";
 import { BattleFieldContainerUiProps } from "../battle-field-container";
 import { COLOR_PALETTE } from "../../colors";
 import { ArrowLeftIcon } from "../../icons";
-import { Button } from "../../ui.components";
+import { Button, ConfirmationModal } from "../../ui.components";
 
 export function BattleFieldContainerUI({
   addDefense,
   messageQueue,
   defenses,
   goToLevelSelection,
+  gameState,
 }: BattleFieldContainerUiProps) {
   const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
+
+  if (gameState === "over") {
+    return (
+      <ConfirmationModal
+        header="Game Over"
+        description="The enemy has overwhelmed your defenses, and your base couldn't hold. But this isn't the end—it's a chance to regroup and try again."
+        btn1={{
+          label: "Select a Level",
+          onClick: goToLevelSelection,
+        }}
+        btn2={{
+          label: "Restart",
+          onClick: goToLevelSelection,
+        }}
+      />
+    );
+  }
 
   return (
     <>
@@ -67,30 +85,18 @@ export function BattleFieldContainerUI({
         </>
       )}
       {isConfirmationModalOpen && (
-        <div
-          className="min-w-24 rounded-xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center p-8"
-          style={{
-            backgroundColor: COLOR_PALETTE.VOID,
+        <ConfirmationModal
+          header="Are you sure you want to exit the game?"
+          description="You will lose all progress and be redirected to the level selection."
+          btn1={{
+            onClick: goToLevelSelection,
+            label: "Confirm",
           }}
-        >
-          <h2 className="text-2xl font-bold">
-            Are you sure you want to exit the game?
-          </h2>
-          <p className="mt-4 mb-8">
-            You will lose all progress and be redirected to the level selection.
-          </p>
-          <div className="grid grid-cols-2 gap-4">
-            <Button onClick={goToLevelSelection} type="secondary">
-              Confirm
-            </Button>
-            <Button
-              onClick={() => setIsConfirmationModalOpen(false)}
-              type="primary"
-            >
-              Cancel
-            </Button>
-          </div>
-        </div>
+          btn2={{
+            onClick: () => setIsConfirmationModalOpen(false),
+            label: "Cancel",
+          }}
+        />
       )}
     </>
   );
