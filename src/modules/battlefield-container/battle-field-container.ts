@@ -3,6 +3,7 @@ import { COLOR_PALETTE } from "../colors";
 import {
   MessageQueueComponent,
   MountainComponent,
+  PathIndicatorComponent,
   StarComponent,
   TreeComponent,
   WaterComponent,
@@ -30,6 +31,7 @@ export class BattleFieldContainer extends Container {
   public headQuarters: HeadQuarters;
   public spawners: Spawner[] = [];
   public messageQueue: MessageQueueComponent;
+  public pathIndicator: PathIndicatorComponent;
 
   private static TILE_SIZE = 1;
 
@@ -44,6 +46,7 @@ export class BattleFieldContainer extends Container {
       health: 30,
     });
     this.messageQueue = new MessageQueueComponent();
+    this.pathIndicator = new PathIndicatorComponent();
   }
 
   public Render = BattleFieldContainerUI;
@@ -72,6 +75,7 @@ export class BattleFieldContainer extends Container {
       health: 30,
     });
     this.messageQueue = new MessageQueueComponent();
+    this.pathIndicator = new PathIndicatorComponent();
 
     const currentLevel = this.levels[this.level];
 
@@ -114,6 +118,13 @@ export class BattleFieldContainer extends Container {
     this.cursor = new Cursor({
       pos: cursorPosition,
       addMessage: this.messageQueue.addMessage,
+      notifyPathChangeEvent: () =>
+        this.pathIndicator.onPathChangeEvent({
+          grid: this.actorsGrid,
+          headquarters: this.headQuarters,
+          scene: this.scene,
+          spawners: this.spawners,
+        }),
     });
     this.addActor(this.cursor, cursorPosition);
 

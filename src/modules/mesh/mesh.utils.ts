@@ -1,10 +1,12 @@
 import {
   BoxGeometry,
+  BufferGeometry,
   CapsuleGeometry,
   Color,
   ConeGeometry,
   CylinderGeometry,
   DodecahedronGeometry,
+  Line,
   Mesh,
   MeshBasicMaterial,
   MeshStandardMaterial,
@@ -12,6 +14,7 @@ import {
   SphereGeometry,
   TorusGeometry,
   TorusKnotGeometry,
+  Vector3,
 } from "three";
 import { COLOR_PALETTE } from "../colors";
 
@@ -259,5 +262,29 @@ export const MeshUtils = {
       : new MeshStandardMaterial(materialArgs);
 
     return new Mesh(geometry, material);
+  },
+  createLine(args: {
+    pos1: Vector3;
+    pos2: Vector3;
+    color?: Color;
+    basicMaterial?: boolean;
+  }) {
+    const color = args?.color ?? new Color(COLOR_PALETTE.RED);
+
+    const materialArgs = {
+      color: color,
+    };
+    const material = args?.basicMaterial
+      ? new MeshBasicMaterial(materialArgs)
+      : new MeshStandardMaterial(materialArgs);
+
+    const plusPoint = [];
+    plusPoint.push(args.pos1);
+    plusPoint.push(args.pos2);
+
+    const plusGeom = new BufferGeometry().setFromPoints(plusPoint);
+    const plusLine = new Line(plusGeom, material);
+
+    return plusLine;
   },
 };
