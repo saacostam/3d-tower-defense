@@ -1,12 +1,10 @@
 import {
   BoxGeometry,
-  BufferGeometry,
   CapsuleGeometry,
   Color,
   ConeGeometry,
   CylinderGeometry,
   DodecahedronGeometry,
-  Line,
   Mesh,
   MeshBasicMaterial,
   MeshStandardMaterial,
@@ -16,7 +14,13 @@ import {
   TorusKnotGeometry,
   Vector3,
 } from "three";
+import {
+  Line2,
+  LineGeometry,
+  LineMaterial,
+} from "three/examples/jsm/Addons.js";
 import { COLOR_PALETTE } from "../colors";
+import { WORLD_CONFIG } from "../config";
 
 const SEGMENT_NUM = 4;
 
@@ -263,27 +267,19 @@ export const MeshUtils = {
 
     return new Mesh(geometry, material);
   },
-  createLine(args: {
-    pos1: Vector3;
-    pos2: Vector3;
-    color?: Color;
-    basicMaterial?: boolean;
-  }) {
+  createLine(args: { pos1: Vector3; pos2: Vector3; color?: Color }) {
     const color = args?.color ?? new Color(COLOR_PALETTE.RED);
 
-    const materialArgs = {
+    const material = new LineMaterial({
       color: color,
-    };
-    const material = args?.basicMaterial
-      ? new MeshBasicMaterial(materialArgs)
-      : new MeshStandardMaterial(materialArgs);
+      linewidth: WORLD_CONFIG.TILE_SIZE * 4,
+    });
 
-    const plusPoint = [];
-    plusPoint.push(args.pos1);
-    plusPoint.push(args.pos2);
-
-    const plusGeom = new BufferGeometry().setFromPoints(plusPoint);
-    const plusLine = new Line(plusGeom, material);
+    const plusGeom = new LineGeometry().setFromPoints([
+      args.pos1.clone(),
+      args.pos2.clone(),
+    ]);
+    const plusLine = new Line2(plusGeom, material);
 
     return plusLine;
   },

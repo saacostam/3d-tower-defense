@@ -1,4 +1,5 @@
-import { Color, Line, Scene, Vector3 } from "three";
+import { Color, Scene, Vector3 } from "three";
+import { Line2 } from "three/examples/jsm/Addons.js";
 import { COLOR_PALETTE } from "../../colors";
 import { Component, Composite, GridCell } from "../../game";
 import { MeshUtils } from "../../mesh";
@@ -7,7 +8,7 @@ import { PathfindingUtils } from "../../pathfinding";
 import { HeadQuarters } from "../../player";
 
 export class PathIndicatorComponent extends Component {
-  private pathSubSegments: Line[] = [];
+  private pathSubSegments: Line2[] = [];
 
   constructor() {
     const mesh = new Composite({
