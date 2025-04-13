@@ -24,8 +24,17 @@ export class Spawner extends Actor {
 
   private progressBar: ProgressBar;
 
+  private static LIGHT_INTENSITY: number = 15;
+  private light: PointLight;
+  private theoricalLightIntensity: number = Spawner.LIGHT_INTENSITY;
+
   constructor(args: SpawnerArgs) {
     const height = WORLD_CONFIG.TILE_SIZE;
+
+    const light = new PointLight(
+      new Color(COLOR_PALETTE.RED),
+      Spawner.LIGHT_INTENSITY,
+    );
 
     const mesh = new Composite({
       center: new Vector3(args.position.x, height / 2, args.position.y),
@@ -40,7 +49,7 @@ export class Spawner extends Actor {
           offset: new Vector3(0, -WORLD_CONFIG.TILE_SIZE, 0),
         },
         {
-          mesh: new PointLight(new Color(COLOR_PALETTE.RED), 5),
+          mesh: light,
           offset: new Vector3(0, -WORLD_CONFIG.TILE_SIZE / 8, 0),
         },
       ],
@@ -59,6 +68,8 @@ export class Spawner extends Actor {
       heightFactor: 0.5,
       widthFactor: 0.6,
     });
+
+    this.light = light;
   }
 
   public afterSpawn(container: Container, pos: Vector2): void {
@@ -105,6 +116,24 @@ export class Spawner extends Actor {
 
     this.spawnTimeout = newSpawnTimeout % Spawner.SPAWN_TIMEOUT;
 
+    this.theoricalLightIntensity =
+      (this.spawnTimeout / Spawner.SPAWN_TIMEOUT) * Spawner.LIGHT_INTENSITY;
     this.progressBar.update(this.spawnTimeout, this.mesh.position.clone());
+  }
+
+  public graphics(
+    _game: Game,
+    delta: number,
+    _container: Container,
+    _pos: Vector2,
+  ): void {
+    super.graphics(_game, delta, _container, _pos);
+
+    const DRAG = 0.005;
+    const factor = 1 - Math.exp(-DRAG * delta);
+
+    this.light.intensity =
+      this.light.intensity +
+      (this.theoricalLightIntensity - this.light.intensity) * factor;
   }
 }
