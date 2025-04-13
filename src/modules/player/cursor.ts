@@ -182,8 +182,6 @@ export class Cursor extends Actor {
         (actor) => actor !== this,
       );
     container.actorsGrid[this.pos.x][this.pos.y].actors.push(this);
-
-    this.notifyPathChangeEvent();
   }
 
   public graphics(game: Game, delta: number, container: Container): void {
@@ -282,6 +280,8 @@ export class Cursor extends Actor {
 
     container.addActor(mob, this.pos.clone());
     container.actorsGrid[this.pos.x][this.pos.y].isWalkable = false;
+
+    this.notifyPathChangeEvent();
   }
 
   private checkCanPlace(args: { container: BattleFieldContainer }) {

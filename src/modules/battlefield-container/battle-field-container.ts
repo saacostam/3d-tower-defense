@@ -118,13 +118,7 @@ export class BattleFieldContainer extends Container {
     this.cursor = new Cursor({
       pos: cursorPosition,
       addMessage: this.messageQueue.addMessage,
-      notifyPathChangeEvent: () =>
-        this.pathIndicator.onPathChangeEvent({
-          grid: this.actorsGrid,
-          headquarters: this.headQuarters,
-          scene: this.scene,
-          spawners: this.spawners,
-        }),
+      notifyPathChangeEvent: this.notifyPathChangeEvent,
     });
     this.addActor(this.cursor, cursorPosition);
 
@@ -149,6 +143,8 @@ export class BattleFieldContainer extends Container {
       position: new Vector3(width / 2, -WORLD_CONFIG.TILE_SIZE / 2, height / 2),
     });
     this.addComponent(water);
+
+    this.notifyPathChangeEvent();
   }
 
   public update(game: Game, delta: number): void {
@@ -286,6 +282,14 @@ export class BattleFieldContainer extends Container {
 
     return trees;
   }
+
+  private notifyPathChangeEvent = () =>
+    this.pathIndicator.onPathChangeEvent({
+      grid: this.actorsGrid,
+      headquarters: this.headQuarters,
+      scene: this.scene,
+      spawners: this.spawners,
+    });
 
   public provideProps(game: Game): BattleFieldContainerUiProps {
     return {
