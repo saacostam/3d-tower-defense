@@ -49,7 +49,7 @@ export class Game {
       this.currentContainer.camera.updateProjectionMatrix();
     }
 
-    this.renderer.setSize(window.innerWidth * 2, window.innerHeight * 2);
+    this.renderer.setSize(window.innerWidth * 1.6, window.innerHeight * 1.6);
     this.renderer.domElement.style.width = `${window.innerWidth}px`;
     this.renderer.domElement.style.height = `${window.innerHeight}px`;
   };
