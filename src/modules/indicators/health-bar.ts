@@ -28,12 +28,12 @@ export class HealthBar {
 
     this.red = new Sprite(
       new SpriteMaterial({
-        map: new TextureLoader().load("../textures/red.png"),
+        map: new TextureLoader().load("./textures/red.png"),
       }),
     );
     this.green = new Sprite(
       new SpriteMaterial({
-        map: new TextureLoader().load("../textures/green.png"),
+        map: new TextureLoader().load("./textures/green.png"),
       }),
     );
 

@@ -28,12 +28,12 @@ export class ProgressBar {
 
     this.dark = new Sprite(
       new SpriteMaterial({
-        map: new TextureLoader().load("../textures/dark.png"),
+        map: new TextureLoader().load("./textures/dark.png"),
       }),
     );
     this.blue = new Sprite(
       new SpriteMaterial({
-        map: new TextureLoader().load("../textures/red.png"),
+        map: new TextureLoader().load("./textures/red.png"),
       }),
     );
 
