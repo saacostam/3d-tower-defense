@@ -34,7 +34,7 @@ export class StoneActor extends Actor {
             mesh: MeshUtils.createDodecahedron({
               radius: radius / 2,
               color: new Color(COLOR_PALETTE.GRAY),
-              texture: "/textures/stone.png",
+              texture: "./textures/stone.png",
             }),
             offset: offset.clone(),
           }
@@ -43,7 +43,7 @@ export class StoneActor extends Actor {
               radius: radius / 2,
               height: radius / 2,
               color: new Color(COLOR_PALETTE.BOX),
-              texture: "/textures/stone.png",
+              texture: "./textures/stone.png",
             }),
             offset: offset.clone(),
           };
@@ -61,7 +61,7 @@ export class StoneActor extends Actor {
             radius: radius,
             height: height,
             color: new Color(COLOR_PALETTE.GRAY),
-            texture: "/textures/stone.png",
+            texture: "./textures/stone.png",
           }),
           offset: new Vector3(0, args.size / 2 + height / 2, 0),
         },

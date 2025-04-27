@@ -19,7 +19,7 @@ export class MountainComponent extends Component {
       radius: WORLD_CONFIG.TILE_SIZE * 3,
       height: height,
       color: new Color(COLOR_PALETTE.WHITE),
-      texture: "/textures/snow.png",
+      texture: "./textures/snow.png",
     });
 
     mesh.position.set(args.position.x, height / 4, args.position.y);
