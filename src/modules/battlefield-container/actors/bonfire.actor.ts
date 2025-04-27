@@ -34,6 +34,7 @@ export class BonfireActor extends Actor {
       radius: args.size / 8,
       color: new Color(COLOR_PALETTE.ORANGE),
       basicMaterial: true,
+      texture: "/textures/fire.png",
     });
 
     const mesh = new Composite({
@@ -48,6 +49,7 @@ export class BonfireActor extends Actor {
             radius: args.size / 4,
             height: args.size / 16,
             color: new Color(COLOR_PALETTE.WOOD),
+            texture: "/textures/inner-wood.png",
           }),
           offset: new Vector3(0, args.size / 2 + args.size / 8, 0),
         },

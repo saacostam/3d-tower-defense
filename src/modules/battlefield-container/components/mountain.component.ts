@@ -18,10 +18,8 @@ export class MountainComponent extends Component {
     const mesh = MeshUtils.createCone({
       radius: WORLD_CONFIG.TILE_SIZE * 3,
       height: height,
-      color:
-        Math.random() < 0.5
-          ? new Color(COLOR_PALETTE.WHITE)
-          : new Color(COLOR_PALETTE.WHITE),
+      color: new Color(COLOR_PALETTE.WHITE),
+      texture: "/textures/snow.png",
     });
 
     mesh.position.set(args.position.x, height / 4, args.position.y);

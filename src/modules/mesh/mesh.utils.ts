@@ -10,6 +10,7 @@ import {
   MeshStandardMaterial,
   OctahedronGeometry,
   SphereGeometry,
+  TextureLoader,
   TorusGeometry,
   TorusKnotGeometry,
   Vector3,
@@ -59,6 +60,7 @@ export const MeshUtils = {
     transparent?: {
       value: number;
     };
+    texture?: string;
   }): Mesh => {
     const width = args?.width ?? 1;
     const height = args?.height ?? 1;
@@ -79,6 +81,7 @@ export const MeshUtils = {
       color: color,
       transparent: hasTransparency,
       opacity: hasTransparency ? args?.transparent?.value : 1,
+      map: args?.texture ? new TextureLoader().load(args?.texture) : null,
     };
 
     const material = args?.basicMaterial
@@ -92,6 +95,7 @@ export const MeshUtils = {
     height?: number;
     color?: Color;
     basicMaterial?: boolean;
+    texture?: string;
   }): Mesh => {
     const radius = args?.radius ?? 1;
     const height = args?.height ?? 1;
@@ -101,6 +105,7 @@ export const MeshUtils = {
 
     const materialArgs = {
       color: color,
+      map: args?.texture ? new TextureLoader().load(args?.texture) : null,
     };
     const material = args?.basicMaterial
       ? new MeshBasicMaterial(materialArgs)
@@ -138,6 +143,7 @@ export const MeshUtils = {
     height?: number;
     color?: Color;
     basicMaterial?: boolean;
+    texture?: string;
   }): Mesh => {
     const radius = args?.radius ?? 1;
     const height = args?.height ?? 1;
@@ -153,6 +159,7 @@ export const MeshUtils = {
 
     const materialArgs = {
       color: color,
+      map: args?.texture ? new TextureLoader().load(args?.texture) : null,
     };
     const material = args?.basicMaterial
       ? new MeshBasicMaterial(materialArgs)
@@ -204,6 +211,7 @@ export const MeshUtils = {
     radius: number;
     color?: Color;
     basicMaterial?: boolean;
+    texture?: string;
   }) => {
     const radius = args.radius;
     const tube = args.radius / 4;
@@ -220,6 +228,7 @@ export const MeshUtils = {
 
     const materialArgs = {
       color: color,
+      map: args?.texture ? new TextureLoader().load(args.texture) : null,
     };
     const material = args?.basicMaterial
       ? new MeshBasicMaterial(materialArgs)
@@ -232,6 +241,7 @@ export const MeshUtils = {
     height: number;
     color?: Color;
     basicMaterial?: boolean;
+    texture?: string;
   }) => {
     const radius = args.radius;
     const height = args.height;
@@ -241,6 +251,7 @@ export const MeshUtils = {
 
     const materialArgs = {
       color: color,
+      map: args?.texture ? new TextureLoader().load(args.texture) : null,
     };
     const material = args?.basicMaterial
       ? new MeshBasicMaterial(materialArgs)
@@ -252,6 +263,7 @@ export const MeshUtils = {
     radius: number;
     color?: Color;
     basicMaterial?: boolean;
+    texture?: string;
   }) => {
     const radius = args.radius;
     const color = args?.color ?? new Color(COLOR_PALETTE.RED);
@@ -260,6 +272,7 @@ export const MeshUtils = {
 
     const materialArgs = {
       color: color,
+      map: args?.texture ? new TextureLoader().load(args.texture) : null,
     };
     const material = args?.basicMaterial
       ? new MeshBasicMaterial(materialArgs)
