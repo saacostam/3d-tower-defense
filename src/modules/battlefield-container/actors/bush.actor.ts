@@ -35,6 +35,7 @@ export class BushActor extends Actor {
         mesh: MeshUtils.createDodecahedron({
           radius: radius,
           color: new Color(COLOR_PALETTE.DARK_GREEN),
+          texture: "./textures/leaf.png",
         }),
         offset: offset.clone().add(new Vector3(0, mainBushVerticalOffset, 0)),
       };
@@ -58,6 +59,7 @@ export class BushActor extends Actor {
           mesh: MeshUtils.createDodecahedron({
             radius: mainBushRadius,
             color: new Color(COLOR_PALETTE.DARK_GREEN),
+            texture: "./textures/leaf.png",
           }),
           offset: new Vector3(0, mainBushVerticalOffset, 0),
         },
