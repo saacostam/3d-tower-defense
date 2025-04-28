@@ -45,5 +45,3 @@ const App = () => {
 
 const root = ReactDom.createRoot(document.getElementById("root")!);
 root.render(<App />);
-
-document.addEventListener("keydown", (e) => e.preventDefault());
