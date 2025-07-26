@@ -12,6 +12,7 @@ import { PathfindingUtils } from "../pathfinding";
 import { SimpleGun } from "./simple-gun";
 import { DefenseType } from "./shared-types";
 import { RocketGun } from "./rocket-gun";
+import { PRICE_CONFIG } from "./gun.config";
 
 export type NotifyPathChangeEvent = () => void;
 
@@ -247,6 +248,12 @@ export class Cursor extends Actor {
   }): void {
     const { container, type } = args;
 
+    const price = PRICE_CONFIG[type];
+    if (container.coins < price) {
+      container.messageQueue.addMessage("Not enough coins!");
+      return;
+    }
+
     const { canPlace } = this.checkCanPlace({
       container,
     });
@@ -278,6 +285,7 @@ export class Cursor extends Actor {
         break;
     }
 
+    container.coins -= price;
     container.addActor(mob, this.pos.clone());
     container.actorsGrid[this.pos.x][this.pos.y].isWalkable = false;
 

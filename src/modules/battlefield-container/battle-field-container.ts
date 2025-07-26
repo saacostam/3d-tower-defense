@@ -21,6 +21,7 @@ import { WorldBuilderUtils } from "./utils";
 const DEBUG = false;
 
 const HQ_HEALTH = 1;
+const DEFAULT_COINS = 20;
 
 export interface BattleFieldContainerUiProps {
   addDefense: AddDefense;
@@ -31,6 +32,7 @@ export interface BattleFieldContainerUiProps {
   startGame: () => void;
   isGameOver: boolean;
   restartLevel: () => void;
+  coins: number;
 }
 
 export class BattleFieldContainer extends Container {
@@ -45,6 +47,8 @@ export class BattleFieldContainer extends Container {
   private levels = LEVELS;
 
   public isPaused: boolean = true;
+
+  public coins: number = DEFAULT_COINS;
 
   public cursor!: Cursor;
 
@@ -333,6 +337,7 @@ export class BattleFieldContainer extends Container {
       startGame: () => (this.isPaused = false),
       isGameOver: !!game.currentContainer?.isContainerOver,
       restartLevel: () => this.setLevel(this.level),
+      coins: this.coins,
     };
   }
 }

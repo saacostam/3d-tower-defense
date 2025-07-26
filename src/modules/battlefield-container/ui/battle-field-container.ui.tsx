@@ -14,6 +14,7 @@ export function BattleFieldContainerUI({
   startGame,
   isGameOver,
   restartLevel,
+  coins,
 }: BattleFieldContainerUiProps) {
   const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
 
@@ -37,6 +38,17 @@ export function BattleFieldContainerUI({
             >
               by saacostam
             </a>
+          </div>
+          <div
+            className="flex flex-col absolute top-2.5 right-2.5 rounded-xl p-2 opacity-90 text-center w-20 h-20 justify-center items-center"
+            style={{
+              backgroundColor: COLOR_PALETTE.DARK_GREEN,
+            }}
+          >
+            <div className="text-2xl">🪙</div>
+            <div className="text-sm">
+              {coins} <span className="text-xs">coins</span>
+            </div>
           </div>
           <Button
             className="absolute top-2.5 left-2.5"
@@ -98,9 +110,10 @@ export function BattleFieldContainerUI({
       )}
       {isPaused && (
         <div
-          className="min-w-24 rounded-xl absolute top-1/12 left-1/2 transform -translate-x-1/2 -translate-y-1/12 text-center p-4 border border-white"
+          className="min-w-24 rounded-xl absolute top-1/12 left-1/2 transform -translate-x-1/2 -translate-y-1/12 text-center p-4 border"
           style={{
-            backgroundColor: COLOR_PALETTE.VOID,
+            backgroundColor: `${COLOR_PALETTE.VOID}aa`,
+            borderColor: COLOR_PALETTE.DARK_GREEN,
           }}
         >
           <h2 className="text-2xl font-bold">Get Ready for Battle</h2>
