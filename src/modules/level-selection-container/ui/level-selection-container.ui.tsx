@@ -18,7 +18,7 @@ export function LevelSelectionContainerUI({
     >
       <div className="flex flex-col items-center">
         <h1 className="mb-5 text-3xl font-bold">Choose a Level</h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
           {levels.map((level, index) => (
             <Button key={index} type="primary" onClick={() => goToLevel(index)}>
               <div className="flex flex-col">
@@ -27,6 +27,17 @@ export function LevelSelectionContainerUI({
               </div>
             </Button>
           ))}
+          <Button onClick={() => {}} type="secondary">
+            <div
+              className="tooltip"
+              data-tip="Coming soon! This level will unlock in the next update."
+            >
+              <div className="flex flex-col">
+                <div className="text-2xl font-bold">🚧</div>
+                <div className="text-base mt-1">Coming Soon</div>
+              </div>
+            </div>
+          </Button>
         </div>
       </div>
       <Button
