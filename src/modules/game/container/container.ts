@@ -26,6 +26,8 @@ export class Container<ContainerUiProps = any> {
   private width: number;
   private height: number;
 
+  public isContainerOver = false;
+
   public Render: React.FC<ContainerUiProps> = () => null;
 
   public static createActorsGrid(width: number, height: number) {
@@ -43,7 +45,9 @@ export class Container<ContainerUiProps = any> {
   }
 
   public onStart(_game: Game) {}
-  public onSwitch(_game: Game) {}
+  public onSwitch(_game: Game) {
+    this.isContainerOver = false;
+  }
 
   public addActor(actor: Actor, pos: Vector2) {
     if (
@@ -72,6 +76,8 @@ export class Container<ContainerUiProps = any> {
   }
 
   public update(game: Game, delta: number) {
+    if (this.isContainerOver) return;
+
     // Update actors
     this.actorsGrid.forEach((row, x) => {
       row.forEach((cell, y) => {

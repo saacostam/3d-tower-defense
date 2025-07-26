@@ -20,6 +20,8 @@ import { WorldBuilderUtils } from "./utils";
 
 const DEBUG = false;
 
+const HQ_HEALTH = 1;
+
 export interface BattleFieldContainerUiProps {
   addDefense: AddDefense;
   defenses: DefenseDefinition[];
@@ -27,6 +29,8 @@ export interface BattleFieldContainerUiProps {
   messageQueue: string[];
   isPaused: boolean;
   startGame: () => void;
+  isGameOver: boolean;
+  restartLevel: () => void;
 }
 
 export class BattleFieldContainer extends Container {
@@ -47,7 +51,7 @@ export class BattleFieldContainer extends Container {
   public constructor() {
     super({ width: WORLD_CONFIG.WIDTH, height: WORLD_CONFIG.HEIGHT });
     this.headQuarters = new HeadQuarters({
-      health: 30,
+      health: HQ_HEALTH,
     });
     this.messageQueue = new MessageQueueComponent();
     this.pathIndicator = new PathIndicatorComponent();
@@ -62,6 +66,7 @@ export class BattleFieldContainer extends Container {
   }
 
   public onStart() {
+    this.isContainerOver = false;
     this.isPaused = true;
 
     const width = this.actorsGrid.length;
@@ -78,7 +83,7 @@ export class BattleFieldContainer extends Container {
     );
 
     this.headQuarters = new HeadQuarters({
-      health: 30,
+      health: HQ_HEALTH,
     });
     this.messageQueue = new MessageQueueComponent();
     this.pathIndicator = new PathIndicatorComponent();
@@ -326,6 +331,8 @@ export class BattleFieldContainer extends Container {
       messageQueue: this.messageQueue.messages.map(({ message }) => message),
       isPaused: this.isPaused,
       startGame: () => (this.isPaused = false),
+      isGameOver: !!game.currentContainer?.isContainerOver,
+      restartLevel: () => this.setLevel(this.level),
     };
   }
 }

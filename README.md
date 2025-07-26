@@ -85,7 +85,7 @@ A strategy game where players defend against waves of enemies by strategically p
 
 ## Tasks Game Loop 2
 
-- [ ] FEAT: Add game over screen/ui.
+- [x] FEAT: Add game over screen/ui.
   - With options to "Leave" (Go to Menu) or "Restart".
 - [ ] FEAT: Add money.
 - [ ] FEAT: Guns can only be bought using money.

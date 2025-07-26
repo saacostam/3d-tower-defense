@@ -12,6 +12,8 @@ export function BattleFieldContainerUI({
   goToLevelSelection,
   isPaused,
   startGame,
+  isGameOver,
+  restartLevel,
 }: BattleFieldContainerUiProps) {
   const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
 
@@ -103,12 +105,35 @@ export function BattleFieldContainerUI({
         >
           <h2 className="text-2xl font-bold">Get Ready for Battle</h2>
           <p className="mt-2 mb-2">
-            Spend your coins wisely — place your towers,<br />
+            Spend your coins wisely — place your towers,
+            <br />
             then click play to start the attack!
           </p>
           <Button onClick={startGame} type="primary" className="mx-auto">
             <PlayIcon />
           </Button>
+        </div>
+      )}
+      {isGameOver && (
+        <div
+          className="min-w-24 rounded-xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center p-8 max-w-md"
+          style={{
+            backgroundColor: COLOR_PALETTE.VOID,
+          }}
+        >
+          <h2 className="text-2xl font-bold">Game Over</h2>
+          <p className="mt-4 mb-8">
+            The enemy broke through! You&apos;ll be sent back to choose your
+            next defense.
+          </p>
+          <div className="grid grid-cols-2 gap-4">
+            <Button onClick={goToLevelSelection} type="secondary">
+              Back to Menu
+            </Button>
+            <Button onClick={restartLevel} type="primary">
+              Restart Level
+            </Button>
+          </div>
         </div>
       )}
     </>
