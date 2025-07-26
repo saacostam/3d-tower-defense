@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { AddDefenseCta } from "./add-defense-cta";
 import { BattleFieldContainerUiProps } from "../battle-field-container";
 import { COLOR_PALETTE } from "../../colors";
-import { ArrowLeftIcon, PauseIcon } from "../../icons";
+import { ArrowLeftIcon, PlayIcon } from "../../icons";
 import { Button } from "../../ui.components";
 
 export function BattleFieldContainerUI({
@@ -95,11 +95,19 @@ export function BattleFieldContainerUI({
         </div>
       )}
       {isPaused && (
-        <div className="min-w-24 rounded-xl absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/3 text-center p-4">
+        <div
+          className="min-w-24 rounded-xl absolute top-1/12 left-1/2 transform -translate-x-1/2 -translate-y-1/12 text-center p-4 border border-white"
+          style={{
+            backgroundColor: COLOR_PALETTE.VOID,
+          }}
+        >
           <h2 className="text-2xl font-bold">Get Ready for Battle</h2>
-          <p className="mt-2 mb-2">Click here when you're ready.</p>
-          <Button onClick={startGame} type="secondary" className="mx-auto">
-            <PauseIcon />
+          <p className="mt-2 mb-2">
+            Spend your coins wisely — place your towers,<br />
+            then click play to start the attack!
+          </p>
+          <Button onClick={startGame} type="primary" className="mx-auto">
+            <PlayIcon />
           </Button>
         </div>
       )}
