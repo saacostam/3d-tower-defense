@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { AddDefenseCta } from "./add-defense-cta";
 import { BattleFieldContainerUiProps } from "../battle-field-container";
 import { COLOR_PALETTE } from "../../colors";
-import { ArrowLeftIcon, PlayIcon } from "../../icons";
+import { ArrowLeftIcon, ArrowPathIcon, PlayIcon } from "../../icons";
 import { Button } from "../../ui.components";
 
 export function BattleFieldContainerUI({
@@ -122,9 +122,22 @@ export function BattleFieldContainerUI({
             <br />
             then click play to start the attack!
           </p>
-          <Button onClick={startGame} type="primary" className="mx-auto">
-            <PlayIcon />
-          </Button>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+            <Button
+              onClick={startGame}
+              type="primary"
+              className="!flex justify-center gap-2"
+            >
+              <PlayIcon /> <span>Play</span>
+            </Button>
+            <Button
+              onClick={restartLevel}
+              type="secondary"
+              className="!flex justify-center gap-2"
+            >
+              <ArrowPathIcon /> <span>Restart</span>
+            </Button>
+          </div>
         </div>
       )}
       {isGameOver && (
