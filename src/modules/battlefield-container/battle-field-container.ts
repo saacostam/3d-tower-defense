@@ -20,7 +20,7 @@ import { WorldBuilderUtils } from "./utils";
 
 const DEBUG = false;
 
-const HQ_HEALTH = 1;
+const HQ_HEALTH = 30;
 const DEFAULT_COINS = 20;
 
 export interface BattleFieldContainerUiProps {

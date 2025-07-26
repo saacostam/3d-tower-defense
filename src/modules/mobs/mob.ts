@@ -1,6 +1,6 @@
 import { AStarFinder } from "astar-typescript";
 import { Color, Vector2, Vector3 } from "three";
-import { TBattleSide } from "../battlefield-container";
+import { BattleFieldContainer, TBattleSide } from "../battlefield-container";
 import { COLOR_PALETTE } from "../colors";
 import { WORLD_CONFIG } from "../config";
 import { Actor, ActorArgs, Composite, Container, Game } from "../game";
@@ -68,6 +68,10 @@ export class Mob extends Actor {
       this.mesh.position,
       this.DEATH_EXPLOSION_CONFIG,
     );
+
+    if (container instanceof BattleFieldContainer) {
+      container.coins += this.fullHealth / 5;
+    }
   }
 
   constructor(args: MobArgs) {

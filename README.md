@@ -89,7 +89,7 @@ A strategy game where players defend against waves of enemies by strategically p
   - With options to "Leave" (Go to Menu) or "Restart".
 - [x] FEAT: Add money.
 - [x] FEAT: Guns can only be bought using money.
-- [ ] FEAT: Enemies should add coins.
+- [x] FEAT: Enemies should add coins.
 - [ ] FEAT: Add sounds.
 - [ ] FEAT: Pan in the camera.
 
