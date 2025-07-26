@@ -87,12 +87,9 @@ A strategy game where players defend against waves of enemies by strategically p
 
 - [ ] FEAT: Add game over screen/ui.
   - With options to "Leave" (Go to Menu) or "Restart".
-- [ ] FEAT: Define levels.
-- [ ] FEAT: Add level completion screen/ui.
-  - [npm: react-confetti](https://www.npmjs.com/package/react-confetti)
-- [ ] FEAT: Keep track of completed levels.
-- [ ] FEAT: Save state into local storage.
-- [ ] FEAT: Block levels; should be completed consecutively.
+- [ ] FEAT: Add money.
+- [ ] FEAT: Guns can only be bought using money.
+- [ ] FEAT: Pan in the camera.
 
 ## Backlog
 
