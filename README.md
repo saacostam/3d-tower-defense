@@ -90,6 +90,8 @@ A strategy game where players defend against waves of enemies by strategically p
 - [x] FEAT: Add money.
 - [x] FEAT: Guns can only be bought using money.
 - [x] FEAT: Enemies should add coins.
+- [ ] FEAT: Increase spawn rate with time.
+- [ ] FEAT: Visualize spawn rate.
 - [ ] FEAT: Add sounds.
 - [ ] FEAT: Pan in the camera.
 
