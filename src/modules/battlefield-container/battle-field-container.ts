@@ -25,6 +25,8 @@ export interface BattleFieldContainerUiProps {
   defenses: DefenseDefinition[];
   goToLevelSelection: () => void;
   messageQueue: string[];
+  isPaused: boolean;
+  startGame: () => void;
 }
 
 export class BattleFieldContainer extends Container {
@@ -37,6 +39,8 @@ export class BattleFieldContainer extends Container {
 
   private level = 0;
   private levels = LEVELS;
+
+  public isPaused: boolean = true;
 
   public cursor!: Cursor;
 
@@ -58,6 +62,8 @@ export class BattleFieldContainer extends Container {
   }
 
   public onStart() {
+    this.isPaused = true;
+
     const width = this.actorsGrid.length;
     const height = this.actorsGrid[0]?.length ?? 0;
 
@@ -318,6 +324,8 @@ export class BattleFieldContainer extends Container {
       goToLevelSelection: () =>
         game.setContainer(ContainerKey.LEVEL_SELECTION_CONTAINER),
       messageQueue: this.messageQueue.messages.map(({ message }) => message),
+      isPaused: this.isPaused,
+      startGame: () => (this.isPaused = false),
     };
   }
 }

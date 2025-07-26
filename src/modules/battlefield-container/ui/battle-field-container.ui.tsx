@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { AddDefenseCta } from "./add-defense-cta";
 import { BattleFieldContainerUiProps } from "../battle-field-container";
 import { COLOR_PALETTE } from "../../colors";
-import { ArrowLeftIcon } from "../../icons";
+import { ArrowLeftIcon, PauseIcon } from "../../icons";
 import { Button } from "../../ui.components";
 
 export function BattleFieldContainerUI({
@@ -10,6 +10,8 @@ export function BattleFieldContainerUI({
   messageQueue,
   defenses,
   goToLevelSelection,
+  isPaused,
+  startGame,
 }: BattleFieldContainerUiProps) {
   const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
 
@@ -90,6 +92,15 @@ export function BattleFieldContainerUI({
               Cancel
             </Button>
           </div>
+        </div>
+      )}
+      {isPaused && (
+        <div className="min-w-24 rounded-xl absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/3 text-center p-4">
+          <h2 className="text-2xl font-bold">Get Ready for Battle</h2>
+          <p className="mt-2 mb-2">Click here when you're ready.</p>
+          <Button onClick={startGame} type="secondary" className="mx-auto">
+            <PauseIcon />
+          </Button>
         </div>
       )}
     </>

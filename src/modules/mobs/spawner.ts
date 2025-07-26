@@ -89,10 +89,11 @@ export class Spawner extends Actor {
     pos: Vector2,
   ): void {
     super.update(game, delta, container, pos);
-
     if (!(container instanceof BattleFieldContainer)) {
       throw new Error("Spawner can only be used in a BattleFieldContainer");
     }
+
+    if (container.isPaused) return;
 
     const newSpawnTimeout = this.spawnTimeout + delta;
     const updates = Math.floor(newSpawnTimeout / Spawner.SPAWN_TIMEOUT);
