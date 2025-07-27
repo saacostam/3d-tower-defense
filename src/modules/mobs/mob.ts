@@ -68,10 +68,6 @@ export class Mob extends Actor {
       this.mesh.position,
       this.DEATH_EXPLOSION_CONFIG,
     );
-
-    if (container instanceof BattleFieldContainer) {
-      container.coins += this.fullHealth / 5;
-    }
   }
 
   constructor(args: MobArgs) {
@@ -156,7 +152,12 @@ export class Mob extends Actor {
     }
 
     this.hb.update(this.health, this.mesh.position.clone());
-    if (this.health <= 0) this.kill();
+    if (this.health <= 0) {
+      this.kill();
+      if (container instanceof BattleFieldContainer) {
+        container.coins += this.fullHealth / 5;
+      }
+    }
   }
 
   public graphics(): void {

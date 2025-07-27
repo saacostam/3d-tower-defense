@@ -47,7 +47,9 @@ export function BattleFieldContainerUI({
           >
             <div className="text-2xl">🪙</div>
             <div className="text-sm">
-              {coins.toFixed(2)} <span className="text-xs">coins</span>
+              {coins.toFixed(2)}
+              <br />
+              <span className="text-xs">coins</span>
             </div>
           </div>
           <Button
