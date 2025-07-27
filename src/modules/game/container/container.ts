@@ -44,7 +44,9 @@ export class Container<ContainerUiProps = any> {
     this.height = args.height;
   }
 
-  public onStart(_game: Game) {}
+  public onStart(_game: Game) {
+    this.isContainerOver = false;
+  }
   public onSwitch(_game: Game) {
     this.isContainerOver = false;
   }
