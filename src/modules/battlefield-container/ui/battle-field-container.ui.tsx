@@ -112,7 +112,7 @@ export function BattleFieldContainerUI({
       )}
       {isPaused && (
         <div
-          className="min-w-24 rounded-xl absolute top-1/12 left-1/2 transform -translate-x-1/2 -translate-y-1/12 text-center p-4 border"
+          className="min-w-24 rounded-xl absolute top-2 left-1/2 transform -translate-x-1/2 translate-y-2 text-center p-4 border"
           style={{
             backgroundColor: `${COLOR_PALETTE.VOID}aa`,
             borderColor: COLOR_PALETTE.DARK_GREEN,

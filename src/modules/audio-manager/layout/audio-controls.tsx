@@ -30,25 +30,29 @@ export function AudioControls({
     <div className="relative h-full w-full">
       {children}
       {volume !== undefined && game && (
-          <div className="absolute bottom-4 right-1/2 transform translate-x-1/2">
-        <div className="tooltip" data-tip="Functional once the Audio Context is active.">
-          <div className="flex flex-row items-center gap-2">
-            <SoundIcon />
-            <input
-              type="range"
-              min={0}
-              max={1}
-              step={0.1}
-              value={volume}
-              onChange={(e) => updateVolume(parseFloat(e.target.value))}
-              className="h-full appearance-none rounded-lg"
-              style={{
-                backgroundColor: COLOR_PALETTE.DARK_BLUE,
-              }}
-              onClick={e => e.stopPropagation()}
-            />
+        <div className="absolute bottom-4 right-1/2 transform translate-x-1/2">
+          <div
+            className="tooltip"
+            data-tip="Functional once the Audio Context is active."
+          >
+            <div className="flex flex-row items-center gap-2">
+              <SoundIcon />
+              <input
+                type="range"
+                min={0}
+                max={1}
+                step={0.1}
+                value={volume}
+                onChange={(e) => updateVolume(parseFloat(e.target.value))}
+                className="h-full appearance-none rounded-lg"
+                style={{
+                  backgroundColor: COLOR_PALETTE.DARK_BLUE,
+                }}
+                onClick={(e) => e.stopPropagation()}
+              />
+              <span>{(volume * 100).toFixed(0).padStart(2)}%</span>
+            </div>
           </div>
-        </div>
         </div>
       )}
     </div>
