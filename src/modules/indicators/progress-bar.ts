@@ -53,7 +53,9 @@ export class ProgressBar {
     container.scene.add(this.blue);
   }
 
-  public update(val: number, pos: Vector3): void {
+  public update(val: number, pos: Vector3, newTotal?: number): void {
+    if (newTotal) this.total = newTotal;
+
     this.value = val;
 
     const w = this.widthFactor * 1;

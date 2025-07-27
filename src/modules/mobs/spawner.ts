@@ -18,6 +18,8 @@ export interface SpawnerArgs {
 const INITIAL_TIMEOUT = 3_000;
 
 export class Spawner extends Actor {
+  private life: number;
+
   private static SPAWN_TIMEOUT = INITIAL_TIMEOUT;
   private spawnTimeout = 0;
 
@@ -73,6 +75,8 @@ export class Spawner extends Actor {
     });
 
     this.light = light;
+
+    this.life = 0;
   }
 
   public afterSpawn(container: Container, pos: Vector2): void {
@@ -98,8 +102,15 @@ export class Spawner extends Actor {
 
     if (container.isPaused) return;
 
+    this.life += delta;
+
     const newSpawnTimeout = this.spawnTimeout + delta;
-    const updates = Math.floor(newSpawnTimeout / Spawner.SPAWN_TIMEOUT);
+
+    const CURRENT_TOTAL_TIMEOUT = Math.max(
+      500,
+      Spawner.SPAWN_TIMEOUT - this.life / 50,
+    );
+    const updates = Math.floor(newSpawnTimeout / CURRENT_TOTAL_TIMEOUT);
 
     for (let i = 0; i < updates; i++) {
       const args = {
@@ -120,10 +131,10 @@ export class Spawner extends Actor {
       game.audioManager.playEffect(SoundEffect.SPAWN);
     }
 
-    this.spawnTimeout = newSpawnTimeout % Spawner.SPAWN_TIMEOUT;
+    this.spawnTimeout = newSpawnTimeout % CURRENT_TOTAL_TIMEOUT;
 
     this.theoricalLightIntensity =
-      (this.spawnTimeout / Spawner.SPAWN_TIMEOUT) * Spawner.LIGHT_INTENSITY;
+      (this.spawnTimeout / CURRENT_TOTAL_TIMEOUT) * Spawner.LIGHT_INTENSITY;
     this.progressBar.update(this.spawnTimeout, this.mesh.position.clone());
   }
 

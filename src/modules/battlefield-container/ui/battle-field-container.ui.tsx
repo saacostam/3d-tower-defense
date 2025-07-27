@@ -63,7 +63,7 @@ export function BattleFieldContainerUI({
           <div className="absolute top-2.5 left-1/2 transform -translate-x-1/2">
             {messageQueue.map((message) => (
               <div
-                className="rounded-xl text-center text-sm p-2 opacity-90 mb-2.5 select-none"
+                className="rounded-xl text-center text-sm p-2 opacity-90 mb-2.5 select-none w-fit mx-auto"
                 key={message}
                 style={{
                   backgroundColor: COLOR_PALETTE.RED,
