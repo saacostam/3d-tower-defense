@@ -23,6 +23,8 @@ export interface CursorArgs {
 }
 
 export class Cursor extends Actor {
+  private life: number;
+
   declare mesh: Composite<Mesh>;
 
   private pos: Vector2;
@@ -89,6 +91,8 @@ export class Cursor extends Actor {
     this.pos = args.pos;
     this.addMessage = args.addMessage;
     this.notifyPathChangeEvent = args.notifyPathChangeEvent;
+
+    this.life = 0;
   }
 
   public update(
@@ -102,6 +106,8 @@ export class Cursor extends Actor {
     if (!(container instanceof BattleFieldContainer)) {
       throw new Error("Cursor can only be used in a BattleFieldContainer");
     }
+
+    this.life += delta;
 
     let DELTA_Y = 0;
     if (game.keyboardHandler.wasPressed("ArrowUp")) DELTA_Y = -1;
@@ -199,10 +205,11 @@ export class Cursor extends Actor {
       this.mesh.position.z + (this.pos.y - this.mesh.position.z) * factor,
     );
 
+    const cameraPosition = this.getCameraPosition();
     container.camera.position.set(
-      this.mesh.position.x + WORLD_CONFIG.TILE_SIZE * 3,
-      this.mesh.position.y + WORLD_CONFIG.TILE_SIZE * 8,
-      this.mesh.position.z + WORLD_CONFIG.TILE_SIZE * 12,
+      cameraPosition.x,
+      cameraPosition.y,
+      cameraPosition.z,
     );
 
     container.camera.lookAt(this.mesh.position);
@@ -322,5 +329,18 @@ export class Cursor extends Actor {
         itBlocksAvailablePath,
       },
     };
+  }
+
+  private getCameraPosition() {
+    const TOTAL_PAN_TIME = 2000;
+
+    const _PAN_DELTA = (1 - Math.min(1, this.life / TOTAL_PAN_TIME));
+    const PAN_DELTA = _PAN_DELTA * _PAN_DELTA;
+
+    return new Vector3(
+      this.mesh.position.x + WORLD_CONFIG.TILE_SIZE * 3 + (PAN_DELTA * 6),
+      this.mesh.position.y + WORLD_CONFIG.TILE_SIZE * 8 - (PAN_DELTA * 2),
+      this.mesh.position.z + WORLD_CONFIG.TILE_SIZE * 12 + (PAN_DELTA * 24),
+    )
   }
 }

@@ -14,8 +14,10 @@ export interface SpawnerArgs {
   multiplier: number;
 }
 
+const INITIAL_TIMEOUT = 3_000;
+
 export class Spawner extends Actor {
-  private static SPAWN_TIMEOUT = 3_000;
+  private static SPAWN_TIMEOUT = INITIAL_TIMEOUT;
   private spawnTimeout = 0;
 
   private multiplier: number;
