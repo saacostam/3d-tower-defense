@@ -257,7 +257,9 @@ export class Cursor extends Actor {
 
     const price = PRICE_CONFIG[type];
     if (container.coins < price) {
-      container.messageQueue.addMessage("Not enough coins!");
+      container.messageQueue.addMessage("Not enough coins!", {
+        id: "not-enough-coins",
+      });
       return;
     }
 

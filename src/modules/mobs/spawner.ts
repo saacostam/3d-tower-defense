@@ -8,6 +8,7 @@ import { ProgressBar } from "../indicators";
 import { MeshUtils } from "../mesh";
 import { Tank } from "./tank";
 import { Walker } from "./walker";
+import { SoundEffect } from "../audio-manager";
 
 export interface SpawnerArgs {
   position: Vector2;
@@ -115,6 +116,8 @@ export class Spawner extends Actor {
       } else {
         container.addActor(new GroupMob(args), pos);
       }
+
+      game.audioManager.playEffect(SoundEffect.SPAWN);
     }
 
     this.spawnTimeout = newSpawnTimeout % Spawner.SPAWN_TIMEOUT;

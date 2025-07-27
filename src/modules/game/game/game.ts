@@ -4,6 +4,7 @@ import { Container } from "../container";
 import { DomUtils } from "../../dom";
 import { KeyboardHandler, keyboardHandler } from "../../keyboard";
 import { mouseHandler, MouseHandler } from "../../mouse";
+import { AudioManager } from "../../audio-manager";
 
 const DEBUG = false;
 
@@ -12,6 +13,8 @@ export class Game {
 
   public keyboardHandler: KeyboardHandler;
   public mouseHandler: MouseHandler;
+
+  public audioManager: AudioManager;
 
   public isGameOver = false;
 
@@ -40,6 +43,8 @@ export class Game {
     window.requestAnimationFrame(this.onResize);
 
     this.triggerRender = args.triggerRender;
+
+    this.audioManager = AudioManager.getInstance();
   }
 
   private onResize = () => {

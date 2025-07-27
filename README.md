@@ -92,7 +92,8 @@ A strategy game where players defend against waves of enemies by strategically p
 - [x] FEAT: Enemies should add coins.
 - [ ] FEAT: Increase spawn rate with time.
 - [ ] FEAT: Visualize spawn rate.
-- [ ] FEAT: Add sounds.
+- [x] FEAT: Add sounds.
+- [ ] FEAT: Add sound controls.
 - [x] FEAT: Pan in the camera.
 
 ## Backlog

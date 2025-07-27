@@ -17,6 +17,7 @@ import { Cursor, HeadQuarters, DefenseType, HoverCursor } from "../player";
 import { AddDefense, DefenseDefinition } from "./types";
 import { BattleFieldContainerUI } from "./ui";
 import { WorldBuilderUtils } from "./utils";
+import { BackgroundSong } from "../audio-manager";
 
 const DEBUG = false;
 
@@ -165,6 +166,10 @@ export class BattleFieldContainer extends Container {
     this.addComponent(water);
 
     this.notifyPathChangeEvent();
+  }
+
+  public onSwitch(game: Game): void {
+    game.audioManager.playBackground(BackgroundSong.PREPARATION);
   }
 
   public update(game: Game, delta: number): void {
@@ -339,7 +344,10 @@ export class BattleFieldContainer extends Container {
         game.setContainer(ContainerKey.LEVEL_SELECTION_CONTAINER),
       messageQueue: this.messageQueue.messages.map(({ message }) => message),
       isPaused: this.isPaused,
-      startGame: () => (this.isPaused = false),
+      startGame: () => {
+        this.isPaused = false;
+        game.audioManager.playBackground(BackgroundSong.BATTLE);
+      },
       isGameOver: !!game.currentContainer?.isContainerOver,
       restartLevel: () => this.setLevel(this.level),
       coins: this.coins,

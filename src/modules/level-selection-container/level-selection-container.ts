@@ -1,3 +1,4 @@
+import { BackgroundSong } from "../audio-manager";
 import { BattleFieldContainer } from "../battlefield-container";
 import { ContainerKey, WORLD_CONFIG } from "../config";
 import { Container, Game } from "../game";
@@ -19,6 +20,10 @@ export class LevelSelectionContainer extends Container {
   }
 
   public Render = LevelSelectionContainerUI;
+
+  public onSwitch(_game: Game): void {
+    _game.audioManager.playBackground(BackgroundSong.HOME);
+  }
 
   public provideProps(game: Game): LevelSelectionContainerUiProps {
     return {

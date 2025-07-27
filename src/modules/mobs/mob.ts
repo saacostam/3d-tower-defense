@@ -8,6 +8,7 @@ import { HealthBar } from "../indicators";
 import { CreateExplosionArgs, ParticleManager } from "../particle-systems";
 import { PathfindingUtils } from "../pathfinding";
 import { HeadQuarters } from "../player";
+import { SoundEffect } from "../audio-manager";
 
 export interface MobArgs extends ActorArgs {
   battleSide: TBattleSide;
@@ -67,6 +68,11 @@ export class Mob extends Actor {
       container,
       this.mesh.position,
       this.DEATH_EXPLOSION_CONFIG,
+    );
+
+    const oneOrTwo = Math.random() < 0.5;
+    game.audioManager.playEffect(
+      oneOrTwo ? SoundEffect.DEATH_1 : SoundEffect.DEATH_2,
     );
   }
 

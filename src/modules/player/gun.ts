@@ -4,6 +4,7 @@ import { BulletComponent, BulletConfig } from "../bullets";
 import { Actor, ActorArgs, Composite, Container, Game } from "../game";
 import { HeadQuarters } from "./head-quarters.actor";
 import { PathfindingUtils } from "../pathfinding";
+import { SoundEffect } from "../audio-manager";
 
 export interface GunArgs extends ActorArgs {
   position: Vector2;
@@ -72,6 +73,8 @@ export class Gun extends Actor {
         });
 
         container.addComponent(bullet);
+
+        game.audioManager.playEffect(SoundEffect.SHOT);
       }
     }
   }
