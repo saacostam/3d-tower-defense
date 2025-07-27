@@ -63,6 +63,11 @@ export class BattleFieldContainer extends Container {
 
   public Render = BattleFieldContainerUI;
 
+  public reset(): void {
+    super.reset();
+    this.coins = DEFAULT_COINS;
+  }
+
   public setLevel(level: number) {
     this.reset();
     this.level = Math.max(0, Math.min(level, this.levels.length - 1));
