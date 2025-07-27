@@ -334,13 +334,13 @@ export class Cursor extends Actor {
   private getCameraPosition() {
     const TOTAL_PAN_TIME = 2000;
 
-    const _PAN_DELTA = (1 - Math.min(1, this.life / TOTAL_PAN_TIME));
+    const _PAN_DELTA = 1 - Math.min(1, this.life / TOTAL_PAN_TIME);
     const PAN_DELTA = _PAN_DELTA * _PAN_DELTA;
 
     return new Vector3(
-      this.mesh.position.x + WORLD_CONFIG.TILE_SIZE * 3 + (PAN_DELTA * 6),
-      this.mesh.position.y + WORLD_CONFIG.TILE_SIZE * 8 - (PAN_DELTA * 2),
-      this.mesh.position.z + WORLD_CONFIG.TILE_SIZE * 12 + (PAN_DELTA * 24),
-    )
+      this.mesh.position.x + WORLD_CONFIG.TILE_SIZE * 3 + PAN_DELTA * 6,
+      this.mesh.position.y + WORLD_CONFIG.TILE_SIZE * 8 - PAN_DELTA * 2,
+      this.mesh.position.z + WORLD_CONFIG.TILE_SIZE * 12 + PAN_DELTA * 24,
+    );
   }
 }
