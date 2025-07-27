@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import ReactDom from "react-dom/client";
 import "./style.css";
 
+import { AudioControls } from "./modules/audio-manager";
 import { BattleFieldContainer } from "./modules/battlefield-container";
 import { ContainerKey } from "./modules/config";
 import { Game } from "./modules/game";
@@ -37,11 +38,13 @@ const App = () => {
   }, [triggerRender]);
 
   return (
-    game.current?.currentContainer && (
-      <game.current.currentContainer.Render
-        {...game.current.currentContainer.provideProps(game.current)}
-      />
-    )
+    <AudioControls game={game.current}>
+      {game.current?.currentContainer && (
+        <game.current.currentContainer.Render
+          {...game.current.currentContainer.provideProps(game.current)}
+        />
+      )}
+    </AudioControls>
   );
 };
 

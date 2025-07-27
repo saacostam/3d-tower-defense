@@ -24,8 +24,15 @@ export class AudioManager {
   private currentBackgroundSource?: AudioBufferSourceNode;
   private currentBackgroundSong?: BackgroundSong;
 
+  private volumeGain: GainNode;
+
   private constructor() {
     this.audioContext = new AudioContext();
+
+    this.volumeGain = this.audioContext.createGain();
+    this.volumeGain.gain.value = 0.5; // default volume = 50%
+    this.volumeGain.connect(this.audioContext.destination);
+
     this.preloadAll();
   }
 
@@ -74,7 +81,7 @@ export class AudioManager {
     const source = this.audioContext.createBufferSource();
     source.buffer = buffer;
     source.loop = true;
-    source.connect(this.audioContext.destination);
+    source.connect(this.volumeGain);
     source.start(0);
 
     this.currentBackgroundSource = source;
@@ -99,7 +106,7 @@ export class AudioManager {
 
     const source = this.audioContext.createBufferSource();
     source.buffer = buffer;
-    source.connect(this.audioContext.destination);
+    source.connect(this.volumeGain);
     source.start(0);
   }
 
@@ -107,5 +114,18 @@ export class AudioManager {
     if (this.audioContext.state === "suspended") {
       await this.audioContext.resume();
     }
+  }
+
+  public setVolume(value: number) {
+    const clamped = Math.max(0, Math.min(1, value));
+    this.volumeGain.gain.setTargetAtTime(
+      clamped,
+      this.audioContext.currentTime,
+      0.01,
+    );
+  }
+
+  public getVolume(): number {
+    return this.volumeGain.gain.value;
   }
 }
