@@ -55,4 +55,4 @@ The goal of this project was to explore more advanced features in game developme
 
 ## License
 
-This project is licensed under the MIT [License]](./LICENSE).
+This project is licensed under the MIT [License](./LICENSE).
